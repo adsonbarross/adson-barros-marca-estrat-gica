@@ -26,17 +26,15 @@ export function VideoSection() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="relative aspect-video bg-background/5 rounded-xl overflow-hidden border border-background/10"
+          className="relative aspect-video rounded-xl overflow-hidden border border-background/10"
         >
-          {/* Video placeholder */}
-          <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-background/5 to-background/10">
-            <div className="text-center">
-              <div className="w-20 h-20 rounded-full bg-orange flex items-center justify-center mx-auto mb-4 cursor-pointer hover:scale-110 transition-transform duration-300 shadow-2xl">
-                <Play className="w-8 h-8 text-primary-foreground ml-1" />
-              </div>
-              <p className="text-background/60 text-sm">Adicione seu vídeo aqui</p>
-            </div>
-          </div>
+          <iframe
+            src="https://www.youtube.com/embed/x0S9erpc44k"
+            title="Adson Barros - Estrategista de Marca"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="absolute inset-0 w-full h-full"
+          />
         </motion.div>
 
         <motion.div
