@@ -2,45 +2,52 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
-import { Instagram, Linkedin, Mail, Send } from "lucide-react";
+import { Instagram, Mail, Send } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-
 export function FooterSection() {
-  const { toast } = useToast();
+  const {
+    toast
+  } = useToast();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
-    segment: "",
+    segment: ""
   });
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     toast({
       title: "Mensagem enviada!",
-      description: "Entrarei em contato em breve.",
+      description: "Entrarei em contato em breve."
     });
-    setFormData({ name: "", email: "", phone: "", segment: "" });
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      segment: ""
+    });
   };
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value
     }));
   };
-
-  return (
-    <footer id="contato" className="bg-foreground px-6 py-24">
+  return <footer id="contato" className="bg-foreground px-6 py-24">
       <div className="max-w-6xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-16">
           {/* Left side - Info */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-          >
+          <motion.div initial={{
+          opacity: 0,
+          x: -30
+        }} whileInView={{
+          opacity: 1,
+          x: 0
+        }} viewport={{
+          once: true
+        }} transition={{
+          duration: 0.7
+        }}>
             <h2 className="text-4xl md:text-5xl font-bold text-background mb-6">
               Vamos conversar?
             </h2>
@@ -49,26 +56,11 @@ export function FooterSection() {
             </p>
 
             <div className="flex gap-4 mb-12">
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-12 h-12 rounded-full border border-background/20 flex items-center justify-center text-background/60 hover:text-orange hover:border-orange transition-colors duration-300"
-              >
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full border border-background/20 flex items-center justify-center text-background/60 hover:text-orange hover:border-orange transition-colors duration-300">
                 <Instagram className="w-5 h-5" />
               </a>
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-12 h-12 rounded-full border border-background/20 flex items-center justify-center text-background/60 hover:text-orange hover:border-orange transition-colors duration-300"
-              >
-                <Linkedin className="w-5 h-5" />
-              </a>
-              <a
-                href="mailto:contato@adsonbarros.com"
-                className="w-12 h-12 rounded-full border border-background/20 flex items-center justify-center text-background/60 hover:text-orange hover:border-orange transition-colors duration-300"
-              >
+              
+              <a href="mailto:contato@adsonbarros.com" className="w-12 h-12 rounded-full border border-background/20 flex items-center justify-center text-background/60 hover:text-orange hover:border-orange transition-colors duration-300">
                 <Mail className="w-5 h-5" />
               </a>
             </div>
@@ -81,62 +73,32 @@ export function FooterSection() {
           </motion.div>
 
           {/* Right side - Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-          >
+          <motion.div initial={{
+          opacity: 0,
+          x: 30
+        }} whileInView={{
+          opacity: 1,
+          x: 0
+        }} viewport={{
+          once: true
+        }} transition={{
+          duration: 0.7,
+          delay: 0.2
+        }}>
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
-                <Input
-                  type="text"
-                  name="name"
-                  placeholder="Nome"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  className="bg-background/5 border-background/10 text-background placeholder:text-background/40 h-14 rounded-lg focus:border-orange focus:ring-orange"
-                />
+                <Input type="text" name="name" placeholder="Nome" value={formData.name} onChange={handleChange} required className="bg-background/5 border-background/10 text-background placeholder:text-background/40 h-14 rounded-lg focus:border-orange focus:ring-orange" />
               </div>
               <div>
-                <Input
-                  type="email"
-                  name="email"
-                  placeholder="E-mail"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  className="bg-background/5 border-background/10 text-background placeholder:text-background/40 h-14 rounded-lg focus:border-orange focus:ring-orange"
-                />
+                <Input type="email" name="email" placeholder="E-mail" value={formData.email} onChange={handleChange} required className="bg-background/5 border-background/10 text-background placeholder:text-background/40 h-14 rounded-lg focus:border-orange focus:ring-orange" />
               </div>
               <div>
-                <Input
-                  type="tel"
-                  name="phone"
-                  placeholder="Telefone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  required
-                  className="bg-background/5 border-background/10 text-background placeholder:text-background/40 h-14 rounded-lg focus:border-orange focus:ring-orange"
-                />
+                <Input type="tel" name="phone" placeholder="Telefone" value={formData.phone} onChange={handleChange} required className="bg-background/5 border-background/10 text-background placeholder:text-background/40 h-14 rounded-lg focus:border-orange focus:ring-orange" />
               </div>
               <div>
-                <Input
-                  type="text"
-                  name="segment"
-                  placeholder="Seu segmento (opcional)"
-                  value={formData.segment}
-                  onChange={handleChange}
-                  className="bg-background/5 border-background/10 text-background placeholder:text-background/40 h-14 rounded-lg focus:border-orange focus:ring-orange"
-                />
+                <Input type="text" name="segment" placeholder="Seu segmento (opcional)" value={formData.segment} onChange={handleChange} className="bg-background/5 border-background/10 text-background placeholder:text-background/40 h-14 rounded-lg focus:border-orange focus:ring-orange" />
               </div>
-              <Button
-                type="submit"
-                variant="cta"
-                size="xl"
-                className="w-full"
-              >
+              <Button type="submit" variant="cta" size="xl" className="w-full">
                 <Send className="w-5 h-5" />
                 Enviar mensagem
               </Button>
@@ -144,6 +106,5 @@ export function FooterSection() {
           </motion.div>
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 }
