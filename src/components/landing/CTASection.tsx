@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { MessageCircle, ArrowRight } from "lucide-react";
 
-const WHATSAPP_LINK = "https://wa.me/5500000000000?text=Olá! Gostaria de saber mais sobre os serviços de estratégia de marca.";
+const WHATSAPP_LINK = "https://api.whatsapp.com/message/6TDNDNOCGOXII1?autoload=1&app_absent=0&utm_source=ig";
 
 export function CTASection() {
   return (
@@ -49,7 +49,7 @@ export function CTASection() {
             variant="ctaOutline"
             size="xl"
           >
-            <a href="#contato">
+            <a href="#video">
               Saiba mais
               <ArrowRight className="w-5 h-5" />
             </a>

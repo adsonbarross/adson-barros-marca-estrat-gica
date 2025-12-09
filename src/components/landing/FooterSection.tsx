@@ -11,7 +11,7 @@ export function FooterSection() {
     name: "",
     email: "",
     phone: "",
-    crm: "",
+    segment: "",
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -20,7 +20,7 @@ export function FooterSection() {
       title: "Mensagem enviada!",
       description: "Entrarei em contato em breve.",
     });
-    setFormData({ name: "", email: "", phone: "", crm: "" });
+    setFormData({ name: "", email: "", phone: "", segment: "" });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -124,9 +124,9 @@ export function FooterSection() {
               <div>
                 <Input
                   type="text"
-                  name="crm"
-                  placeholder="CRM (opcional)"
-                  value={formData.crm}
+                  name="segment"
+                  placeholder="Seu segmento (opcional)"
+                  value={formData.segment}
                   onChange={handleChange}
                   className="bg-background/5 border-background/10 text-background placeholder:text-background/40 h-14 rounded-lg focus:border-orange focus:ring-orange"
                 />
