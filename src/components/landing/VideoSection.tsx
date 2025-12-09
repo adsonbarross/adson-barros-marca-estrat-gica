@@ -6,16 +6,16 @@ const WHATSAPP_LINK = "https://api.whatsapp.com/message/6TDNDNOCGOXII1?autoload=
 
 export function VideoSection() {
   return (
-    <section id="video" className="min-h-screen flex items-center justify-center bg-foreground px-6 py-24">
+    <section id="video" className="min-h-screen flex items-center justify-center bg-foreground px-4 sm:px-6 py-16 md:py-24">
       <div className="max-w-5xl mx-auto w-full">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="text-center mb-12"
+          className="text-center mb-8 md:mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-background mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-background mb-4">
             Assista e entenda meu método
           </h2>
           <div className="w-16 h-0.5 bg-orange mx-auto" />
@@ -42,7 +42,7 @@ export function VideoSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.4 }}
-          className="text-center mt-12"
+          className="text-center mt-8 md:mt-12"
         >
           <Button
             asChild
