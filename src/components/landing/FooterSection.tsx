@@ -60,9 +60,7 @@ export function FooterSection() {
                 <Instagram className="w-5 h-5" />
               </a>
               
-              <a href="mailto:contato@adsonbarros.com" className="w-12 h-12 rounded-full border border-background/20 flex items-center justify-center text-background/60 hover:text-orange hover:border-orange transition-colors duration-300">
-                <Mail className="w-5 h-5" />
-              </a>
+              
             </div>
 
             <div className="w-16 h-0.5 bg-brown/30 mb-8" />
