@@ -1,0 +1,149 @@
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useState } from "react";
+import { Instagram, Linkedin, Mail, Send } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+
+export function FooterSection() {
+  const { toast } = useToast();
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    crm: "",
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    toast({
+      title: "Mensagem enviada!",
+      description: "Entrarei em contato em breve.",
+    });
+    setFormData({ name: "", email: "", phone: "", crm: "" });
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  return (
+    <footer id="contato" className="bg-foreground px-6 py-24">
+      <div className="max-w-6xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-16">
+          {/* Left side - Info */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-background mb-6">
+              Vamos conversar?
+            </h2>
+            <p className="text-background/70 text-lg mb-8 max-w-md">
+              Preencha o formulário ao lado ou entre em contato diretamente pelas minhas redes sociais.
+            </p>
+
+            <div className="flex gap-4 mb-12">
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-12 h-12 rounded-full border border-background/20 flex items-center justify-center text-background/60 hover:text-orange hover:border-orange transition-colors duration-300"
+              >
+                <Instagram className="w-5 h-5" />
+              </a>
+              <a
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-12 h-12 rounded-full border border-background/20 flex items-center justify-center text-background/60 hover:text-orange hover:border-orange transition-colors duration-300"
+              >
+                <Linkedin className="w-5 h-5" />
+              </a>
+              <a
+                href="mailto:contato@adsonbarros.com"
+                className="w-12 h-12 rounded-full border border-background/20 flex items-center justify-center text-background/60 hover:text-orange hover:border-orange transition-colors duration-300"
+              >
+                <Mail className="w-5 h-5" />
+              </a>
+            </div>
+
+            <div className="w-16 h-0.5 bg-brown/30 mb-8" />
+
+            <p className="text-background/40 text-sm">
+              © {new Date().getFullYear()} Adson Barros. Todos os direitos reservados.
+            </p>
+          </motion.div>
+
+          {/* Right side - Form */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+          >
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <div>
+                <Input
+                  type="text"
+                  name="name"
+                  placeholder="Nome"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  className="bg-background/5 border-background/10 text-background placeholder:text-background/40 h-14 rounded-lg focus:border-orange focus:ring-orange"
+                />
+              </div>
+              <div>
+                <Input
+                  type="email"
+                  name="email"
+                  placeholder="E-mail"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  className="bg-background/5 border-background/10 text-background placeholder:text-background/40 h-14 rounded-lg focus:border-orange focus:ring-orange"
+                />
+              </div>
+              <div>
+                <Input
+                  type="tel"
+                  name="phone"
+                  placeholder="Telefone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  required
+                  className="bg-background/5 border-background/10 text-background placeholder:text-background/40 h-14 rounded-lg focus:border-orange focus:ring-orange"
+                />
+              </div>
+              <div>
+                <Input
+                  type="text"
+                  name="crm"
+                  placeholder="CRM (opcional)"
+                  value={formData.crm}
+                  onChange={handleChange}
+                  className="bg-background/5 border-background/10 text-background placeholder:text-background/40 h-14 rounded-lg focus:border-orange focus:ring-orange"
+                />
+              </div>
+              <Button
+                type="submit"
+                variant="cta"
+                size="xl"
+                className="w-full"
+              >
+                <Send className="w-5 h-5" />
+                Enviar mensagem
+              </Button>
+            </form>
+          </motion.div>
+        </div>
+      </div>
+    </footer>
+  );
+}
