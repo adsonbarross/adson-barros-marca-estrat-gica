@@ -2,11 +2,11 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { MessageCircle, Play } from "lucide-react";
 
-const WHATSAPP_LINK = "https://wa.me/5500000000000?text=Olá! Gostaria de saber mais sobre os serviços de estratégia de marca.";
+const WHATSAPP_LINK = "https://api.whatsapp.com/message/6TDNDNOCGOXII1?autoload=1&app_absent=0&utm_source=ig";
 
 export function VideoSection() {
   return (
-    <section className="min-h-screen flex items-center justify-center bg-foreground px-6 py-24">
+    <section id="video" className="min-h-screen flex items-center justify-center bg-foreground px-6 py-24">
       <div className="max-w-5xl mx-auto w-full">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
