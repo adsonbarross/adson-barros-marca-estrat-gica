@@ -10,7 +10,6 @@ import {
 import { useState, useEffect } from "react";
 
 import logoRicciCoach from "@/assets/logos/ricci-coach.png";
-import logoCopremi from "@/assets/logos/copremi.png";
 import logoUnderground from "@/assets/logos/underground.png";
 import logoQuave from "@/assets/logos/quave.png";
 import logoSolar from "@/assets/logos/solar.png";
@@ -20,11 +19,10 @@ const WHATSAPP_LINK = "https://api.whatsapp.com/message/6TDNDNOCGOXII1?autoload=
 
 const projects = [
   { id: 1, title: "Ricci Coach", logo: logoRicciCoach },
-  { id: 2, title: "Copremi", logo: logoCopremi },
-  { id: 3, title: "Underground", logo: logoUnderground },
-  { id: 4, title: "Quave", logo: logoQuave },
-  { id: 5, title: "Solar", logo: logoSolar },
-  { id: 6, title: "Scisy", logo: logoScisy },
+  { id: 2, title: "Underground", logo: logoUnderground },
+  { id: 3, title: "Quave", logo: logoQuave },
+  { id: 4, title: "Solar", logo: logoSolar },
+  { id: 5, title: "Scisy", logo: logoScisy },
 ];
 
 export function ProjectsSection() {
@@ -44,7 +42,7 @@ export function ProjectsSection() {
   }, [api]);
 
   return (
-    <section className="min-h-screen flex items-center bg-foreground px-4 sm:px-6 py-16 md:py-24">
+    <section className="py-16 md:py-24 md:min-h-screen md:flex md:items-center bg-foreground px-4 sm:px-6">
       <div className="max-w-6xl mx-auto w-full">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
