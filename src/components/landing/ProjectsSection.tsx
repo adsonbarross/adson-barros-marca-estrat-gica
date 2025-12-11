@@ -9,15 +9,22 @@ import {
 } from "@/components/ui/carousel";
 import { useState, useEffect } from "react";
 
+import logoRicciCoach from "@/assets/logos/ricci-coach.png";
+import logoCopremi from "@/assets/logos/copremi.png";
+import logoUnderground from "@/assets/logos/underground.png";
+import logoQuave from "@/assets/logos/quave.png";
+import logoSolar from "@/assets/logos/solar.png";
+import logoScisy from "@/assets/logos/scisy.png";
+
 const WHATSAPP_LINK = "https://api.whatsapp.com/message/6TDNDNOCGOXII1?autoload=1&app_absent=0&utm_source=ig";
 
 const projects = [
-  { id: 1, title: "Projeto 01" },
-  { id: 2, title: "Projeto 02" },
-  { id: 3, title: "Projeto 03" },
-  { id: 4, title: "Projeto 04" },
-  { id: 5, title: "Projeto 05" },
-  { id: 6, title: "Projeto 06" },
+  { id: 1, title: "Ricci Coach", logo: logoRicciCoach },
+  { id: 2, title: "Copremi", logo: logoCopremi },
+  { id: 3, title: "Underground", logo: logoUnderground },
+  { id: 4, title: "Quave", logo: logoQuave },
+  { id: 5, title: "Solar", logo: logoSolar },
+  { id: 6, title: "Scisy", logo: logoScisy },
 ];
 
 export function ProjectsSection() {
@@ -71,18 +78,18 @@ export function ProjectsSection() {
             className="w-full"
           >
             <CarouselContent className="-ml-2 md:-ml-4">
-              {projects.map((project, index) => (
+              {projects.map((project) => (
                 <CarouselItem 
                   key={project.id} 
                   className="pl-2 md:pl-4 basis-[85%] sm:basis-1/2 lg:basis-1/3"
                 >
                   <div className="group">
-                    <div className="aspect-square bg-background/5 rounded-xl overflow-hidden border border-background/10 relative cursor-pointer transition-all duration-300 hover:border-orange/50">
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <span className="text-background/30 font-bold text-lg group-hover:text-orange transition-colors duration-300">
-                          {project.title}
-                        </span>
-                      </div>
+                    <div className="aspect-square bg-background/5 rounded-xl overflow-hidden border border-background/10 relative cursor-pointer transition-all duration-300 hover:border-orange/50 flex items-center justify-center p-8">
+                      <img 
+                        src={project.logo} 
+                        alt={project.title}
+                        className="max-w-full max-h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+                      />
                       
                       {/* Hover overlay */}
                       <div className="absolute inset-0 bg-orange/0 group-hover:bg-orange/10 transition-all duration-300" />
