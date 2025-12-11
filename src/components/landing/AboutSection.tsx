@@ -7,16 +7,16 @@ const WHATSAPP_LINK = "https://api.whatsapp.com/message/6TDNDNOCGOXII1?autoload=
 
 export function AboutSection() {
   return (
-    <section className="min-h-screen flex items-center bg-background px-4 sm:px-6 py-16 md:py-24">
+    <section className="py-16 md:py-24 md:min-h-screen md:flex md:items-center bg-background px-4 sm:px-6">
       <div className="max-w-6xl mx-auto w-full">
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-          {/* Image placeholder */}
+        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+          {/* Image - appears first on mobile */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="relative order-2 lg:order-1"
+            className="relative w-full max-w-sm mx-auto lg:max-w-none lg:order-1"
           >
             <div className="aspect-[4/5] bg-gradient-to-br from-muted to-muted/50 rounded-2xl overflow-hidden relative">
               {/* Decorative elements */}
@@ -40,13 +40,13 @@ export function AboutSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="order-1 lg:order-2"
+            className="lg:order-2"
           >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-6 sm:mb-8">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-6 sm:mb-8 text-center lg:text-left">
               Sobre mim
             </h2>
             
-            <div className="space-y-4 sm:space-y-6 text-foreground/80 leading-relaxed text-sm sm:text-base">
+            <div className="space-y-4 sm:space-y-5 text-foreground/80 leading-relaxed text-sm sm:text-base text-justify">
               <p>
                 Me chamo <strong className="text-foreground">Adson Barros</strong>. Sou estrategista de marca e trabalho com design gráfico e direção criativa há mais de 5 anos.
               </p>
@@ -64,7 +64,7 @@ export function AboutSection() {
               </p>
             </div>
 
-            <div className="mt-8 sm:mt-10">
+            <div className="mt-8 sm:mt-10 text-center lg:text-left">
               <Button
                 asChild
                 variant="cta"

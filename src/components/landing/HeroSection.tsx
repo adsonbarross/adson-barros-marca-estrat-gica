@@ -6,7 +6,7 @@ const WHATSAPP_LINK = "https://api.whatsapp.com/message/6TDNDNOCGOXII1?autoload=
 
 export function HeroSection() {
   return (
-    <section className="min-h-screen flex items-center justify-center bg-background px-4 sm:px-6 py-16 md:py-20 relative overflow-hidden">
+    <section className="py-16 md:py-20 min-h-[80vh] md:min-h-screen flex items-center justify-center bg-background px-4 sm:px-6 relative overflow-hidden">
       {/* Subtle brown accent line */}
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-brown/20 to-transparent" />
       
