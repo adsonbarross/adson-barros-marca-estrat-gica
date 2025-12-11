@@ -46,21 +46,15 @@ export function AboutSection() {
               Sobre mim
             </h2>
             
-            <div className="space-y-4 sm:space-y-5 text-foreground/80 leading-relaxed text-sm sm:text-base text-justify">
+            <div className="space-y-5 text-foreground/80 leading-relaxed text-sm sm:text-base">
               <p>
-                Me chamo <strong className="text-foreground">Adson Barros</strong>. Sou estrategista de marca e trabalho com design gráfico e direção criativa há mais de 5 anos.
+                Me chamo <strong className="text-foreground">Adson Barros</strong>. Sou estrategista de marca, designer gráfico e diretor criativo há mais de 5 anos, com mais de <strong className="text-foreground">50 projetos</strong> pelo Brasil e pelo mundo.
               </p>
               <p>
-                Sou especializado em criação de identidade visual e já desenvolvi mais de <strong className="text-foreground">50 projetos</strong> espalhados pelo Brasil (e alguns pelo mundo).
+                Meu objetivo é <span className="text-orange font-semibold">tirar empresas da escuridão e trazer clareza</span> — de posicionamento, estratégia e direção.
               </p>
               <p>
-                Meu objetivo é: <span className="text-orange font-semibold">tirar empresas da escuridão e trazer clareza.</span> Clareza de posicionamento, de estratégia e de direção. Não é só sobre visibilidade ou vendas — é sobre previsibilidade, evolução e consciência do caminho que o empreendedor quer seguir.
-              </p>
-              <p>
-                Acredito que ninguém cresce no improviso. Por isso, ajudo pessoas a enxergarem onde querem chegar e qual postura precisam assumir pra tornar esse caminho possível.
-              </p>
-              <p>
-                Tudo isso através da <strong className="text-foreground">transformação estratégica de marca</strong> — um processo que transforma o negócio, mas principalmente a mentalidade por trás dele.
+                Ajudo pessoas a enxergarem onde querem chegar através da <strong className="text-foreground">transformação estratégica de marca</strong>.
               </p>
             </div>
 
