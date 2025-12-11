@@ -53,7 +53,7 @@ export function FooterSection() {
 
             <div className="flex gap-4 mb-8 sm:mb-12">
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/adson.barros/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-12 h-12 rounded-full border border-background/20 flex items-center justify-center text-background/60 hover:text-orange hover:border-orange transition-colors duration-300"

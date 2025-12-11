@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { MessageCircle } from "lucide-react";
+import adsonPhoto from "@/assets/adson-photo.jpg";
 
 const WHATSAPP_LINK = "https://api.whatsapp.com/message/6TDNDNOCGOXII1?autoload=1&app_absent=0&utm_source=ig";
 
@@ -22,14 +23,11 @@ export function AboutSection() {
               <div className="absolute top-4 left-4 w-6 h-6 sm:w-8 sm:h-8 border-l-2 border-t-2 border-orange" />
               <div className="absolute bottom-4 right-4 w-6 h-6 sm:w-8 sm:h-8 border-r-2 border-b-2 border-orange" />
               
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center px-4 sm:px-8">
-                  <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-foreground/10 mx-auto mb-4 flex items-center justify-center">
-                    <span className="text-3xl sm:text-4xl font-bold text-foreground/30">AB</span>
-                  </div>
-                  <p className="text-muted-foreground text-xs sm:text-sm">Adicione sua foto aqui</p>
-                </div>
-              </div>
+              <img 
+                src={adsonPhoto} 
+                alt="Adson Barros - Estrategista de marca" 
+                className="absolute inset-0 w-full h-full object-cover"
+              />
             </div>
             
             {/* Brown accent detail */}
