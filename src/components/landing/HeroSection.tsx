@@ -19,9 +19,9 @@ export function HeroSection() {
         >
           <span className="block">TRANSFORME</span>
           <span className="block mt-1 sm:mt-2">SUA MARCA COM ESTRATÉGIA.</span>
-          <span className="block mt-1 sm:mt-2">SE POSICIONE, DIFERENCIE</span>
-          <span className="block mt-1 sm:mt-2">
-            e <span className="text-orange">CRESÇA.</span>
+          <span className="block mt-1 sm:mt-2 text-orange underline decoration-orange underline-offset-4">SE POSICIONE, DIFERENCIE</span>
+          <span className="block mt-1 sm:mt-2 text-orange underline decoration-orange underline-offset-4">
+            e CRESÇA.
           </span>
         </motion.h1>
 
