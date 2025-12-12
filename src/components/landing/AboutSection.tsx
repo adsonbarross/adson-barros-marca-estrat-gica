@@ -7,7 +7,7 @@ const WHATSAPP_LINK = "https://api.whatsapp.com/message/6TDNDNOCGOXII1?autoload=
 
 export function AboutSection() {
   return (
-    <section className="py-16 md:py-24 md:min-h-screen md:flex md:items-center bg-background px-4 sm:px-6">
+    <section className="py-16 md:py-24 md:min-h-screen md:flex md:items-center bg-background px-6 sm:px-8 md:px-6">
       <div className="max-w-6xl mx-auto w-full">
         <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           {/* Image - appears first on mobile */}
