@@ -2,31 +2,50 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
-import { Instagram, Mail, Send } from "lucide-react";
+import { Instagram, Send, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
+
 export function FooterSection() {
-  const {
-    toast
-  } = useToast();
+  const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     segment: ""
   });
-  const handleSubmit = (e: React.FormEvent) => {
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Mensagem enviada!",
-      description: "Entrarei em contato em breve."
-    });
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      segment: ""
-    });
+    setIsSubmitting(true);
+
+    try {
+      const { error } = await supabase.from("leads").insert({
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        phone: formData.phone.trim(),
+        segment: formData.segment.trim() || null
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "Mensagem enviada!",
+        description: "Entrarei em contato em breve."
+      });
+      setFormData({ name: "", email: "", phone: "", segment: "" });
+    } catch (error) {
+      toast({
+        title: "Erro ao enviar",
+        description: "Tente novamente mais tarde.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData(prev => ({
       ...prev,
@@ -120,9 +139,9 @@ export function FooterSection() {
                   className="bg-background/5 border-background/10 text-background placeholder:text-background/40 h-12 sm:h-14 rounded-lg focus:border-orange focus:ring-orange"
                 />
               </div>
-              <Button type="submit" variant="cta" size="xl" className="w-full">
-                <Send className="w-5 h-5" />
-                Enviar mensagem
+              <Button type="submit" variant="cta" size="xl" className="w-full" disabled={isSubmitting}>
+                {isSubmitting ? <Loader2 className="w-5 h-5 animate-spin" /> : <Send className="w-5 h-5" />}
+                {isSubmitting ? "Enviando..." : "Enviar mensagem"}
               </Button>
             </form>
           </motion.div>
