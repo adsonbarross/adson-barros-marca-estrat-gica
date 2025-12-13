@@ -42,11 +42,11 @@ export function AboutSection() {
             transition={{ duration: 0.7, delay: 0.2 }}
             className="lg:order-2"
           >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-6 sm:mb-8 text-center lg:text-left">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4 sm:mb-6 text-center lg:text-left">
               Sobre mim
             </h2>
             
-            <div className="space-y-4 sm:space-y-5 text-foreground/80 leading-relaxed text-sm sm:text-base text-justify">
+            <div className="space-y-3 sm:space-y-4 text-foreground/80 leading-relaxed text-xs sm:text-sm md:text-base text-justify">
               <p>
                 Me chamo <strong className="text-foreground">Adson Barros</strong>. Sou estrategista de marca e trabalho com design gráfico e direção criativa há mais de 5 anos.
               </p>
