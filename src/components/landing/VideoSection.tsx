@@ -15,8 +15,8 @@ export function VideoSection() {
           transition={{ duration: 0.7 }}
           className="text-center mb-8 md:mb-12"
         >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-background mb-4">
-            Assista e entenda meu método
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-background mb-4">
+            Você precisa saber disso
           </h2>
           <div className="w-16 h-0.5 bg-orange mx-auto" />
         </motion.div>
@@ -29,7 +29,7 @@ export function VideoSection() {
           className="relative aspect-video rounded-xl overflow-hidden border border-background/10"
         >
           <iframe
-            src="https://www.youtube.com/embed/x0S9erpc44k"
+            src="https://www.youtube.com/embed/pYhuVCI-0TU"
             title="Adson Barros - Estrategista de Marca"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
