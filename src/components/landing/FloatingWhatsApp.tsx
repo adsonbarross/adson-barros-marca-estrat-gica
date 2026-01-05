@@ -1,7 +1,7 @@
 import { MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
 
-const WHATSAPP_LINK = "https://api.whatsapp.com/message/6TDNDNOCGOXII1?autoload=1&app_absent=0&utm_source=ig";
+const WHATSAPP_LINK = "https://wa.me/message/6TDNDNOCGOXII1";
 
 export function FloatingWhatsApp() {
   return (

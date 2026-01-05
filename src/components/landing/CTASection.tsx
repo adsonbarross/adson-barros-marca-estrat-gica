@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { MessageCircle, ArrowRight } from "lucide-react";
-const WHATSAPP_LINK = "https://api.whatsapp.com/message/6TDNDNOCGOXII1?autoload=1&app_absent=0&utm_source=ig";
+const WHATSAPP_LINK = "https://wa.me/message/6TDNDNOCGOXII1";
 export function CTASection() {
   return (
     <section className="min-h-[60vh] md:min-h-[70vh] flex items-center justify-center bg-background px-4 sm:px-6 py-16 md:py-24 relative">
