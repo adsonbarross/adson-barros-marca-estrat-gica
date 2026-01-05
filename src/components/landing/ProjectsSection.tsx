@@ -15,7 +15,7 @@ import logoQuave from "@/assets/logos/quave.png";
 import logoSolar from "@/assets/logos/solar.png";
 import logoScisy from "@/assets/logos/scisy.png";
 
-const WHATSAPP_LINK = "https://api.whatsapp.com/message/6TDNDNOCGOXII1?autoload=1&app_absent=0&utm_source=ig";
+const WHATSAPP_LINK = "https://wa.me/message/6TDNDNOCGOXII1";
 
 const projects = [
   { id: 1, title: "Ricci Coach", logo: logoRicciCoach },
