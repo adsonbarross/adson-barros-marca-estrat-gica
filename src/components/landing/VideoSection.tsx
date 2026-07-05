@@ -6,7 +6,7 @@ const WHATSAPP_LINK = "https://wa.me/message/6TDNDNOCGOXII1";
 
 export function VideoSection() {
   return (
-    <section id="video" className="py-16 md:py-24 md:min-h-screen md:flex md:items-center md:justify-center bg-foreground px-4 sm:px-6">
+    <section id="video" className="py-16 md:py-24 md:min-h-screen md:flex md:items-center md:justify-center bg-brown px-4 sm:px-6">
       <div className="max-w-5xl mx-auto w-full">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

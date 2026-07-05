@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { MessageCircle } from "lucide-react";
-import adsonPhoto from "@/assets/adson-photo.jpg";
+import adsonPhoto from "@/assets/adson-photo-hero.jpg";
 
 const WHATSAPP_LINK = "https://wa.me/message/6TDNDNOCGOXII1";
 
@@ -22,30 +22,34 @@ export function HeroSection() {
           <span className="block w-8 h-px bg-orange mt-3" />
         </motion.p>
 
-        {/* Giant name + photo overlap */}
-        <div className="relative flex items-center justify-center min-h-[320px] sm:min-h-[420px] md:min-h-[520px]">
-          <motion.h1
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8 }}
-            className="absolute inset-0 flex items-center justify-center font-bold text-foreground leading-none select-none tracking-tight text-[18vw] sm:text-[16vw] md:text-[13vw] lg:text-[11rem] whitespace-nowrap"
-            aria-hidden="true"
-          >
-            BARROS
-          </motion.h1>
-
+        {/* Photo with name overlay */}
+        <div className="relative flex items-center justify-center min-h-[360px] sm:min-h-[460px] md:min-h-[560px] rounded-2xl overflow-hidden">
           <motion.img
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.9 }}
             src={adsonPhoto}
             alt="Adson Barros - Estrategista de marca"
-            className="relative z-10 h-full max-h-[300px] sm:max-h-[400px] md:max-h-[500px] w-auto object-contain object-bottom"
+            className="absolute inset-0 w-full h-full object-cover"
           />
+
+          {/* Scrim for legibility */}
+          <div className="absolute inset-0 bg-gradient-to-t from-brown/80 via-brown/0 to-brown/10" />
+
+          {/* Name overlay */}
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="relative z-10 text-center font-bold leading-[0.95] tracking-tight text-[13vw] sm:text-[10vw] md:text-[7vw] lg:text-8xl mt-auto mb-8 sm:mb-10"
+          >
+            <span className="block text-background drop-shadow-lg">ADSON</span>
+            <span className="block text-orange drop-shadow-lg">BARROS</span>
+          </motion.h1>
         </div>
 
         {/* Bottom row: CTAs left, stat right */}
-        <div className="flex flex-col sm:flex-row items-center sm:items-end justify-between gap-6 mt-6 md:mt-2">
+        <div className="flex flex-col sm:flex-row items-center sm:items-end justify-between gap-6 mt-6 md:mt-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

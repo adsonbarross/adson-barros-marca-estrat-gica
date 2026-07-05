@@ -21,7 +21,7 @@ const pillars = [
 
 export function PillarsSection() {
   return (
-    <section className="bg-foreground py-14 md:py-20 px-4 sm:px-6">
+    <section className="bg-brown py-14 md:py-20 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-6">
         {pillars.map((pillar, index) => (
           <motion.a
