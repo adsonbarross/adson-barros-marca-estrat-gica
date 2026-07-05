@@ -34,7 +34,7 @@ export function Header() {
 
         {/* Logo */}
         <a href="#" className="flex-shrink-0 md:flex-1 md:flex md:justify-center">
-          <img src={logoAdson} alt="Adson Barros" className="h-8 sm:h-9 w-auto" />
+          <img src={logoAdson} alt="Adson Barros" className="h-5 sm:h-6 w-auto" />
         </a>
 
         {/* Right nav (desktop) */}

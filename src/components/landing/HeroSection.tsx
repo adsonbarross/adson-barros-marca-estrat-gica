@@ -23,7 +23,7 @@ export function HeroSection() {
         </motion.p>
 
         {/* Photo with name overlay */}
-        <div className="relative flex items-center justify-center min-h-[360px] sm:min-h-[460px] md:min-h-[560px] rounded-2xl overflow-hidden">
+        <div className="relative mx-auto w-full max-w-xs sm:max-w-sm md:max-w-md aspect-[4/5] rounded-2xl overflow-hidden">
           <motion.img
             initial={{ opacity: 0, scale: 1.05 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -38,12 +38,12 @@ export function HeroSection() {
         </div>
 
         {/* Bottom row: CTAs left, stat right */}
-        <div className="flex flex-col sm:flex-row items-center sm:items-end justify-between gap-6 mt-6 md:mt-8">
+        <div className="flex flex-col items-center text-center gap-6 sm:flex-row sm:items-end sm:justify-between sm:text-left mt-6 md:mt-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
-            className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4"
+            className="flex flex-col items-center gap-3 sm:flex-row sm:gap-4"
           >
             <Button asChild variant="cta" size="xl">
               <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">

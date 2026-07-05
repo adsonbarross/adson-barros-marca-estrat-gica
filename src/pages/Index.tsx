@@ -5,7 +5,6 @@ import { AboutSection } from "@/components/landing/AboutSection";
 import { FeaturesStrip } from "@/components/landing/FeaturesStrip";
 import { ProjectsSection } from "@/components/landing/ProjectsSection";
 import { VideoSection } from "@/components/landing/VideoSection";
-import { CTASection } from "@/components/landing/CTASection";
 import { FooterSection } from "@/components/landing/FooterSection";
 import { FloatingWhatsApp } from "@/components/landing/FloatingWhatsApp";
 
@@ -20,7 +19,6 @@ const Index = () => {
         <FeaturesStrip />
         <ProjectsSection />
         <VideoSection />
-        <CTASection />
         <FooterSection />
       </main>
       <FloatingWhatsApp />
