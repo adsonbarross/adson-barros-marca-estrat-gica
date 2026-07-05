@@ -17,7 +17,7 @@ export function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
+    <header className="sticky top-0 z-50 bg-foreground/95 backdrop-blur-sm border-b border-background/10">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
         {/* Left nav (desktop) */}
         <nav className="hidden md:flex items-center gap-8 flex-1">
@@ -25,7 +25,7 @@ export function Header() {
             <a
               key={link.href}
               href={link.href}
-              className="text-xs tracking-widest uppercase text-foreground/70 hover:text-orange transition-colors duration-300"
+              className="text-xs tracking-widest uppercase text-background/70 hover:text-orange transition-colors duration-300"
             >
               {link.label}
             </a>
@@ -43,7 +43,7 @@ export function Header() {
             <a
               key={link.href}
               href={link.href}
-              className="text-xs tracking-widest uppercase text-foreground/70 hover:text-orange transition-colors duration-300"
+              className="text-xs tracking-widest uppercase text-background/70 hover:text-orange transition-colors duration-300"
             >
               {link.label}
             </a>
@@ -59,7 +59,7 @@ export function Header() {
         {/* Mobile toggle */}
         <button
           onClick={() => setOpen(!open)}
-          className="md:hidden text-foreground p-2"
+          className="md:hidden text-background p-2"
           aria-label="Abrir menu"
         >
           {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -72,14 +72,14 @@ export function Header() {
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: "auto" }}
           exit={{ opacity: 0, height: 0 }}
-          className="md:hidden border-t border-border bg-background px-4 sm:px-6 py-6 flex flex-col gap-5"
+          className="md:hidden border-t border-background/10 bg-foreground px-4 sm:px-6 py-6 flex flex-col gap-5"
         >
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
               onClick={() => setOpen(false)}
-              className="text-sm tracking-widest uppercase text-foreground/80"
+              className="text-sm tracking-widest uppercase text-background/80"
             >
               {link.label}
             </a>
