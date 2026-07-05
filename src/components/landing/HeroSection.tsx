@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { MessageCircle } from "lucide-react";
-import adsonPhoto from "@/assets/adson-photo-hero.jpg";
+import adsonPhoto from "@/assets/adson-photo-about.jpg";
 
 const WHATSAPP_LINK = "https://wa.me/message/6TDNDNOCGOXII1";
 

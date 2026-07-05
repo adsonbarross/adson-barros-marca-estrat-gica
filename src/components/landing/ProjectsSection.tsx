@@ -5,7 +5,6 @@ import { MessageCircle } from "lucide-react";
 import logoRicciCoach from "@/assets/logos/ricci-coach.png";
 import logoUnderground from "@/assets/logos/underground.png";
 import logoQuave from "@/assets/logos/quave.png";
-import logoSolar from "@/assets/logos/solar.png";
 import logoScisy from "@/assets/logos/scisy.png";
 
 const WHATSAPP_LINK = "https://wa.me/message/6TDNDNOCGOXII1";
@@ -14,7 +13,6 @@ const projects = [
   { id: 1, title: "Ricci Coach", logo: logoRicciCoach },
   { id: 2, title: "Underground", logo: logoUnderground },
   { id: 3, title: "Quave", logo: logoQuave },
-  { id: 4, title: "Solar", logo: logoSolar },
   { id: 5, title: "Scisy", logo: logoScisy },
 ];
 
