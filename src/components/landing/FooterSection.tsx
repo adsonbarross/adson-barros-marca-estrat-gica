@@ -53,7 +53,7 @@ export function FooterSection() {
     }));
   };
   return (
-    <footer id="contato" className="bg-brown px-4 sm:px-6 py-16 md:py-24">
+    <footer id="contato" className="bg-foreground px-4 sm:px-6 py-16 md:py-24">
       <div className="max-w-6xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16">
           {/* Left side - Info */}

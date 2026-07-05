@@ -7,14 +7,14 @@ const WHATSAPP_LINK = "https://wa.me/message/6TDNDNOCGOXII1";
 
 export function HeroSection() {
   return (
-    <section className="relative bg-background px-4 sm:px-6 py-12 md:py-16 overflow-hidden">
+    <section className="relative bg-foreground px-4 sm:px-6 py-12 md:py-16 overflow-hidden">
       <div className="max-w-6xl mx-auto">
         {/* Kicker */}
         <motion.p
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-xs sm:text-sm tracking-[0.2em] uppercase text-foreground/60 mb-2"
+          className="text-xs sm:text-sm tracking-[0.2em] uppercase text-background/60 mb-2"
         >
           Estrategista
           <br />
@@ -34,7 +34,7 @@ export function HeroSection() {
           />
 
           {/* Scrim for legibility */}
-          <div className="absolute inset-0 bg-gradient-to-t from-brown/80 via-brown/0 to-brown/10" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-black/10" />
 
           {/* Name overlay */}
           <motion.h1
@@ -64,7 +64,7 @@ export function HeroSection() {
             </Button>
             <a
               href="#sobre"
-              className="text-xs sm:text-sm tracking-widest uppercase text-foreground/70 hover:text-orange transition-colors duration-300 underline underline-offset-4"
+              className="text-xs sm:text-sm tracking-widest uppercase text-background/70 hover:text-orange transition-colors duration-300 underline underline-offset-4"
             >
               Sobre mim
             </a>
@@ -74,7 +74,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
-            className="text-xs sm:text-sm tracking-widest uppercase text-foreground/60 text-center sm:text-right"
+            className="text-xs sm:text-sm tracking-widest uppercase text-background/60 text-center sm:text-right"
           >
             +50
             <br />
@@ -88,7 +88,7 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-10 md:mt-14 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground text-center leading-tight tracking-tight"
+          className="mt-10 md:mt-14 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-background text-center leading-tight tracking-tight"
         >
           <span className="block">TRANSFORME SUA MARCA COM ESTRATÉGIA.</span>
           <span className="block mt-1 sm:mt-2 text-orange underline decoration-orange underline-offset-4">
