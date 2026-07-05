@@ -1,13 +1,6 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { MessageCircle, ChevronLeft, ChevronRight } from "lucide-react";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  type CarouselApi,
-} from "@/components/ui/carousel";
-import { useState, useEffect } from "react";
+import { MessageCircle } from "lucide-react";
 
 import logoRicciCoach from "@/assets/logos/ricci-coach.png";
 import logoUnderground from "@/assets/logos/underground.png";
@@ -26,130 +19,70 @@ const projects = [
 ];
 
 export function ProjectsSection() {
-  const [api, setApi] = useState<CarouselApi>();
-  const [current, setCurrent] = useState(0);
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    if (!api) return;
-
-    setCount(api.scrollSnapList().length);
-    setCurrent(api.selectedScrollSnap());
-
-    api.on("select", () => {
-      setCurrent(api.selectedScrollSnap());
-    });
-  }, [api]);
-
   return (
-    <section className="py-16 md:py-24 md:min-h-screen md:flex md:items-center bg-foreground px-4 sm:px-6">
-      <div className="max-w-6xl mx-auto w-full">
+    <section id="projetos" className="py-16 md:py-24 bg-foreground px-4 sm:px-6">
+      <div className="max-w-6xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="text-center mb-10 md:mb-16"
+          transition={{ duration: 0.6 }}
+          className="flex items-end justify-between mb-10 md:mb-14"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-background mb-4">
-            Projetos
-          </h2>
-          <p className="text-background/60 max-w-xl mx-auto text-sm sm:text-base px-4">
-            Conheça alguns dos projetos que desenvolvi para marcas que buscavam clareza e posicionamento estratégico.
-          </p>
-          <div className="w-16 h-0.5 bg-orange mx-auto mt-6" />
-        </motion.div>
-
-        {/* Carousel */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
-          <Carousel
-            setApi={setApi}
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-            className="w-full"
-          >
-            <CarouselContent className="-ml-2 md:-ml-4">
-              {projects.map((project) => (
-                <CarouselItem 
-                  key={project.id} 
-                  className="pl-2 md:pl-4 basis-[85%] sm:basis-1/2 lg:basis-1/3"
-                >
-                  <div className="group">
-                    <div className="aspect-square bg-background/5 rounded-xl overflow-hidden border border-background/10 relative cursor-pointer transition-all duration-300 hover:border-orange/50 flex items-center justify-center p-8">
-                      <img 
-                        src={project.logo} 
-                        alt={project.title}
-                        className="max-w-full max-h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-300"
-                      />
-                      
-                      {/* Hover overlay */}
-                      <div className="absolute inset-0 bg-orange/0 group-hover:bg-orange/10 transition-all duration-300" />
-                      
-                      {/* Corner accents */}
-                      <div className="absolute top-3 left-3 w-4 h-4 border-l border-t border-background/20 group-hover:border-orange transition-colors duration-300" />
-                      <div className="absolute bottom-3 right-3 w-4 h-4 border-r border-b border-background/20 group-hover:border-orange transition-colors duration-300" />
-                    </div>
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-          </Carousel>
-
-          {/* Carousel indicators and controls */}
-          <div className="flex items-center justify-center gap-4 mt-8">
-            <button
-              onClick={() => api?.scrollPrev()}
-              className="w-10 h-10 rounded-full border border-background/20 flex items-center justify-center text-background/60 hover:text-orange hover:border-orange transition-colors duration-300"
-              aria-label="Projeto anterior"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-
-            {/* Dots indicator */}
-            <div className="flex gap-2">
-              {Array.from({ length: count }).map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => api?.scrollTo(index)}
-                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                    index === current 
-                      ? "bg-orange w-6" 
-                      : "bg-background/30 hover:bg-background/50"
-                  }`}
-                  aria-label={`Ir para slide ${index + 1}`}
-                />
-              ))}
-            </div>
-
-            <button
-              onClick={() => api?.scrollNext()}
-              className="w-10 h-10 rounded-full border border-background/20 flex items-center justify-center text-background/60 hover:text-orange hover:border-orange transition-colors duration-300"
-              aria-label="Próximo projeto"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
+          <div>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-background mb-3">
+              Projetos
+            </h2>
+            <p className="text-background/60 max-w-md text-sm sm:text-base">
+              Marcas que buscavam clareza e posicionamento estratégico.
+            </p>
           </div>
+          <a
+            href={WHATSAPP_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden sm:block text-xs tracking-widest uppercase text-background/70 hover:text-orange transition-colors duration-300 whitespace-nowrap underline underline-offset-4"
+          >
+            Quero um projeto assim
+          </a>
         </motion.div>
+
+        {/* Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
+          {projects.map((project, index) => (
+            <motion.div
+              key={project.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.08 }}
+              className="group"
+            >
+              <div className="aspect-square bg-background/5 rounded-xl overflow-hidden border border-background/10 relative cursor-pointer transition-all duration-300 hover:border-orange/50 flex items-center justify-center p-6 sm:p-8">
+                <img
+                  src={project.logo}
+                  alt={project.title}
+                  className="max-w-full max-h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+                />
+                <div className="absolute inset-0 bg-orange/0 group-hover:bg-orange/10 transition-all duration-300" />
+                <div className="absolute top-3 left-3 w-4 h-4 border-l border-t border-background/20 group-hover:border-orange transition-colors duration-300" />
+                <div className="absolute bottom-3 right-3 w-4 h-4 border-r border-b border-background/20 group-hover:border-orange transition-colors duration-300" />
+              </div>
+              <p className="mt-2 text-center text-background/60 text-xs sm:text-sm">
+                {project.title}
+              </p>
+            </motion.div>
+          ))}
+        </div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          className="text-center mt-12 md:mt-16"
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="text-center mt-12 md:mt-16 sm:hidden"
         >
-          <Button
-            asChild
-            variant="cta"
-            size="lg"
-          >
+          <Button asChild variant="cta" size="lg">
             <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
               <MessageCircle className="w-5 h-5" />
               Quero um projeto assim

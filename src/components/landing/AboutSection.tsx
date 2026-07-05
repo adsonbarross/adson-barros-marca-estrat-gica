@@ -7,77 +7,57 @@ const WHATSAPP_LINK = "https://wa.me/message/6TDNDNOCGOXII1";
 
 export function AboutSection() {
   return (
-    <section className="py-16 md:py-24 md:min-h-screen md:flex md:items-center bg-background px-8 sm:px-12 md:px-16 lg:px-6">
-      <div className="max-w-5xl mx-auto w-full">
-        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-          {/* Image - appears first on mobile */}
-          <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="relative w-full max-w-sm mx-auto lg:max-w-none lg:order-1"
-          >
-            <div className="aspect-[4/5] bg-gradient-to-br from-muted to-muted/50 rounded-2xl overflow-hidden relative">
-              {/* Decorative elements */}
-              <div className="absolute top-4 left-4 w-6 h-6 sm:w-8 sm:h-8 border-l-2 border-t-2 border-orange" />
-              <div className="absolute bottom-4 right-4 w-6 h-6 sm:w-8 sm:h-8 border-r-2 border-b-2 border-orange" />
-              
-              <img 
-                src={adsonPhoto} 
-                alt="Adson Barros - Estrategista de marca" 
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-            </div>
-            
-            {/* Brown accent detail */}
-            <div className="absolute -bottom-4 -right-4 w-16 h-16 sm:w-24 sm:h-24 bg-brown/10 rounded-xl -z-10" />
-          </motion.div>
+    <section id="sobre" className="bg-muted/40 overflow-hidden">
+      <div className="max-w-6xl mx-auto grid lg:grid-cols-2">
+        {/* Text side */}
+        <motion.div
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="flex flex-col justify-center px-6 sm:px-10 md:px-16 py-14 md:py-20 order-2 lg:order-1"
+        >
+          <p className="text-xs sm:text-sm tracking-[0.2em] uppercase text-orange mb-3">
+            Sobre mim
+          </p>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground leading-tight mb-6">
+            Clareza de <br /> posicionamento <br /> e estratégia.
+          </h2>
 
-          {/* Content */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="lg:order-2"
-          >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4 sm:mb-6 text-center lg:text-left">
-              Sobre mim
-            </h2>
-            
-            <div className="space-y-3 sm:space-y-4 text-foreground/80 leading-relaxed text-xs sm:text-sm md:text-base text-justify">
-              <p>
-                Me chamo <strong className="text-foreground">Adson Barros</strong>. Sou estrategista de marca e trabalho com design gráfico e direção criativa há mais de 5 anos.
-              </p>
-              <p>
-                Sou especializado em criação de identidade visual e já desenvolvi mais de <strong className="text-foreground">50 projetos</strong> espalhados pelo Brasil (e alguns pelo mundo).
-              </p>
-              <p>
-                Meu objetivo é: <span className="text-orange font-semibold">tirar empresas da escuridão e trazer clareza.</span> Clareza de posicionamento, de estratégia e de direção. Não é só sobre visibilidade ou vendas — é sobre previsibilidade, evolução e consciência do caminho que o empreendedor quer seguir.
-              </p>
-              <p>
-                Acredito que ninguém cresce no improviso. Por isso, ajudo pessoas a enxergarem onde querem chegar e qual postura precisam assumir pra tornar esse caminho possível.
-              </p>
-              <p>
-                Tudo isso através da <strong className="text-foreground">transformação estratégica de marca</strong> — um processo que transforma o negócio, mas principalmente a mentalidade por trás dele.
-              </p>
-            </div>
+          <div className="space-y-3 text-foreground/80 leading-relaxed text-sm sm:text-base max-w-md">
+            <p>
+              Me chamo <strong className="text-foreground">Adson Barros</strong>. Sou estrategista de marca e trabalho com design gráfico e direção criativa há mais de 5 anos.
+            </p>
+            <p>
+              Meu objetivo é <span className="text-orange font-semibold">tirar empresas da escuridão e trazer clareza</span> — de posicionamento, estratégia e direção.
+            </p>
+          </div>
 
-            <div className="mt-8 sm:mt-10 text-center lg:text-left">
-              <Button
-                asChild
-                variant="cta"
-                size="lg"
-              >
-                <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
-                  <MessageCircle className="w-5 h-5" />
-                  Quero minha marca estratégica
-                </a>
-              </Button>
-            </div>
-          </motion.div>
-        </div>
+          <div className="mt-8">
+            <Button asChild variant="cta" size="lg">
+              <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
+                <MessageCircle className="w-5 h-5" />
+                Quero minha marca estratégica
+              </a>
+            </Button>
+          </div>
+        </motion.div>
+
+        {/* Image side */}
+        <motion.div
+          initial={{ opacity: 0, x: 30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.15 }}
+          className="relative min-h-[320px] sm:min-h-[420px] md:min-h-full order-1 lg:order-2"
+        >
+          <img
+            src={adsonPhoto}
+            alt="Adson Barros - Estrategista de marca"
+            className="absolute inset-0 w-full h-full object-cover grayscale"
+          />
+          <div className="absolute inset-0 bg-foreground/10" />
+        </motion.div>
       </div>
     </section>
   );
