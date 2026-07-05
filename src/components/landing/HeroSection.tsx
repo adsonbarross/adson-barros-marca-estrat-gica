@@ -34,18 +34,7 @@ export function HeroSection() {
           />
 
           {/* Scrim for legibility */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-black/10" />
-
-          {/* Name overlay */}
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="relative z-10 text-center font-bold leading-[0.95] tracking-tight text-[13vw] sm:text-[10vw] md:text-[7vw] lg:text-8xl mt-auto mb-8 sm:mb-10"
-          >
-            <span className="block text-background drop-shadow-lg">ADSON</span>
-            <span className="block text-orange drop-shadow-lg">BARROS</span>
-          </motion.h1>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/0 to-black/10" />
         </div>
 
         {/* Bottom row: CTAs left, stat right */}
