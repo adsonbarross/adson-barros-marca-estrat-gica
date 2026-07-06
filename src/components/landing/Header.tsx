@@ -50,7 +50,7 @@ export function Header() {
           ))}
           <Button asChild variant="cta" size="sm">
             <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
-              <MessageCircle className="w-4 h-4" />
+              <MessageCircle className="w-4 h-4" fill="currentColor" />
               Fale comigo
             </a>
           </Button>
@@ -86,7 +86,7 @@ export function Header() {
           ))}
           <Button asChild variant="cta" size="lg" className="w-full mt-2">
             <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
-              <MessageCircle className="w-4 h-4" />
+              <MessageCircle className="w-4 h-4" fill="currentColor" />
               Fale comigo
             </a>
           </Button>

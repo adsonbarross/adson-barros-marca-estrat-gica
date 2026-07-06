@@ -47,7 +47,7 @@ export function HeroSection() {
           >
             <Button asChild variant="cta" size="xl">
               <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
-                <MessageCircle className="w-5 h-5" />
+                <MessageCircle className="w-5 h-5" fill="currentColor" />
                 Fale comigo
               </a>
             </Button>
