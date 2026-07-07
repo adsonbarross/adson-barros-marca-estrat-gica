@@ -7,14 +7,14 @@ const WHATSAPP_LINK = "https://wa.me/message/6TDNDNOCGOXII1";
 
 export function HeroSection() {
   return (
-    <section className="relative bg-foreground px-4 sm:px-6 py-12 md:py-16 overflow-hidden">
+    <section className="relative bg-foreground px-5 sm:px-8 md:px-10 lg:px-6 py-14 sm:py-16 md:py-20 overflow-hidden">
       <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-10 lg:gap-12 items-center">
         {/* Text side */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="order-2 lg:order-1 text-center lg:text-left"
+          className="min-w-0 order-2 lg:order-1 text-center lg:text-left"
         >
           <p className="text-xs sm:text-sm tracking-[0.2em] uppercase text-orange mb-3">
             Identidade Visual Profissional
@@ -63,7 +63,7 @@ export function HeroSection() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="order-1 lg:order-2 relative mx-auto w-full max-w-xs sm:max-w-sm aspect-[4/5] rounded-2xl overflow-hidden"
+          className="min-w-0 order-1 lg:order-2 relative mx-auto w-full max-w-[85%] sm:max-w-xs md:max-w-sm aspect-[4/5] rounded-2xl overflow-hidden"
         >
           <img
             src={adsonPhoto}
