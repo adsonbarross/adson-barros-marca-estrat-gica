@@ -21,7 +21,7 @@ export function AboutSection() {
             Sobre mim
           </p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground leading-tight mb-6">
-            De R$70 a R$3 mil <br /> por projeto.
+            +120 identidades <br /> entregues desde <br /> 2020.
           </h2>
 
           <div className="space-y-3 text-foreground/80 leading-relaxed text-sm sm:text-base max-w-md">
