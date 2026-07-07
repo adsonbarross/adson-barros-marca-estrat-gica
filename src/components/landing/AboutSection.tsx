@@ -21,15 +21,18 @@ export function AboutSection() {
             Sobre mim
           </p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground leading-tight mb-6">
-            +5 anos criando <br /> marcas que <br /> vendem.
+            De R$70 a R$3 mil <br /> por projeto.
           </h2>
 
           <div className="space-y-3 text-foreground/80 leading-relaxed text-sm sm:text-base max-w-md">
             <p>
-              Me chamo <strong className="text-foreground">Adson Barros</strong>. Sou designer gráfico especialista em identidade visual, com mais de 5 anos de experiência e projetos publicados no Behance.
+              Me chamo <strong className="text-foreground">Adson Barros</strong>. Estou no mercado desde 2020 — comecei criando logos simples para pequenos negócios e, com o tempo, me especializei em identidade visual completa.
             </p>
             <p>
-              Já criei marcas que hoje <span className="text-orange font-semibold">transmitem profissionalismo e confiança</span> pros clientes deles — e quero fazer o mesmo pela sua.
+              Já são <strong className="text-foreground">mais de 120 projetos entregues</strong>, e essa evolução (de R$70 a R$3 mil por trabalho) reflete algo simples: <span className="text-orange font-semibold">entrego qualidade, cumpro prazo e entendo do mercado</span> em que meus clientes atuam.
+            </p>
+            <p>
+              Meu objetivo não é só te dar uma marca bonita — é te ajudar a ter um negócio mais organizado, com processos claros e que lucra mais graças à percepção de valor que uma boa identidade cria.
             </p>
           </div>
 
