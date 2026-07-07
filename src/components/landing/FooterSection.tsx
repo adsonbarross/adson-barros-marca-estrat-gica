@@ -6,6 +6,8 @@ import { Instagram, Send, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 
+const WHATSAPP_LINK = "https://wa.me/message/6TDNDNOCGOXII1";
+
 export function FooterSection() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -31,10 +33,11 @@ export function FooterSection() {
       if (error) throw error;
 
       toast({
-        title: "Mensagem enviada!",
-        description: "Entrarei em contato em breve."
+        title: "Recebido!",
+        description: "Te chamando no WhatsApp agora..."
       });
       setFormData({ name: "", email: "", phone: "", segment: "" });
+      window.open(WHATSAPP_LINK, "_blank", "noopener,noreferrer");
     } catch (error) {
       toast({
         title: "Erro ao enviar",
@@ -64,10 +67,10 @@ export function FooterSection() {
             transition={{ duration: 0.7 }}
           >
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-background mb-4 sm:mb-6">
-              Vamos conversar?
+              Vamos criar sua marca?
             </h2>
             <p className="text-background/70 text-base sm:text-lg mb-6 sm:mb-8 max-w-md">
-              Preencha o formulário ao lado ou entre em contato diretamente pelas minhas redes sociais.
+              Preencha o formulário ao lado e eu te chamo no WhatsApp pra falar sobre sua identidade visual.
             </p>
 
             <div className="flex gap-4 mb-8 sm:mb-12">
@@ -141,7 +144,7 @@ export function FooterSection() {
               </div>
               <Button type="submit" variant="cta" size="xl" className="w-full" disabled={isSubmitting}>
                 {isSubmitting ? <Loader2 className="w-5 h-5 animate-spin" /> : <Send className="w-5 h-5" />}
-                {isSubmitting ? "Enviando..." : "Enviar mensagem"}
+                {isSubmitting ? "Enviando..." : "Ir para o WhatsApp"}
               </Button>
             </form>
           </motion.div>

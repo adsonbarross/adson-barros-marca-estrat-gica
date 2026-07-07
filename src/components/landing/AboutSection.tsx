@@ -21,23 +21,23 @@ export function AboutSection() {
             Sobre mim
           </p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground leading-tight mb-6">
-            Clareza de <br /> posicionamento <br /> e estratégia.
+            +5 anos criando <br /> marcas que <br /> vendem.
           </h2>
 
           <div className="space-y-3 text-foreground/80 leading-relaxed text-sm sm:text-base max-w-md">
             <p>
-              Me chamo <strong className="text-foreground">Adson Barros</strong>. Sou estrategista de marca e trabalho com design gráfico e direção criativa há mais de 5 anos.
+              Me chamo <strong className="text-foreground">Adson Barros</strong>. Sou designer gráfico especialista em identidade visual, com mais de 5 anos de experiência e projetos publicados no Behance.
             </p>
             <p>
-              Meu objetivo é <span className="text-orange font-semibold">tirar empresas da escuridão e trazer clareza</span> — de posicionamento, estratégia e direção.
+              Já criei marcas que hoje <span className="text-orange font-semibold">transmitem profissionalismo e confiança</span> pros clientes deles — e quero fazer o mesmo pela sua.
             </p>
           </div>
 
           <div className="mt-8">
             <Button asChild variant="cta" size="lg">
               <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
-                <MessageCircle className="w-5 h-5" />
-                Quero minha marca estratégica
+                <MessageCircle className="w-5 h-5" fill="currentColor" />
+                Quero minha identidade visual
               </a>
             </Button>
           </div>

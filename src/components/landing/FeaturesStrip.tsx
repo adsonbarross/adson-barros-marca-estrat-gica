@@ -1,53 +1,70 @@
 import { motion } from "framer-motion";
-import { CalendarClock, Layers, Sparkles, Compass } from "lucide-react";
+import { MessageSquare, Palette, RefreshCw, PackageCheck } from "lucide-react";
 
-const features = [
+const steps = [
   {
-    icon: CalendarClock,
-    title: "+5 anos",
-    description: "De experiência no mercado",
+    icon: MessageSquare,
+    title: "1. Briefing",
+    description: "Conversamos pelo WhatsApp sobre seu negócio, público e objetivos.",
   },
   {
-    icon: Layers,
-    title: "+50 projetos",
-    description: "Entregues pelo Brasil e mundo",
+    icon: Palette,
+    title: "2. Criação",
+    description: "Desenvolvo o conceito, logotipo, cores e tipografia da sua marca.",
   },
   {
-    icon: Sparkles,
-    title: "Identidade visual",
-    description: "Marcas com propósito e clareza",
+    icon: RefreshCw,
+    title: "3. Ajustes",
+    description: "Você revisa e eu refino até ficar exatamente como precisa.",
   },
   {
-    icon: Compass,
-    title: "Direção criativa",
-    description: "Estratégia por trás do design",
+    icon: PackageCheck,
+    title: "4. Entrega",
+    description: "Todos os arquivos, manual da marca e aplicações em até 30 dias.",
   },
 ];
 
 export function FeaturesStrip() {
   return (
-    <section className="bg-background border-y border-border py-10 md:py-12 px-4 sm:px-6">
-      <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
-        {features.map((feature, index) => (
-          <motion.div
-            key={feature.title}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: index * 0.08 }}
-            className="flex items-center gap-3"
-          >
-            <feature.icon className="w-6 h-6 sm:w-7 sm:h-7 text-orange flex-shrink-0" />
-            <div>
-              <p className="text-foreground font-bold text-sm sm:text-base leading-tight">
-                {feature.title}
+    <section className="bg-foreground py-14 md:py-20 px-4 sm:px-6">
+      <div className="max-w-6xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-10 md:mb-14"
+        >
+          <p className="text-xs sm:text-sm tracking-[0.2em] uppercase text-orange mb-2">
+            Como funciona
+          </p>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-background">
+            Do briefing à entrega, em até 30 dias
+          </h2>
+        </motion.div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-6">
+          {steps.map((step, index) => (
+            <motion.div
+              key={step.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="text-center sm:text-left"
+            >
+              <div className="w-14 h-14 mx-auto sm:mx-0 rounded-xl bg-background/5 border border-background/10 flex items-center justify-center mb-4">
+                <step.icon className="w-6 h-6 text-orange" />
+              </div>
+              <h3 className="font-bold text-background text-base sm:text-lg mb-1">
+                {step.title}
+              </h3>
+              <p className="text-background/60 text-sm leading-relaxed">
+                {step.description}
               </p>
-              <p className="text-foreground/60 text-xs sm:text-sm leading-tight">
-                {feature.description}
-              </p>
-            </div>
-          </motion.div>
-        ))}
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );

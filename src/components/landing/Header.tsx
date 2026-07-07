@@ -7,9 +7,9 @@ import logoAdson from "@/assets/logo-adson.png";
 const WHATSAPP_LINK = "https://wa.me/message/6TDNDNOCGOXII1";
 
 const navLinks = [
+  { label: "Incluso", href: "#incluso" },
+  { label: "Portfólio", href: "#portfolio" },
   { label: "Sobre", href: "#sobre" },
-  { label: "Projetos", href: "#projetos" },
-  { label: "Vídeo", href: "#video" },
   { label: "Contato", href: "#contato" },
 ];
 
@@ -51,7 +51,7 @@ export function Header() {
           <Button asChild variant="cta" size="sm">
             <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
               <MessageCircle className="w-4 h-4" fill="currentColor" />
-              Fale comigo
+              Quero a minha
             </a>
           </Button>
         </div>
@@ -87,7 +87,7 @@ export function Header() {
           <Button asChild variant="cta" size="lg" className="w-full mt-2">
             <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
               <MessageCircle className="w-4 h-4" fill="currentColor" />
-              Fale comigo
+              Quero minha identidade visual
             </a>
           </Button>
         </motion.div>

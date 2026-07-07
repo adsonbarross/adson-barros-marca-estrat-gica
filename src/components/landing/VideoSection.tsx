@@ -50,8 +50,8 @@ export function VideoSection() {
             size="lg"
           >
             <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
-              <MessageCircle className="w-5 h-5" />
-              Vamos estruturar sua marca
+              <MessageCircle className="w-5 h-5" fill="currentColor" />
+              Quero minha identidade visual
             </a>
           </Button>
         </motion.div>

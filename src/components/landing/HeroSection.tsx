@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { MessageCircle } from "lucide-react";
+import { MessageCircle, Star } from "lucide-react";
 import adsonPhoto from "@/assets/adson-photo-about.jpg";
 
 const WHATSAPP_LINK = "https://wa.me/message/6TDNDNOCGOXII1";
@@ -8,82 +8,70 @@ const WHATSAPP_LINK = "https://wa.me/message/6TDNDNOCGOXII1";
 export function HeroSection() {
   return (
     <section className="relative bg-foreground px-4 sm:px-6 py-12 md:py-16 overflow-hidden">
-      <div className="max-w-6xl mx-auto">
-        {/* Kicker */}
-        <motion.p
-          initial={{ opacity: 0, y: 10 }}
+      <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-10 lg:gap-12 items-center">
+        {/* Text side */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-xs sm:text-sm tracking-[0.2em] uppercase text-background/60 mb-2"
+          className="order-2 lg:order-1 text-center lg:text-left"
         >
-          Estrategista
-          <br />
-          de marca.
-          <span className="block w-8 h-px bg-orange mt-3" />
-        </motion.p>
+          <p className="text-xs sm:text-sm tracking-[0.2em] uppercase text-orange mb-3">
+            Identidade Visual Profissional
+          </p>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-background leading-tight tracking-tight mb-5">
+            Sua marca merece parecer tão boa quanto o seu trabalho.
+          </h1>
+          <p className="text-background/70 text-base sm:text-lg max-w-lg mx-auto lg:mx-0 mb-6">
+            Logotipo, paleta de cores, tipografia, manual da marca e aplicações — tudo criado do zero pra você parar de perder clientes por causa de uma marca amadora.
+          </p>
 
-        {/* Photo with name overlay */}
-        <div className="relative mx-auto w-full max-w-xs sm:max-w-sm md:max-w-md aspect-[4/5] rounded-2xl overflow-hidden">
-          <motion.img
-            initial={{ opacity: 0, scale: 1.05 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.9 }}
-            src={adsonPhoto}
-            alt="Adson Barros - Estrategista de marca"
-            className="absolute inset-0 w-full h-full object-cover"
-          />
-
-          {/* Scrim for legibility */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/0 to-black/10" />
-        </div>
-
-        {/* Bottom row: CTAs left, stat right */}
-        <div className="flex flex-col items-center text-center gap-6 sm:flex-row sm:items-end sm:justify-between sm:text-left mt-6 md:mt-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="flex flex-col items-center gap-3 sm:flex-row sm:gap-4"
-          >
+          <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4 mb-8">
             <Button asChild variant="cta" size="xl">
               <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
                 <MessageCircle className="w-5 h-5" fill="currentColor" />
-                Fale comigo
+                Quero minha identidade visual
               </a>
             </Button>
             <a
-              href="#sobre"
+              href="#portfolio"
               className="text-xs sm:text-sm tracking-widest uppercase text-background/70 hover:text-orange transition-colors duration-300 underline underline-offset-4"
             >
-              Sobre mim
+              Ver portfólio
             </a>
-          </motion.div>
+          </div>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className="text-xs sm:text-sm tracking-widest uppercase text-background/60 text-center sm:text-right"
-          >
-            +50
-            <br />
-            projetos
-            <span className="block w-8 h-px bg-orange mt-3 ml-auto" />
-          </motion.p>
-        </div>
+          {/* Social proof strip */}
+          <div className="flex flex-wrap items-center justify-center lg:justify-start gap-x-8 gap-y-3">
+            <div className="flex items-center gap-1.5">
+              <Star className="w-4 h-4 text-orange" fill="currentColor" />
+              <span className="text-background/80 text-sm">
+                <strong className="text-background">700+</strong> seguidores no Behance
+              </span>
+            </div>
+            <div className="text-background/80 text-sm">
+              <strong className="text-background">39,5 mil+</strong> visualizações
+            </div>
+            <div className="text-background/80 text-sm">
+              <strong className="text-background">5,4 mil+</strong> apreciações
+            </div>
+          </div>
+        </motion.div>
 
-        {/* Headline */}
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-10 md:mt-14 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-background text-center leading-tight tracking-tight"
+        {/* Photo side */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="order-1 lg:order-2 relative mx-auto w-full max-w-xs sm:max-w-sm aspect-[4/5] rounded-2xl overflow-hidden"
         >
-          <span className="block">TRANSFORME SUA MARCA COM ESTRATÉGIA.</span>
-          <span className="block mt-1 sm:mt-2 text-orange underline decoration-orange underline-offset-4">
-            SE POSICIONE, DIFERENCIE e CRESÇA.
-          </span>
-        </motion.h2>
+          <img
+            src={adsonPhoto}
+            alt="Adson Barros - Especialista em identidade visual"
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/0 to-black/5" />
+        </motion.div>
       </div>
     </section>
   );

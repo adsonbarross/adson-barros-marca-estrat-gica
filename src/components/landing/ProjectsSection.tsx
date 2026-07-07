@@ -29,10 +29,10 @@ export function ProjectsSection() {
         >
           <div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-background mb-3">
-              Projetos
+              Clientes reais
             </h2>
             <p className="text-background/60 max-w-md text-sm sm:text-base">
-              Marcas que buscavam clareza e posicionamento estratégico.
+              Marcas que confiaram no meu trabalho de identidade visual.
             </p>
           </div>
           <a
