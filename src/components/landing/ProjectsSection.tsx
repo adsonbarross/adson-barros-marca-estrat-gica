@@ -25,7 +25,7 @@ export function ProjectsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="flex items-end justify-between mb-10 md:mb-14"
+          className="flex flex-col sm:flex-row items-center sm:items-end justify-center sm:justify-between text-center sm:text-left mb-10 md:mb-14"
         >
           <div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-background mb-3">

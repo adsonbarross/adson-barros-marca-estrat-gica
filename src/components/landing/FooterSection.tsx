@@ -65,6 +65,7 @@ export function FooterSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
+            className="flex flex-col items-center text-center lg:items-start lg:text-left"
           >
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-background mb-4 sm:mb-6">
               Vamos criar sua marca?

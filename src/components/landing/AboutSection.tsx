@@ -15,7 +15,7 @@ export function AboutSection() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="flex flex-col justify-center px-6 sm:px-10 md:px-16 py-14 md:py-20 order-2 lg:order-1"
+          className="flex flex-col justify-center items-center text-center lg:items-start lg:text-left px-6 sm:px-10 md:px-16 py-14 md:py-20 order-2 lg:order-1"
         >
           <p className="text-xs sm:text-sm tracking-[0.2em] uppercase text-orange mb-3">
             Sobre mim
@@ -24,7 +24,7 @@ export function AboutSection() {
             +120 identidades <br /> entregues desde <br /> 2020.
           </h2>
 
-          <div className="space-y-3 text-foreground/80 leading-relaxed text-sm sm:text-base max-w-md">
+          <div className="space-y-3 text-foreground/80 leading-relaxed text-sm sm:text-base max-w-md mx-auto lg:mx-0">
             <p>
               Me chamo <strong className="text-foreground">Adson Barros</strong>. Estou no mercado desde 2020 — comecei criando logos simples para pequenos negócios e, com o tempo, me especializei em identidade visual completa.
             </p>

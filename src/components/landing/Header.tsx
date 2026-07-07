@@ -18,9 +18,9 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 bg-foreground/95 backdrop-blur-sm border-b border-background/10">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 sm:h-20 grid grid-cols-[1fr_auto_1fr] items-center gap-4">
         {/* Left nav (desktop) */}
-        <nav className="hidden md:flex items-center gap-8 flex-1">
+        <nav className="hidden md:flex items-center gap-8">
           {navLinks.slice(0, 2).map((link) => (
             <a
               key={link.href}
@@ -33,37 +33,37 @@ export function Header() {
         </nav>
 
         {/* Logo */}
-        <a href="#" className="flex-shrink-0 md:flex-1 md:flex md:justify-center">
+        <a href="#" className="flex justify-center">
           <img src={logoAdson} alt="Adson Barros" className="h-5 sm:h-6 w-auto" />
         </a>
 
-        {/* Right nav (desktop) */}
-        <div className="hidden md:flex items-center gap-8 flex-1 justify-end">
+        {/* Right nav (desktop) + mobile toggle */}
+        <div className="flex items-center justify-end gap-8">
           {navLinks.slice(2).map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="text-xs tracking-widest uppercase text-background/70 hover:text-orange transition-colors duration-300"
+              className="hidden md:inline text-xs tracking-widest uppercase text-background/70 hover:text-orange transition-colors duration-300"
             >
               {link.label}
             </a>
           ))}
-          <Button asChild variant="cta" size="sm">
+          <Button asChild variant="cta" size="sm" className="hidden md:inline-flex">
             <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
               <MessageCircle className="w-4 h-4" fill="currentColor" />
               Quero a minha
             </a>
           </Button>
-        </div>
 
-        {/* Mobile toggle */}
-        <button
-          onClick={() => setOpen(!open)}
-          className="md:hidden text-background p-2"
-          aria-label="Abrir menu"
-        >
-          {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
+          {/* Mobile toggle */}
+          <button
+            onClick={() => setOpen(!open)}
+            className="md:hidden text-background p-2 -mr-2"
+            aria-label="Abrir menu"
+          >
+            {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile menu */}
