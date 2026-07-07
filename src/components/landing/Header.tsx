@@ -34,7 +34,13 @@ export function Header() {
 
         {/* Logo */}
         <a href="#" className="flex justify-center">
-          <img src={logoAdson} alt="Adson Barros" className="h-5 sm:h-6 w-auto" />
+          <img
+            src={logoAdson}
+            alt="Adson Barros"
+            width={757}
+            height={89}
+            className="h-5 sm:h-6 w-auto object-contain"
+          />
         </a>
 
         {/* Right nav (desktop) + mobile toggle */}

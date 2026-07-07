@@ -8,14 +8,14 @@ const WHATSAPP_LINK = "https://wa.me/message/6TDNDNOCGOXII1";
 export function AboutSection() {
   return (
     <section id="sobre" className="bg-muted/40 overflow-hidden">
-      <div className="max-w-6xl mx-auto grid lg:grid-cols-2">
+      <div className="max-w-6xl mx-auto grid lg:grid-cols-2 min-w-0">
         {/* Text side */}
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="flex flex-col justify-center items-center text-center lg:items-start lg:text-left px-6 sm:px-10 md:px-16 py-14 md:py-20 order-2 lg:order-1"
+          className="min-w-0 flex flex-col justify-center items-start text-left px-6 sm:px-10 md:px-16 py-14 md:py-20 order-2 lg:order-1"
         >
           <p className="text-xs sm:text-sm tracking-[0.2em] uppercase text-orange mb-3">
             Sobre mim
@@ -24,7 +24,7 @@ export function AboutSection() {
             +120 identidades <br /> entregues desde <br /> 2020.
           </h2>
 
-          <div className="space-y-3 text-foreground/80 leading-relaxed text-sm sm:text-base max-w-md mx-auto lg:mx-0">
+          <div className="space-y-3 text-foreground/80 leading-relaxed text-sm sm:text-base max-w-md">
             <p>
               Me chamo <strong className="text-foreground">Adson Barros</strong>. Estou no mercado desde 2020 — comecei criando logos simples para pequenos negócios e, com o tempo, me especializei em identidade visual completa.
             </p>
@@ -36,10 +36,15 @@ export function AboutSection() {
             </p>
           </div>
 
-          <div className="mt-8">
-            <Button asChild variant="cta" size="lg">
+          <div className="mt-8 w-full sm:w-auto">
+            <Button
+              asChild
+              variant="cta"
+              size="lg"
+              className="w-full sm:w-auto whitespace-normal sm:whitespace-nowrap text-sm sm:text-base h-auto sm:h-12 py-3 sm:py-0 px-6 sm:px-8"
+            >
               <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
-                <MessageCircle className="w-5 h-5" fill="currentColor" />
+                <MessageCircle className="w-5 h-5 shrink-0" fill="currentColor" />
                 Quero minha identidade visual
               </a>
             </Button>
@@ -52,7 +57,7 @@ export function AboutSection() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.15 }}
-          className="relative min-h-[320px] sm:min-h-[420px] md:min-h-full order-1 lg:order-2"
+          className="min-w-0 relative min-h-[320px] sm:min-h-[420px] md:min-h-full order-1 lg:order-2"
         >
           <img
             src={adsonPhoto}

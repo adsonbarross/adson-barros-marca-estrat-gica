@@ -27,9 +27,14 @@ export function HeroSection() {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4 mb-8">
-            <Button asChild variant="cta" size="xl">
+            <Button
+              asChild
+              variant="cta"
+              size="xl"
+              className="w-full sm:w-auto whitespace-normal sm:whitespace-nowrap text-base sm:text-lg h-auto sm:h-14 py-3.5 sm:py-0 px-6 sm:px-10"
+            >
               <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
-                <MessageCircle className="w-5 h-5" fill="currentColor" />
+                <MessageCircle className="w-5 h-5 shrink-0" fill="currentColor" />
                 Quero minha identidade visual
               </a>
             </Button>
