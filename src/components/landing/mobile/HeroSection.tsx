@@ -15,7 +15,7 @@ export function HeroSection() {
   return (
     <section className="bg-foreground">
       {/* Banner photo */}
-      <div className="relative w-full h-[38vh] min-h-[260px] overflow-hidden">
+      <div className="relative w-full h-[62vh] min-h-[420px] overflow-hidden">
         <motion.img
           initial={{ opacity: 0, scale: 1.05 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -28,12 +28,12 @@ export function HeroSection() {
       </div>
 
       {/* Headline + CTA */}
-      <div className="px-5 pt-5 pb-8 text-center max-w-2xl mx-auto">
+      <div className="px-5 pt-4 pb-6 text-center max-w-2xl mx-auto">
         <motion.p
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-xs tracking-[0.25em] uppercase text-orange mb-3"
+          className="text-[10px] tracking-[0.25em] uppercase text-orange mb-2"
         >
           Identidade Visual Profissional
         </motion.p>
@@ -41,7 +41,7 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-2xl font-bold text-background leading-tight tracking-tight mb-3"
+          className="text-lg font-bold text-background leading-tight tracking-tight mb-2"
         >
           O sucesso do seu negócio é equivalente ao quanto você valoriza sua marca.
         </motion.h1>
@@ -49,7 +49,7 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-background/70 text-sm mb-5"
+          className="text-background/70 text-xs mb-4 leading-relaxed"
         >
           A identidade visual da sua empresa fala para o seu cliente o quanto você se importa com o seu negócio e se realmente vale a pena comprar a sua ideia. E aqui eu crio tudo pra você de forma profissional, mostrando nitidamente o valor do seu negócio.
         </motion.p>
@@ -62,19 +62,19 @@ export function HeroSection() {
           <Button
             asChild
             variant="cta"
-            size="xl"
-            className="w-full whitespace-normal text-base h-auto py-3.5 px-6"
+            size="lg"
+            className="w-full whitespace-normal text-sm h-auto py-3 px-5"
           >
             <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
-              <MessageCircle className="w-5 h-5 shrink-0" fill="currentColor" />
+              <MessageCircle className="w-4 h-4 shrink-0" fill="currentColor" />
               Quero minha identidade visual
             </a>
           </Button>
 
-          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 mt-5">
+          <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1.5 mt-4">
             {badges.map((badge) => (
-              <span key={badge} className="flex items-center gap-1.5 text-background/60 text-xs">
-                <Check className="w-3.5 h-3.5 text-orange shrink-0" />
+              <span key={badge} className="flex items-center gap-1 text-background/60 text-[11px]">
+                <Check className="w-3 h-3 text-orange shrink-0" />
                 {badge}
               </span>
             ))}
