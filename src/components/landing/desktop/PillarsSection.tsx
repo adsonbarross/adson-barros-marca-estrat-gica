@@ -11,7 +11,7 @@ const items = [
 
 export function PillarsSection() {
   return (
-    <section id="incluso" className="bg-background py-20 px-10 border-b border-border">
+    <section id="incluso" className="bg-foreground py-20 px-10">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -21,12 +21,12 @@ export function PillarsSection() {
           className="text-center mb-14"
         >
           <p className="text-sm tracking-[0.2em] uppercase text-orange mb-2">O que está incluso</p>
-          <h2 className="text-4xl font-bold text-foreground">
+          <h2 className="text-4xl font-bold text-background">
             Tudo que sua marca precisa pra ser levada a sério
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-5 gap-6">
+        <div className="grid grid-cols-5 gap-5">
           {items.map((item, index) => (
             <motion.div
               key={item.title}
@@ -34,13 +34,15 @@ export function PillarsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.08 }}
-              className="text-left"
+              className="flex flex-col items-start gap-4 rounded-2xl border border-background/10 bg-background/5 p-6 h-full"
             >
-              <div className="w-14 h-14 rounded-xl bg-foreground/5 border border-border flex items-center justify-center mb-4">
+              <div className="w-14 h-14 rounded-xl bg-background/5 border border-background/10 flex items-center justify-center">
                 <item.icon className="w-6 h-6 text-orange" />
               </div>
-              <h3 className="font-bold text-foreground text-lg mb-1">{item.title}</h3>
-              <p className="text-foreground/60 text-sm leading-relaxed">{item.description}</p>
+              <div>
+                <h3 className="font-bold text-background text-lg mb-1">{item.title}</h3>
+                <p className="text-background/60 text-sm leading-relaxed">{item.description}</p>
+              </div>
             </motion.div>
           ))}
         </div>

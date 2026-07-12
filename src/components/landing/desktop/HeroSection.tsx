@@ -20,10 +20,10 @@ export function HeroSection() {
             Identidade Visual Profissional
           </p>
           <h1 className="text-5xl font-bold text-background leading-tight tracking-tight mb-6">
-            Sua marca merece parecer tão boa quanto o seu trabalho.
+            O sucesso do seu negócio é equivalente ao quanto você valoriza sua marca.
           </h1>
           <p className="text-background/70 text-lg max-w-lg mb-8">
-            Logotipo, paleta de cores, tipografia, manual da marca e aplicações — tudo criado do zero pra você parar de perder clientes por causa de uma marca amadora.
+            A identidade visual da sua empresa fala para o seu cliente o quanto você se importa com o seu negócio e se realmente vale a pena comprar a sua ideia. E aqui eu crio tudo pra você de forma profissional, mostrando nitidamente o valor do seu negócio.
           </p>
 
           <div className="flex items-center gap-5 mb-10">

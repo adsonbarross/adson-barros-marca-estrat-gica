@@ -14,7 +14,7 @@ const behanceProjects = [
 
 export function BehanceSection() {
   return (
-    <section id="portfolio" className="bg-background py-24 px-10 border-b border-border">
+    <section id="portfolio" className="bg-foreground py-24 px-10">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -24,9 +24,9 @@ export function BehanceSection() {
           className="text-center mb-14"
         >
           <p className="text-sm tracking-[0.2em] uppercase text-orange mb-2">Reconhecido no Behance</p>
-          <h2 className="text-4xl font-bold text-foreground mb-4">Identidades que já viraram referência</h2>
-          <p className="text-foreground/60 max-w-xl mx-auto">
-            Mais de <strong className="text-foreground">700 seguidores</strong>, <strong className="text-foreground">39,5 mil visualizações</strong> e <strong className="text-foreground">5,4 mil apreciações</strong> em projetos de identidade visual publicados no Behance.
+          <h2 className="text-4xl font-bold text-background mb-4">Identidades que já viraram referência</h2>
+          <p className="text-background/60 max-w-xl mx-auto">
+            Mais de <strong className="text-background">700 seguidores</strong>, <strong className="text-background">39,5 mil visualizações</strong> e <strong className="text-background">5,4 mil apreciações</strong> em projetos de identidade visual publicados no Behance.
           </p>
         </motion.div>
 
@@ -75,7 +75,7 @@ export function BehanceSection() {
             href={BEHANCE_LINK}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm tracking-widest uppercase text-foreground hover:text-orange transition-colors duration-300 underline underline-offset-4"
+            className="inline-flex items-center gap-2 text-sm tracking-widest uppercase text-background hover:text-orange transition-colors duration-300 underline underline-offset-4"
           >
             Ver portfólio completo no Behance
             <ExternalLink className="w-4 h-4" />

@@ -7,7 +7,7 @@ const WHATSAPP_LINK = "https://wa.me/message/6TDNDNOCGOXII1";
 
 export function AboutSection() {
   return (
-    <section id="sobre" className="bg-muted/40 overflow-hidden">
+    <section id="sobre" className="bg-background overflow-hidden">
       <div className="max-w-6xl mx-auto grid lg:grid-cols-2 min-w-0">
         {/* Text side */}
         <motion.div

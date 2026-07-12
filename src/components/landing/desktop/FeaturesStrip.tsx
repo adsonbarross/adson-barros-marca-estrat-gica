@@ -10,7 +10,7 @@ const steps = [
 
 export function FeaturesStrip() {
   return (
-    <section className="bg-foreground py-20 px-10">
+    <section className="bg-background py-20 px-10 border-b border-border">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -20,10 +20,10 @@ export function FeaturesStrip() {
           className="text-center mb-14"
         >
           <p className="text-sm tracking-[0.2em] uppercase text-orange mb-2">Como funciona</p>
-          <h2 className="text-4xl font-bold text-background">Do briefing à entrega, em até 30 dias</h2>
+          <h2 className="text-4xl font-bold text-foreground">Do briefing à entrega, em até 30 dias</h2>
         </motion.div>
 
-        <div className="grid grid-cols-4 gap-6">
+        <div className="grid grid-cols-4 gap-5">
           {steps.map((step, index) => (
             <motion.div
               key={step.title}
@@ -31,13 +31,15 @@ export function FeaturesStrip() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="text-left"
+              className="flex flex-col items-start gap-4 rounded-2xl border border-border bg-foreground/5 p-6 h-full"
             >
-              <div className="w-14 h-14 rounded-xl bg-background/5 border border-background/10 flex items-center justify-center mb-4">
+              <div className="w-14 h-14 rounded-xl bg-foreground/5 border border-border flex items-center justify-center">
                 <step.icon className="w-6 h-6 text-orange" />
               </div>
-              <h3 className="font-bold text-background text-lg mb-1">{step.title}</h3>
-              <p className="text-background/60 text-sm leading-relaxed">{step.description}</p>
+              <div>
+                <h3 className="font-bold text-foreground text-lg mb-1">{step.title}</h3>
+                <p className="text-foreground/60 text-sm leading-relaxed">{step.description}</p>
+              </div>
             </motion.div>
           ))}
         </div>

@@ -6,8 +6,6 @@ import { AboutSection as MobileAbout } from "@/components/landing/mobile/AboutSe
 import { PillarsSection as MobilePillars } from "@/components/landing/mobile/PillarsSection";
 import { FeaturesStrip as MobileFeatures } from "@/components/landing/mobile/FeaturesStrip";
 import { BehanceSection as MobileBehance } from "@/components/landing/mobile/BehanceSection";
-import { ProjectsSection as MobileProjects } from "@/components/landing/mobile/ProjectsSection";
-import { VideoSection as MobileVideo } from "@/components/landing/mobile/VideoSection";
 import { FooterSection as MobileFooter } from "@/components/landing/mobile/FooterSection";
 import { StickyCTA } from "@/components/landing/mobile/StickyCTA";
 
@@ -17,8 +15,6 @@ import { AboutSection as DesktopAbout } from "@/components/landing/desktop/About
 import { PillarsSection as DesktopPillars } from "@/components/landing/desktop/PillarsSection";
 import { FeaturesStrip as DesktopFeatures } from "@/components/landing/desktop/FeaturesStrip";
 import { BehanceSection as DesktopBehance } from "@/components/landing/desktop/BehanceSection";
-import { ProjectsSection as DesktopProjects } from "@/components/landing/desktop/ProjectsSection";
-import { VideoSection as DesktopVideo } from "@/components/landing/desktop/VideoSection";
 import { FooterSection as DesktopFooter } from "@/components/landing/desktop/FooterSection";
 import { FloatingWhatsApp } from "@/components/landing/FloatingWhatsApp";
 
@@ -31,8 +27,6 @@ const MobileLayout = () => (
       <MobilePillars />
       <MobileFeatures />
       <MobileBehance />
-      <MobileProjects />
-      <MobileVideo />
       <MobileFooter />
     </main>
     <StickyCTA />
@@ -48,8 +42,6 @@ const DesktopLayout = () => (
       <DesktopPillars />
       <DesktopFeatures />
       <DesktopBehance />
-      <DesktopProjects />
-      <DesktopVideo />
       <DesktopFooter />
     </main>
     <FloatingWhatsApp />
@@ -59,7 +51,6 @@ const DesktopLayout = () => (
 const Index = () => {
   const isMobile = useIsMobile();
 
-  // Avoid a flash of the wrong layout while the breakpoint is being detected
   if (isMobile === undefined) return null;
 
   return isMobile ? <MobileLayout /> : <DesktopLayout />;

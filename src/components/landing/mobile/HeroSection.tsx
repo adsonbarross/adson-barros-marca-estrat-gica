@@ -15,7 +15,7 @@ export function HeroSection() {
   return (
     <section className="bg-foreground">
       {/* Banner photo */}
-      <div className="relative w-full h-[58vh] sm:h-[65vh] lg:h-[75vh] max-h-[720px] overflow-hidden">
+      <div className="relative w-full h-[38vh] min-h-[260px] overflow-hidden">
         <motion.img
           initial={{ opacity: 0, scale: 1.05 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -24,52 +24,46 @@ export function HeroSection() {
           alt="Adson Barros - Especialista em identidade visual"
           className="absolute inset-0 w-full h-full object-cover object-top"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-foreground via-foreground/5 to-black/20" />
-
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="absolute bottom-6 sm:bottom-8 left-0 right-0 text-center px-5"
-        >
-          <p className="text-xs sm:text-sm tracking-[0.25em] uppercase text-orange">
-            Identidade Visual Profissional
-          </p>
-        </motion.div>
+        <div className="absolute inset-0 bg-gradient-to-t from-foreground via-foreground/0 to-black/10" />
       </div>
 
       {/* Headline + CTA */}
-      <div className="px-5 sm:px-8 md:px-10 py-10 sm:py-14 text-center max-w-2xl mx-auto">
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-3xl sm:text-4xl md:text-5xl font-bold text-background leading-tight tracking-tight mb-5"
+      <div className="px-5 pt-5 pb-8 text-center max-w-2xl mx-auto">
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-xs tracking-[0.25em] uppercase text-orange mb-3"
         >
-          Sua marca merece parecer tão boa quanto o seu trabalho.
+          Identidade Visual Profissional
+        </motion.p>
+        <motion.h1
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="text-2xl font-bold text-background leading-tight tracking-tight mb-3"
+        >
+          O sucesso do seu negócio é equivalente ao quanto você valoriza sua marca.
         </motion.h1>
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-background/70 text-base sm:text-lg mb-8"
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="text-background/70 text-sm mb-5"
         >
-          Logotipo, paleta de cores, tipografia, manual da marca e aplicações — tudo criado do zero pra você parar de perder clientes por causa de uma marca amadora.
+          A identidade visual da sua empresa fala para o seu cliente o quanto você se importa com o seu negócio e se realmente vale a pena comprar a sua ideia. E aqui eu crio tudo pra você de forma profissional, mostrando nitidamente o valor do seu negócio.
         </motion.p>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
         >
           <Button
             asChild
             variant="cta"
             size="xl"
-            className="w-full sm:w-auto whitespace-normal sm:whitespace-nowrap text-base sm:text-lg h-auto sm:h-14 py-3.5 sm:py-0 px-6 sm:px-10"
+            className="w-full whitespace-normal text-base h-auto py-3.5 px-6"
           >
             <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
               <MessageCircle className="w-5 h-5 shrink-0" fill="currentColor" />
@@ -77,13 +71,9 @@ export function HeroSection() {
             </a>
           </Button>
 
-          {/* Trust badges */}
-          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 mt-6">
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 mt-5">
             {badges.map((badge) => (
-              <span
-                key={badge}
-                className="flex items-center gap-1.5 text-background/60 text-xs sm:text-sm"
-              >
+              <span key={badge} className="flex items-center gap-1.5 text-background/60 text-xs">
                 <Check className="w-3.5 h-3.5 text-orange shrink-0" />
                 {badge}
               </span>
