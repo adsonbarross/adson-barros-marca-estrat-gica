@@ -28,7 +28,7 @@ export function HeroSection() {
       </div>
 
       {/* Headline + CTA */}
-      <div className="px-5 pt-4 pb-6 text-center max-w-2xl mx-auto">
+      <div className="px-5 -mt-8 pt-0 pb-6 text-center max-w-2xl mx-auto relative z-10">
         <motion.p
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}

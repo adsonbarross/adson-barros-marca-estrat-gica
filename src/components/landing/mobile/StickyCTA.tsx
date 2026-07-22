@@ -23,7 +23,7 @@ export function StickyCTA() {
         className="flex-shrink-0 flex items-center gap-2 bg-orange hover:bg-orange-hover text-primary-foreground font-semibold tracking-wide rounded-lg px-4 py-2.5 text-sm transition-colors duration-300"
       >
         <MessageCircle className="w-4 h-4" fill="currentColor" />
-        Quero a minha
+        Fale comigo
       </a>
     </motion.div>
   );
