@@ -1,14 +1,20 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { MessageCircle, Star } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 import adsonPhoto from "@/assets/adson-photo-about.jpg";
 
 const WHATSAPP_LINK = "https://wa.me/message/6TDNDNOCGOXII1";
 
+const proofs = [
+  "120+ marcas desenvolvidas",
+  "6 anos posicionando empresas",
+  "Diversos segmentos atendidos",
+];
+
 export function HeroSection() {
   return (
-    <section className="relative bg-foreground px-10 pt-36 pb-20 overflow-hidden">
-      <div className="max-w-6xl mx-auto grid grid-cols-2 gap-16 items-center">
+    <section className="relative bg-foreground px-10 pt-40 pb-24 overflow-hidden">
+      <div className="max-w-6xl mx-auto grid grid-cols-2 gap-20 items-center">
         {/* Text side */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -16,45 +22,46 @@ export function HeroSection() {
           transition={{ duration: 0.6 }}
           className="min-w-0 text-left"
         >
-          <p className="text-sm font-semibold tracking-[0.2em] uppercase text-orange mb-4">
-            Identidade Visual Profissional
-          </p>
-          <div className="w-12 h-1 bg-orange rounded-full mb-5" />
-          <h1 className="text-5xl font-extrabold text-background leading-[1.1] tracking-tight mb-6">
-            O sucesso do seu negócio é equivalente ao <span className="text-orange">quanto você valoriza sua marca</span>.
-          </h1>
-          <p className="text-background/70 text-lg max-w-lg mb-8">
-            A identidade visual da sua empresa fala para o seu cliente <strong className="text-background/90 font-semibold">o quanto você se importa com o seu negócio</strong> e se realmente vale a pena comprar a sua ideia. Aqui eu crio tudo pra você de forma profissional, mostrando nitidamente o valor do seu negócio.
+          <p className="text-sm font-semibold tracking-[0.3em] uppercase text-orange mb-6">
+            Sistema de Identidade Visual
           </p>
 
-          <div className="flex items-center gap-5 mb-10">
-            <Button asChild variant="cta" size="xl">
-              <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
-                <MessageCircle className="w-5 h-5" fill="currentColor" />
-                Quero minha identidade visual
-              </a>
-            </Button>
-            <a
-              href="#portfolio"
-              className="text-sm tracking-widest uppercase text-background/70 hover:text-orange transition-colors duration-300 underline underline-offset-4"
-            >
-              Ver portfólio
-            </a>
+          <h1 className="text-5xl font-extrabold text-background leading-[1.15] tracking-tight mb-7">
+            Sua empresa não tem um problema de vendas.<br />
+            Tem um problema de <span className="text-orange">percepção</span>.
+          </h1>
+
+          <p className="text-background/65 text-lg max-w-md mb-10 leading-relaxed">
+            Desenvolvo Sistemas de Identidade Visual para empresas que querem ser vistas — e cobradas — pelo valor que realmente entregam.
+          </p>
+
+          <div className="flex items-center gap-6 mb-2">
+            <div>
+              <Button asChild variant="cta" size="xl">
+                <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
+                  <MessageCircle className="w-5 h-5" fill="currentColor" />
+                  Solicitar diagnóstico da minha marca
+                </a>
+              </Button>
+              <p className="text-background/40 text-xs mt-2.5">
+                Resposta pessoal em poucas horas, direto no WhatsApp.
+              </p>
+            </div>
           </div>
 
-          <div className="flex items-center gap-8">
-            <div className="flex items-center gap-1.5">
-              <Star className="w-4 h-4 text-orange" fill="currentColor" />
-              <span className="text-background/80 text-sm">
-                <strong className="text-background">700+</strong> seguidores no Behance
+          <a
+            href="#portfolio"
+            className="inline-block mt-4 mb-12 text-sm tracking-widest uppercase text-background/60 hover:text-orange transition-colors duration-300 underline underline-offset-4"
+          >
+            Ver marcas que já passaram por esse processo
+          </a>
+
+          <div className="flex items-center gap-8 pt-8 border-t border-background/10">
+            {proofs.map((proof) => (
+              <span key={proof} className="text-background/45 text-sm">
+                {proof}
               </span>
-            </div>
-            <div className="text-background/80 text-sm">
-              <strong className="text-background">39,5 mil+</strong> visualizações
-            </div>
-            <div className="text-background/80 text-sm">
-              <strong className="text-background">5,4 mil+</strong> apreciações
-            </div>
+            ))}
           </div>
         </motion.div>
 
