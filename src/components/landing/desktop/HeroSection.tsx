@@ -7,7 +7,7 @@ const WHATSAPP_LINK = "https://wa.me/message/6TDNDNOCGOXII1";
 
 export function HeroSection() {
   return (
-    <section className="relative bg-foreground px-10 py-20 overflow-hidden">
+    <section className="relative bg-foreground px-10 pt-36 pb-20 overflow-hidden">
       <div className="max-w-6xl mx-auto grid grid-cols-2 gap-16 items-center">
         {/* Text side */}
         <motion.div
