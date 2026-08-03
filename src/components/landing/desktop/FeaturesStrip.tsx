@@ -19,8 +19,9 @@ export function FeaturesStrip() {
           transition={{ duration: 0.6 }}
           className="text-center mb-14"
         >
-          <p className="text-sm tracking-[0.2em] uppercase text-orange mb-2">Como funciona</p>
-          <h2 className="text-4xl font-bold text-foreground">Do briefing à entrega, em até 30 dias</h2>
+          <p className="text-sm font-semibold tracking-[0.2em] uppercase text-orange mb-2">Como funciona</p>
+          <div className="w-12 h-1 bg-orange rounded-full mx-auto mb-5" />
+          <h2 className="text-4xl font-extrabold text-foreground leading-tight tracking-tight">Do briefing à entrega, em até 30 dias</h2>
         </motion.div>
 
         <div className="grid grid-cols-4 gap-5">

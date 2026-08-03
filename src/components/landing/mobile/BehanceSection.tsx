@@ -14,7 +14,7 @@ const behanceProjects = [
 
 export function BehanceSection() {
   return (
-    <section id="portfolio" className="bg-foreground py-14 px-5">
+    <section id="portfolio" className="bg-foreground py-14 px-5 scroll-mt-24">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -23,8 +23,9 @@ export function BehanceSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-10"
         >
-          <p className="text-xs tracking-[0.2em] uppercase text-orange mb-2">Reconhecido no Behance</p>
-          <h2 className="text-2xl font-bold text-background mb-4">Identidades que já viraram referência</h2>
+          <p className="text-xs font-semibold tracking-[0.2em] uppercase text-orange mb-2">Reconhecido no Behance</p>
+          <div className="w-10 h-1 bg-orange rounded-full mx-auto mb-4" />
+          <h2 className="text-2xl font-extrabold text-background leading-tight tracking-tight mb-4">Identidades que já viraram referência</h2>
           <p className="text-background/60 text-sm">
             Mais de <strong className="text-background">700 seguidores</strong>, <strong className="text-background">39,5 mil visualizações</strong> e <strong className="text-background">5,4 mil apreciações</strong> no Behance.
           </p>

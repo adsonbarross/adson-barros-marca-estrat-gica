@@ -33,17 +33,23 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-[10px] tracking-[0.25em] uppercase text-orange mb-2"
+          className="text-[10px] font-semibold tracking-[0.25em] uppercase text-orange mb-2"
         >
           Identidade Visual Profissional
         </motion.p>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.05 }}
+          className="w-8 h-1 bg-orange rounded-full mx-auto mb-3"
+        />
         <motion.h1
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-lg font-bold text-background leading-tight tracking-tight mb-2"
+          className="text-xl font-extrabold text-background leading-[1.15] tracking-tight mb-3"
         >
-          O sucesso do seu negócio é equivalente ao quanto você valoriza sua marca.
+          O sucesso do seu negócio é equivalente ao <span className="text-orange">quanto você valoriza sua marca</span>.
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 15 }}
@@ -51,7 +57,7 @@ export function HeroSection() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-background/70 text-xs mb-4 leading-relaxed"
         >
-          A identidade visual da sua empresa fala para o seu cliente o quanto você se importa com o seu negócio e se realmente vale a pena comprar a sua ideia. E aqui eu crio tudo pra você de forma profissional, mostrando nitidamente o valor do seu negócio.
+          A identidade visual da sua empresa fala para o seu cliente <strong className="text-background/90 font-semibold">o quanto você se importa com o seu negócio</strong> e se realmente vale a pena comprar a sua ideia. Aqui eu crio tudo pra você de forma profissional, mostrando nitidamente o valor do seu negócio.
         </motion.p>
 
         <motion.div

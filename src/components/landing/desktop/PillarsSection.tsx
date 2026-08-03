@@ -1,28 +1,31 @@
 import { motion } from "framer-motion";
-import { PenTool, Palette, Type, BookOpen, Layers } from "lucide-react";
+import { ShieldCheck, Brain, TrendingUp, Repeat, Target } from "lucide-react";
 
 const items = [
-  { icon: PenTool, title: "Logotipo", description: "Marca única, com versões para cada uso." },
-  { icon: Palette, title: "Paleta de cores", description: "Cores pensadas pra transmitir a personalidade certa." },
-  { icon: Type, title: "Tipografia", description: "Fontes que dão consistência em qualquer peça." },
-  { icon: BookOpen, title: "Manual da marca", description: "Guia completo de uso pra sua marca não perder o padrão." },
-  { icon: Layers, title: "Aplicações", description: "Cartão de visita, redes sociais e outras peças prontas." },
+  { icon: ShieldCheck, title: "Mais credibilidade", description: "Seu cliente confia mais em uma marca com aparência profissional." },
+  { icon: Brain, title: "Fácil de lembrar", description: "Uma identidade forte fica na cabeça do seu cliente na hora certa." },
+  { icon: TrendingUp, title: "Maior percepção de valor", description: "Marcas bem construídas justificam preços mais altos." },
+  { icon: Repeat, title: "Consistência em todo lugar", description: "Redes sociais, embalagem e site com a mesma cara — profissional." },
+  { icon: Target, title: "Se destaca da concorrência", description: "Diferencia seu negócio de quem ainda não investiu na própria marca." },
 ];
 
 export function PillarsSection() {
   return (
-    <section id="incluso" className="bg-foreground py-20 px-10">
+    <section id="incluso" className="bg-foreground py-24 px-10 scroll-mt-24">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-14"
+          className="text-center mb-16"
         >
-          <p className="text-sm tracking-[0.2em] uppercase text-orange mb-2">O que está incluso</p>
-          <h2 className="text-4xl font-bold text-background">
-            Tudo que sua marca precisa pra ser levada a sério
+          <p className="text-sm font-semibold tracking-[0.2em] uppercase text-orange mb-3">
+            Vantagens de uma identidade visual
+          </p>
+          <div className="w-12 h-1 bg-orange rounded-full mx-auto mb-5" />
+          <h2 className="text-4xl font-extrabold text-background leading-tight tracking-tight max-w-2xl mx-auto">
+            Por que isso muda o jogo pro seu negócio
           </h2>
         </motion.div>
 

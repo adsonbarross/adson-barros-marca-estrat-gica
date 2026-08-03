@@ -7,7 +7,7 @@ const WHATSAPP_LINK = "https://wa.me/message/6TDNDNOCGOXII1";
 
 export function AboutSection() {
   return (
-    <section id="sobre" className="bg-background overflow-hidden">
+    <section id="sobre" className="bg-background overflow-hidden scroll-mt-24">
       <div className="max-w-6xl mx-auto grid lg:grid-cols-2 min-w-0">
         {/* Text side */}
         <motion.div
@@ -17,10 +17,11 @@ export function AboutSection() {
           transition={{ duration: 0.7 }}
           className="min-w-0 flex flex-col justify-center items-start text-left px-6 sm:px-10 md:px-16 py-14 md:py-20 order-2 lg:order-1"
         >
-          <p className="text-xs sm:text-sm tracking-[0.2em] uppercase text-orange mb-3">
+          <p className="text-xs sm:text-sm font-semibold tracking-[0.2em] uppercase text-orange mb-3">
             Sobre mim
           </p>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground leading-tight mb-6">
+          <div className="w-10 h-1 bg-orange rounded-full mb-4" />
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-foreground leading-[1.1] tracking-tight mb-6">
             +120 identidades <br /> entregues desde <br /> 2020.
           </h2>
 
@@ -32,7 +33,7 @@ export function AboutSection() {
               Já são <strong className="text-foreground">mais de 120 projetos entregues</strong>, e essa evolução (de R$70 a R$3 mil por trabalho) reflete algo simples: <span className="text-orange font-semibold">entrego qualidade, cumpro prazo e entendo do mercado</span> em que meus clientes atuam.
             </p>
             <p>
-              Meu objetivo não é só te dar uma marca bonita — é te ajudar a ter um negócio mais organizado, com processos claros e que lucra mais graças à percepção de valor que uma boa identidade cria.
+              Meu objetivo não é só te dar uma marca bonita — é te ajudar a ter um negócio mais organizado, com processos claros e que <strong className="text-foreground font-bold">lucra mais</strong> graças à percepção de valor que uma boa identidade cria.
             </p>
           </div>
 

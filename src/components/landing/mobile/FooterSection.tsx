@@ -14,7 +14,7 @@ const socials = [
 
 export function FooterSection() {
   return (
-    <footer id="contato" className="bg-foreground px-5 py-14">
+    <footer id="contato" className="bg-foreground px-5 py-14 scroll-mt-24">
       <div className="max-w-6xl mx-auto flex flex-col items-center text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -23,8 +23,9 @@ export function FooterSection() {
           transition={{ duration: 0.6 }}
           className="mb-8"
         >
-          <p className="text-xs tracking-[0.2em] uppercase text-orange mb-2">Você precisa saber disso</p>
-          <h2 className="text-2xl font-bold text-background">Vamos criar sua marca?</h2>
+          <p className="text-xs font-semibold tracking-[0.2em] uppercase text-orange mb-2">Você precisa saber disso</p>
+          <div className="w-10 h-1 bg-orange rounded-full mx-auto mb-3" />
+          <h2 className="text-2xl font-extrabold text-background tracking-tight">Vamos criar sua marca?</h2>
         </motion.div>
 
         <motion.div

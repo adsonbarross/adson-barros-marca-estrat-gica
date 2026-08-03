@@ -14,7 +14,7 @@ const socials = [
 
 export function FooterSection() {
   return (
-    <footer id="contato" className="bg-foreground px-10 py-24">
+    <footer id="contato" className="bg-foreground px-10 py-24 scroll-mt-24">
       <div className="max-w-6xl mx-auto grid grid-cols-2 gap-16 items-center">
         <motion.div
           initial={{ opacity: 0, x: -30 }}
@@ -23,8 +23,9 @@ export function FooterSection() {
           transition={{ duration: 0.7 }}
           className="text-left"
         >
-          <p className="text-sm tracking-[0.2em] uppercase text-orange mb-3">Você precisa saber disso</p>
-          <h2 className="text-5xl font-bold text-background mb-6">Vamos criar sua marca?</h2>
+          <p className="text-sm font-semibold tracking-[0.2em] uppercase text-orange mb-3">Você precisa saber disso</p>
+          <div className="w-12 h-1 bg-orange rounded-full mb-5" />
+          <h2 className="text-5xl font-extrabold text-background leading-[1.1] tracking-tight mb-6">Vamos criar sua marca?</h2>
           <p className="text-background/70 text-lg mb-8 max-w-md">
             Me chama no WhatsApp ou acompanha meu trabalho nas redes — e assista ao vídeo pra entender como eu penso identidade visual.
           </p>

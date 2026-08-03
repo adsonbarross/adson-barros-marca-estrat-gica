@@ -16,14 +16,15 @@ export function HeroSection() {
           transition={{ duration: 0.6 }}
           className="min-w-0 text-left"
         >
-          <p className="text-sm tracking-[0.2em] uppercase text-orange mb-4">
+          <p className="text-sm font-semibold tracking-[0.2em] uppercase text-orange mb-4">
             Identidade Visual Profissional
           </p>
-          <h1 className="text-5xl font-bold text-background leading-tight tracking-tight mb-6">
-            O sucesso do seu negócio é equivalente ao quanto você valoriza sua marca.
+          <div className="w-12 h-1 bg-orange rounded-full mb-5" />
+          <h1 className="text-5xl font-extrabold text-background leading-[1.1] tracking-tight mb-6">
+            O sucesso do seu negócio é equivalente ao <span className="text-orange">quanto você valoriza sua marca</span>.
           </h1>
           <p className="text-background/70 text-lg max-w-lg mb-8">
-            A identidade visual da sua empresa fala para o seu cliente o quanto você se importa com o seu negócio e se realmente vale a pena comprar a sua ideia. E aqui eu crio tudo pra você de forma profissional, mostrando nitidamente o valor do seu negócio.
+            A identidade visual da sua empresa fala para o seu cliente <strong className="text-background/90 font-semibold">o quanto você se importa com o seu negócio</strong> e se realmente vale a pena comprar a sua ideia. Aqui eu crio tudo pra você de forma profissional, mostrando nitidamente o valor do seu negócio.
           </p>
 
           <div className="flex items-center gap-5 mb-10">
