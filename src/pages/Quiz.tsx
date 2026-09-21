@@ -6,74 +6,136 @@ import logoAdson from "@/assets/logo-adson.png";
 
 const KIWIFY_LINK = "https://pay.kiwify.com.br/M2G61GL";
 
+type Segment = { text: string; style?: "soft" | "strong" };
 type Question = {
   pillar: string;
-  before: string;
-  highlight: string;
-  after: string;
+  parts: Segment[];
   options: string[];
 };
 
 const questions: Question[] = [
   {
     pillar: "Posicionamento",
-    before: "Se um cliente parar 5 segundos no seu Instagram, ele entende na hora por que sua empresa é ",
-    highlight: "diferente das outras",
-    after: "?",
+    parts: [
+      { text: "Se um cliente parar 5 segundos no seu Instagram, " },
+      { text: "ele entende na hora", style: "soft" },
+      { text: " por que sua empresa é " },
+      { text: "diferente das outras", style: "strong" },
+      { text: "?" },
+    ],
     options: ["Sim, é nítido", "Ele até entende, mas demora", "Não, fica tudo meio parecido"],
   },
   {
     pillar: "Posicionamento",
-    before: "Seus preços já foram chamados de \"caros\" por alguém que ",
-    highlight: "nem tinha entendido direito",
-    after: " o que você entrega?",
+    parts: [
+      { text: "Seus preços já foram chamados de " },
+      { text: "\"caros\"", style: "soft" },
+      { text: " por alguém que " },
+      { text: "nem tinha entendido direito", style: "strong" },
+      { text: " o que você entrega?" },
+    ],
     options: ["Raramente acontece", "De vez em quando", "Isso é quase toda semana"],
   },
   {
     pillar: "Posicionamento",
-    before: "Sua marca parece maior e mais séria do que sua empresa realmente é hoje — ou ",
-    highlight: "parece menor",
-    after: "?",
+    parts: [
+      { text: "Sua marca parece maior e mais séria do que sua empresa " },
+      { text: "realmente é hoje", style: "soft" },
+      { text: " — ou " },
+      { text: "parece menor", style: "strong" },
+      { text: "?" },
+    ],
     options: ["Parece maior, isso me favorece", "Parece do tamanho real", "Parece menor, e isso me atrapalha"],
   },
   {
     pillar: "Captação",
-    before: "Se você parasse de correr atrás de clientes hoje, sua empresa continuaria recebendo gente nova ",
-    highlight: "sozinha",
-    after: "?",
+    parts: [
+      { text: "Se você parasse de correr atrás de clientes hoje, " },
+      { text: "sua empresa continuaria recebendo gente nova", style: "soft" },
+      { text: " " },
+      { text: "sozinha", style: "strong" },
+      { text: "?" },
+    ],
     options: ["Sim, tenho canais que trazem sozinho", "Talvez, mas cairia bastante", "Não, pararia praticamente tudo"],
   },
   {
     pillar: "Captação",
-    before: "Você sabe, com certeza, ",
-    highlight: "quanto custa",
-    after: " pra sua empresa conquistar um cliente novo?",
+    parts: [
+      { text: "Você sabe, com certeza, " },
+      { text: "quanto custa", style: "strong" },
+      { text: " pra sua empresa " },
+      { text: "conquistar um cliente novo", style: "soft" },
+      { text: "?" },
+    ],
     options: ["Sim, sei exatamente", "Tenho uma ideia", "Não faço a menor ideia"],
   },
   {
     pillar: "Captação",
-    before: "Se um cliente ",
-    highlight: "em dúvida",
-    after: " entrasse agora no seu Google Meu Negócio e nas suas redes sociais, o que ele encontraria?",
+    parts: [
+      { text: "Se um cliente " },
+      { text: "em dúvida", style: "strong" },
+      { text: " entrasse agora no seu Google Meu Negócio e nas suas redes sociais, " },
+      { text: "o que ele encontraria", style: "soft" },
+      { text: "?" },
+    ],
     options: ["Um perfil bem cuidado, que passa confiança", "Algo ativo, mas meio esquecido", "Nem saberia dizer se a empresa ainda está ativa"],
   },
   {
     pillar: "Vendas",
-    before: "De cada 10 pessoas que pedem orçamento, ",
-    highlight: "quantas realmente fecham",
-    after: " com você?",
+    parts: [
+      { text: "De cada 10 pessoas que pedem orçamento, " },
+      { text: "quantas realmente fecham", style: "strong" },
+      { text: " " },
+      { text: "com você", style: "soft" },
+      { text: "?" },
+    ],
     options: ["7 ou mais", "Entre 4 e 6", "3 ou menos, e nem sei bem o motivo"],
   },
   {
     pillar: "Vendas",
-    before: "Quando um cliente some depois do orçamento, você sabe exatamente por quê — ou ",
-    highlight: "simplesmente perde ele",
-    after: "?",
+    parts: [
+      { text: "Quando um cliente some depois do orçamento, " },
+      { text: "você sabe exatamente por quê", style: "soft" },
+      { text: " — ou " },
+      { text: "simplesmente perde ele", style: "strong" },
+      { text: "?" },
+    ],
     options: ["Recupero a maioria", "Recupero às vezes", "Praticamente sempre perco, sem entender o motivo"],
   },
 ];
 
 const TOTAL_STEPS = questions.length;
+
+function RenderParts({ parts }: { parts: Segment[] }) {
+  return (
+    <>
+      {parts.map((part, i) => {
+        if (part.style === "strong") {
+          return (
+            <span key={i} className="font-extrabold text-orange">
+              {part.text}
+            </span>
+          );
+        }
+        if (part.style === "soft") {
+          return (
+            <span
+              key={i}
+              className="font-semibold text-white underline decoration-orange/50 decoration-2 underline-offset-4"
+            >
+              {part.text}
+            </span>
+          );
+        }
+        return (
+          <span key={i} className="font-normal text-white/60">
+            {part.text}
+          </span>
+        );
+      })}
+    </>
+  );
+}
 
 const Quiz = () => {
   const [step, setStep] = useState(0); // 0..TOTAL_STEPS-1 = questions, TOTAL_STEPS = result
@@ -140,10 +202,8 @@ const Quiz = () => {
                 <p className="text-[10px] font-medium tracking-[0.25em] uppercase text-orange mb-4 text-center">
                   {questions[step].pillar}
                 </p>
-                <h1 className="text-xl sm:text-2xl font-medium text-white/90 leading-snug tracking-tight text-center mb-8">
-                  {questions[step].before}
-                  <span className="font-extrabold text-white">{questions[step].highlight}</span>
-                  {questions[step].after}
+                <h1 className="text-xl sm:text-2xl leading-snug tracking-tight text-center mb-8">
+                  <RenderParts parts={questions[step].parts} />
                 </h1>
 
                 <div className="flex flex-col gap-3">
@@ -185,11 +245,21 @@ const Quiz = () => {
                 </p>
                 <div className="w-10 h-1 bg-orange rounded-full mx-auto mb-6" />
 
-                <h1 className="text-2xl sm:text-3xl font-medium text-white/90 leading-tight tracking-tight mb-5">
-                  Existe um limite invisível <span className="font-extrabold text-white">travando o crescimento</span> da sua empresa.
+                <h1 className="text-2xl sm:text-3xl leading-tight tracking-tight mb-5">
+                  <span className="font-semibold text-white underline decoration-orange/50 decoration-2 underline-offset-4">
+                    Existe um limite invisível
+                  </span>
+                  <span className="font-normal text-white/60"> </span>
+                  <span className="font-extrabold text-orange">travando o crescimento</span>
+                  <span className="font-normal text-white/60"> da sua empresa.</span>
                 </h1>
                 <p className="text-white/60 text-sm sm:text-base leading-relaxed mb-8 max-w-sm mx-auto">
-                  Descubra exatamente onde ele está nos 3 pilares do sucesso — Posicionamento, Captação e Vendas — por apenas <strong className="font-extrabold text-white">R$97</strong>.
+                  Descubra exatamente onde ele está nos{" "}
+                  <span className="font-semibold text-white underline decoration-orange/50 decoration-2 underline-offset-4">
+                    3 pilares do sucesso
+                  </span>{" "}
+                  — Posicionamento, Captação e Vendas — por apenas{" "}
+                  <span className="font-extrabold text-orange">R$97</span>.
                 </p>
 
                 <Button
