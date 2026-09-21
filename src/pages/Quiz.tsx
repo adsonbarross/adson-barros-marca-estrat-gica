@@ -40,8 +40,8 @@ const questions: Question[] = [
   },
   {
     pillar: "Captação",
-    question: "Um cliente em dúvida consegue confiar em você só de ver seu Google Meu Negócio e redes sociais?",
-    options: ["Sim, bem cuidados", "Estão, mas meio esquecidos", "Nem lembro a última vez que atualizei"],
+    question: "Se um cliente em dúvida entrasse agora no seu Google Meu Negócio e nas suas redes sociais, o que ele encontraria?",
+    options: ["Um perfil bem cuidado, que passa confiança", "Algo ativo, mas meio esquecido", "Nem saberia dizer se a empresa ainda está ativa"],
   },
   {
     pillar: "Vendas",
