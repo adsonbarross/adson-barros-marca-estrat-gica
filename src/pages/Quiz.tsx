@@ -8,49 +8,67 @@ const KIWIFY_LINK = "https://pay.kiwify.com.br/M2G61GL";
 
 type Question = {
   pillar: string;
-  question: string;
+  before: string;
+  highlight: string;
+  after: string;
   options: string[];
 };
 
 const questions: Question[] = [
   {
     pillar: "Posicionamento",
-    question: "Se um cliente parar 5 segundos no seu Instagram, ele entende na hora por que sua empresa é diferente das outras?",
+    before: "Se um cliente parar 5 segundos no seu Instagram, ele entende na hora por que sua empresa é ",
+    highlight: "diferente das outras",
+    after: "?",
     options: ["Sim, é nítido", "Ele até entende, mas demora", "Não, fica tudo meio parecido"],
   },
   {
     pillar: "Posicionamento",
-    question: "Seus preços já foram chamados de \"caros\" por alguém que nem tinha entendido direito o que você entrega?",
+    before: "Seus preços já foram chamados de \"caros\" por alguém que ",
+    highlight: "nem tinha entendido direito",
+    after: " o que você entrega?",
     options: ["Raramente acontece", "De vez em quando", "Isso é quase toda semana"],
   },
   {
     pillar: "Posicionamento",
-    question: "Sua marca parece maior e mais séria do que sua empresa realmente é hoje — ou parece menor?",
+    before: "Sua marca parece maior e mais séria do que sua empresa realmente é hoje — ou ",
+    highlight: "parece menor",
+    after: "?",
     options: ["Parece maior, isso me favorece", "Parece do tamanho real", "Parece menor, e isso me atrapalha"],
   },
   {
     pillar: "Captação",
-    question: "Se você parasse de correr atrás de clientes hoje, sua empresa continuaria recebendo gente nova sozinha?",
+    before: "Se você parasse de correr atrás de clientes hoje, sua empresa continuaria recebendo gente nova ",
+    highlight: "sozinha",
+    after: "?",
     options: ["Sim, tenho canais que trazem sozinho", "Talvez, mas cairia bastante", "Não, pararia praticamente tudo"],
   },
   {
     pillar: "Captação",
-    question: "Você sabe, com certeza, quanto custa pra sua empresa conquistar um cliente novo?",
+    before: "Você sabe, com certeza, ",
+    highlight: "quanto custa",
+    after: " pra sua empresa conquistar um cliente novo?",
     options: ["Sim, sei exatamente", "Tenho uma ideia", "Não faço a menor ideia"],
   },
   {
     pillar: "Captação",
-    question: "Se um cliente em dúvida entrasse agora no seu Google Meu Negócio e nas suas redes sociais, o que ele encontraria?",
+    before: "Se um cliente ",
+    highlight: "em dúvida",
+    after: " entrasse agora no seu Google Meu Negócio e nas suas redes sociais, o que ele encontraria?",
     options: ["Um perfil bem cuidado, que passa confiança", "Algo ativo, mas meio esquecido", "Nem saberia dizer se a empresa ainda está ativa"],
   },
   {
     pillar: "Vendas",
-    question: "De cada 10 pessoas que pedem orçamento, quantas realmente fecham com você?",
+    before: "De cada 10 pessoas que pedem orçamento, ",
+    highlight: "quantas realmente fecham",
+    after: " com você?",
     options: ["7 ou mais", "Entre 4 e 6", "3 ou menos, e nem sei bem o motivo"],
   },
   {
     pillar: "Vendas",
-    question: "Quando um cliente some depois do orçamento, você sabe exatamente por quê — ou simplesmente perde ele?",
+    before: "Quando um cliente some depois do orçamento, você sabe exatamente por quê — ou ",
+    highlight: "simplesmente perde ele",
+    after: "?",
     options: ["Recupero a maioria", "Recupero às vezes", "Praticamente sempre perco, sem entender o motivo"],
   },
 ];
@@ -79,7 +97,7 @@ const Quiz = () => {
   };
 
   return (
-    <div className="min-h-screen bg-foreground flex flex-col">
+    <div className="min-h-screen bg-black flex flex-col">
       {/* Header */}
       <header className="w-full px-5 sm:px-8 pt-6 sm:pt-8 pb-4 flex flex-col items-center gap-5">
         <img
@@ -92,7 +110,7 @@ const Quiz = () => {
 
         {!isResult && (
           <div className="w-full max-w-md">
-            <div className="h-1.5 w-full rounded-full bg-background/10 overflow-hidden">
+            <div className="h-1.5 w-full rounded-full bg-white/10 overflow-hidden">
               <motion.div
                 className="h-full bg-orange rounded-full"
                 initial={{ width: 0 }}
@@ -100,7 +118,7 @@ const Quiz = () => {
                 transition={{ duration: 0.4, ease: "easeOut" }}
               />
             </div>
-            <p className="text-background/40 text-[11px] tracking-widest uppercase mt-2 text-center">
+            <p className="text-white/40 text-[11px] font-medium tracking-widest uppercase mt-2 text-center">
               Pergunta {step + 1} de {TOTAL_STEPS}
             </p>
           </div>
@@ -119,11 +137,13 @@ const Quiz = () => {
                 exit={{ opacity: 0, x: -24 }}
                 transition={{ duration: 0.3 }}
               >
-                <p className="text-[10px] font-semibold tracking-[0.25em] uppercase text-orange mb-4 text-center">
+                <p className="text-[10px] font-medium tracking-[0.25em] uppercase text-orange mb-4 text-center">
                   {questions[step].pillar}
                 </p>
-                <h1 className="text-xl sm:text-2xl font-extrabold text-background leading-snug tracking-tight text-center mb-8">
-                  {questions[step].question}
+                <h1 className="text-xl sm:text-2xl font-medium text-white/90 leading-snug tracking-tight text-center mb-8">
+                  {questions[step].before}
+                  <span className="font-extrabold text-white">{questions[step].highlight}</span>
+                  {questions[step].after}
                 </h1>
 
                 <div className="flex flex-col gap-3">
@@ -131,10 +151,10 @@ const Quiz = () => {
                     <button
                       key={option}
                       onClick={() => selectAnswer(i)}
-                      className={`text-left rounded-2xl border px-5 py-4 text-sm sm:text-base transition-colors duration-200 ${
+                      className={`text-left rounded-2xl border px-5 py-4 text-sm sm:text-base font-medium transition-colors duration-200 ${
                         answers[step] === i
-                          ? "border-orange bg-orange/10 text-background"
-                          : "border-background/15 bg-background/5 text-background/85 hover:border-orange/50 hover:bg-background/10"
+                          ? "border-orange bg-orange/10 text-white"
+                          : "border-white/15 bg-white/5 text-white/80 hover:border-orange/50 hover:bg-white/10"
                       }`}
                     >
                       {option}
@@ -145,7 +165,7 @@ const Quiz = () => {
                 {step > 0 && (
                   <button
                     onClick={goBack}
-                    className="flex items-center gap-1.5 text-background/40 hover:text-background/70 text-xs tracking-widest uppercase mt-8 mx-auto transition-colors duration-200"
+                    className="flex items-center gap-1.5 text-white/40 hover:text-white/70 text-xs font-medium tracking-widest uppercase mt-8 mx-auto transition-colors duration-200"
                   >
                     <ArrowLeft className="w-3.5 h-3.5" />
                     Voltar
@@ -160,16 +180,16 @@ const Quiz = () => {
                 transition={{ duration: 0.5 }}
                 className="text-center"
               >
-                <p className="text-[10px] font-semibold tracking-[0.25em] uppercase text-orange mb-4">
+                <p className="text-[10px] font-medium tracking-[0.25em] uppercase text-orange mb-4">
                   Seu diagnóstico está pronto
                 </p>
                 <div className="w-10 h-1 bg-orange rounded-full mx-auto mb-6" />
 
-                <h1 className="text-2xl sm:text-3xl font-extrabold text-background leading-tight tracking-tight mb-5">
-                  Existe um limite invisível travando o crescimento da sua empresa.
+                <h1 className="text-2xl sm:text-3xl font-medium text-white/90 leading-tight tracking-tight mb-5">
+                  Existe um limite invisível <span className="font-extrabold text-white">travando o crescimento</span> da sua empresa.
                 </h1>
-                <p className="text-background/65 text-sm sm:text-base leading-relaxed mb-8 max-w-sm mx-auto">
-                  Descubra exatamente onde ele está nos 3 pilares do sucesso — Posicionamento, Captação e Vendas — por apenas <strong className="text-background">R$97</strong>.
+                <p className="text-white/60 text-sm sm:text-base leading-relaxed mb-8 max-w-sm mx-auto">
+                  Descubra exatamente onde ele está nos 3 pilares do sucesso — Posicionamento, Captação e Vendas — por apenas <strong className="font-extrabold text-white">R$97</strong>.
                 </p>
 
                 <Button
@@ -184,7 +204,7 @@ const Quiz = () => {
                   </a>
                 </Button>
 
-                <p className="flex items-center justify-center gap-1.5 text-background/35 text-[11px] mt-4">
+                <p className="flex items-center justify-center gap-1.5 text-white/35 text-[11px] font-medium mt-4">
                   <Lock className="w-3 h-3" />
                   Pagamento seguro processado pela Kiwify
                 </p>
