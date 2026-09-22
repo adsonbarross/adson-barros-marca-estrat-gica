@@ -254,11 +254,15 @@ const Quiz = () => {
                   <span className="font-normal text-white/60"> da sua empresa.</span>
                 </h1>
                 <p className="text-white/60 text-sm sm:text-base leading-relaxed mb-8 max-w-sm mx-auto">
-                  Descubra exatamente onde ele está nos{" "}
+                  Faça um{" "}
                   <span className="font-semibold text-white underline decoration-orange/50 decoration-2 underline-offset-4">
-                    3 pilares do sucesso
+                    diagnóstico detalhado
                   </span>{" "}
-                  — Posicionamento, Captação e Vendas — por apenas{" "}
+                  e receba um{" "}
+                  <span className="font-semibold text-white underline decoration-orange/50 decoration-2 underline-offset-4">
+                    plano de ação
+                  </span>{" "}
+                  para desbloquear os 3 pilares que trarão sucesso para o seu negócio — Posicionamento, Captação e Vendas — por apenas{" "}
                   <span className="font-extrabold text-orange">R$97</span>.
                 </p>
 
