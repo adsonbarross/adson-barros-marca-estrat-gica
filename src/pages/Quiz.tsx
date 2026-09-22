@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, ArrowLeft, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import quizLogo from "@/assets/quiz-logo.png";
 
 const KIWIFY_LINK = "https://pay.kiwify.com.br/M2G61GL";
 
@@ -179,14 +178,22 @@ const Quiz = () => {
   return (
     <div className="min-h-screen bg-black flex flex-col">
       {/* Header */}
-      <header className="w-full px-5 sm:px-8 pt-6 sm:pt-8 pb-4 flex justify-center">
-        <img
-          src={quizLogo}
-          alt="Diagnóstico de Unblocking"
-          width={1397}
-          height={500}
-          className="h-9 sm:h-11 w-auto object-contain opacity-95"
-        />
+      <header className="w-full px-5 sm:px-8 pt-8 sm:pt-10 pb-3 flex justify-center">
+        <div className="relative inline-block pr-6 pb-4 sm:pr-10 sm:pb-6">
+          <h2 className="font-extrabold uppercase tracking-tight leading-[0.85] text-white text-2xl sm:text-4xl">
+            <span className="block">Diagnóstico</span>
+            <span className="block pl-6 sm:pl-10">de Unblocking</span>
+            <span className="block">2026©.</span>
+          </h2>
+
+          {/* Decorative layered squares */}
+          <div className="absolute right-0 bottom-0 w-10 h-10 sm:w-14 sm:h-14 pointer-events-none" aria-hidden="true">
+            <div className="absolute inset-0 translate-x-3 translate-y-3 bg-orange/15 rounded-sm" />
+            <div className="absolute inset-0 translate-x-2 translate-y-2 bg-orange/30 rounded-sm" />
+            <div className="absolute inset-0 translate-x-1 translate-y-1 bg-orange/55 rounded-sm" />
+            <div className="absolute inset-0 bg-orange/85 rounded-sm" />
+          </div>
+        </div>
       </header>
 
       {/* Body */}
