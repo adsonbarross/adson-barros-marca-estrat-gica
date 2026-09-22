@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, ArrowLeft, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import logoAdson from "@/assets/logo-adson.png";
+import quizLogo from "@/assets/quiz-logo.png";
 
 const KIWIFY_LINK = "https://pay.kiwify.com.br/M2G61GL";
 
@@ -141,6 +141,24 @@ const Quiz = () => {
   const [step, setStep] = useState(0); // 0..TOTAL_STEPS-1 = questions, TOTAL_STEPS = result
   const [answers, setAnswers] = useState<(number | null)[]>(Array(TOTAL_STEPS).fill(null));
 
+  useEffect(() => {
+    const previousTitle = document.title;
+    document.title = "Adson Barros / Diagnóstico de Unblocking";
+
+    const iconLink = document.querySelector<HTMLLinkElement>("link[rel='icon']");
+    const previousIcon = iconLink?.href;
+    if (iconLink) {
+      iconLink.href = "/favicon-quiz.png";
+    }
+
+    return () => {
+      document.title = previousTitle;
+      if (iconLink && previousIcon) {
+        iconLink.href = previousIcon;
+      }
+    };
+  }, []);
+
   const isResult = step === TOTAL_STEPS;
   const progress = Math.min(step, TOTAL_STEPS) / TOTAL_STEPS * 100;
 
@@ -161,34 +179,18 @@ const Quiz = () => {
   return (
     <div className="min-h-screen bg-black flex flex-col">
       {/* Header */}
-      <header className="w-full px-5 sm:px-8 pt-6 sm:pt-8 pb-4 flex flex-col items-center gap-5">
+      <header className="w-full px-5 sm:px-8 pt-6 sm:pt-8 pb-4 flex justify-center">
         <img
-          src={logoAdson}
-          alt="Adson Barros"
-          width={757}
-          height={89}
-          className="h-4 sm:h-5 w-auto object-contain brightness-0 invert opacity-90"
+          src={quizLogo}
+          alt="Diagnóstico de Unblocking"
+          width={1397}
+          height={500}
+          className="h-9 sm:h-11 w-auto object-contain opacity-95"
         />
-
-        {!isResult && (
-          <div className="w-full max-w-md">
-            <div className="h-1.5 w-full rounded-full bg-white/10 overflow-hidden">
-              <motion.div
-                className="h-full bg-orange rounded-full"
-                initial={{ width: 0 }}
-                animate={{ width: `${progress}%` }}
-                transition={{ duration: 0.4, ease: "easeOut" }}
-              />
-            </div>
-            <p className="text-white/40 text-[11px] font-medium tracking-widest uppercase mt-2 text-center">
-              Pergunta {step + 1} de {TOTAL_STEPS}
-            </p>
-          </div>
-        )}
       </header>
 
       {/* Body */}
-      <main className="flex-1 flex items-center justify-center px-5 sm:px-8 pb-10">
+      <main className="flex-1 flex items-center justify-center px-5 sm:px-8 pb-24">
         <div className="w-full max-w-md">
           <AnimatePresence mode="wait">
             {!isResult ? (
@@ -287,6 +289,28 @@ const Quiz = () => {
           </AnimatePresence>
         </div>
       </main>
+
+      {/* Progress bar fixed at bottom */}
+      {!isResult && (
+        <div
+          className="fixed bottom-0 left-0 right-0 bg-black/90 backdrop-blur-sm px-5 sm:px-8 pt-3"
+          style={{ paddingBottom: "max(0.75rem, env(safe-area-inset-bottom))" }}
+        >
+          <div className="w-full max-w-md mx-auto">
+            <div className="h-1.5 w-full rounded-full bg-white/10 overflow-hidden">
+              <motion.div
+                className="h-full bg-orange rounded-full"
+                initial={{ width: 0 }}
+                animate={{ width: `${progress}%` }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+              />
+            </div>
+            <p className="text-white/40 text-[11px] font-medium tracking-widest uppercase mt-2 text-center">
+              Pergunta {step + 1} de {TOTAL_STEPS}
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
