@@ -1,9 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, ArrowLeft, Lock } from "lucide-react";
+import { ArrowRight, ArrowLeft, Lock, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const KIWIFY_LINK = "https://pay.kiwify.com.br/M2G61GL";
+const VIDEO_ID = "pYhuVCI-0TU";
+
+declare global {
+  interface Window {
+    YT: any;
+    onYouTubeIframeAPIReady: () => void;
+  }
+}
 
 type Segment = { text: string; style?: "soft" | "strong" };
 type Question = {
@@ -13,17 +21,6 @@ type Question = {
 };
 
 const questions: Question[] = [
-  {
-    pillar: "Posicionamento",
-    parts: [
-      { text: "Se um cliente parar 5 segundos no seu Instagram, " },
-      { text: "ele entende na hora", style: "soft" },
-      { text: " por que sua empresa é " },
-      { text: "diferente das outras", style: "strong" },
-      { text: "?" },
-    ],
-    options: ["Sim, é nítido", "Ele até entende, mas demora", "Não, fica tudo meio parecido"],
-  },
   {
     pillar: "Posicionamento",
     parts: [
@@ -67,17 +64,6 @@ const questions: Question[] = [
       { text: "?" },
     ],
     options: ["Sim, sei exatamente", "Tenho uma ideia", "Não faço a menor ideia"],
-  },
-  {
-    pillar: "Captação",
-    parts: [
-      { text: "Se um cliente " },
-      { text: "em dúvida", style: "strong" },
-      { text: " entrasse agora no seu Google Meu Negócio e nas suas redes sociais, " },
-      { text: "o que ele encontraria", style: "soft" },
-      { text: "?" },
-    ],
-    options: ["Um perfil bem cuidado, que passa confiança", "Algo ativo, mas meio esquecido", "Nem saberia dizer se a empresa ainda está ativa"],
   },
   {
     pillar: "Vendas",
@@ -133,6 +119,115 @@ function RenderParts({ parts }: { parts: Segment[] }) {
         );
       })}
     </>
+  );
+}
+
+/** Locked-down YouTube player: no native controls, no seeking, and a
+ *  custom bar that visually races ahead of real elapsed time. */
+function LockedVideo() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const playerRef = useRef<any>(null);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const [started, setStarted] = useState(false);
+  const [ended, setEnded] = useState(false);
+  const [displayProgress, setDisplayProgress] = useState(0);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    function createPlayer() {
+      if (cancelled || !containerRef.current) return;
+      playerRef.current = new window.YT.Player(containerRef.current, {
+        videoId: VIDEO_ID,
+        playerVars: {
+          controls: 0,
+          disablekb: 1,
+          modestbranding: 1,
+          rel: 0,
+          fs: 0,
+          iv_load_policy: 3,
+          playsinline: 1,
+        },
+        events: {
+          onStateChange: (e: any) => {
+            if (e.data === window.YT.PlayerState.PLAYING) {
+              if (intervalRef.current) clearInterval(intervalRef.current);
+              intervalRef.current = setInterval(() => {
+                const p = playerRef.current;
+                if (!p || typeof p.getDuration !== "function") return;
+                const duration = p.getDuration();
+                const current = p.getCurrentTime();
+                if (!duration) return;
+                const t = Math.min(1, current / duration);
+                // Ease-out curve: races ahead early, settles in at 100% right on time.
+                const eased = 1 - Math.pow(1 - t, 1.6);
+                setDisplayProgress(Math.min(100, eased * 100));
+                if (t >= 0.995) {
+                  setEnded(true);
+                  if (intervalRef.current) clearInterval(intervalRef.current);
+                }
+              }, 200);
+            }
+          },
+        },
+      });
+    }
+
+    if (window.YT && window.YT.Player) {
+      createPlayer();
+    } else {
+      const tag = document.createElement("script");
+      tag.src = "https://www.youtube.com/iframe_api";
+      document.body.appendChild(tag);
+      window.onYouTubeIframeAPIReady = createPlayer;
+    }
+
+    return () => {
+      cancelled = true;
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, []);
+
+  const handlePlay = () => {
+    setStarted(true);
+    playerRef.current?.playVideo?.();
+  };
+
+  return (
+    <div className="w-full mb-8">
+      <div
+        className="relative w-full aspect-video rounded-2xl overflow-hidden bg-white/5 border border-white/10"
+        onContextMenu={(e) => e.preventDefault()}
+      >
+        <div ref={containerRef} className="absolute inset-0 w-full h-full" />
+
+        {/* Transparent shield: blocks clicks on the iframe so it can't be scrubbed/paused by the user */}
+        <div className="absolute inset-0" />
+
+        {!started && (
+          <button
+            onClick={handlePlay}
+            className="absolute inset-0 flex items-center justify-center bg-black/50 hover:bg-black/40 transition-colors duration-300"
+            aria-label="Assistir ao vídeo"
+          >
+            <span className="w-16 h-16 rounded-full bg-orange flex items-center justify-center shadow-lg">
+              <Play className="w-6 h-6 text-primary-foreground ml-0.5" fill="currentColor" />
+            </span>
+          </button>
+        )}
+      </div>
+
+      {/* Custom progress bar — no scrubbing, just visual feedback */}
+      <div className="h-1.5 w-full rounded-full bg-white/10 overflow-hidden mt-3">
+        <div
+          className="h-full bg-orange rounded-full"
+          style={{ width: `${displayProgress}%`, transition: "width 0.2s linear" }}
+        />
+      </div>
+      <p className="text-white/35 text-[11px] font-medium tracking-widest uppercase mt-2 text-center">
+        {ended ? "Vídeo concluído" : started ? "Assista até o final" : "Toque para assistir"}
+      </p>
+    </div>
   );
 }
 
@@ -254,7 +349,7 @@ const Quiz = () => {
                 </p>
                 <div className="w-10 h-1 bg-orange rounded-full mx-auto mb-6" />
 
-                <h1 className="text-2xl sm:text-3xl leading-tight tracking-tight mb-5">
+                <h1 className="text-2xl sm:text-3xl leading-tight tracking-tight mb-6">
                   <span className="font-semibold text-white underline decoration-orange/50 decoration-2 underline-offset-4">
                     Existe um limite invisível
                   </span>
@@ -262,6 +357,9 @@ const Quiz = () => {
                   <span className="font-extrabold text-orange">travando o crescimento</span>
                   <span className="font-normal text-white/60"> da sua empresa.</span>
                 </h1>
+
+                <LockedVideo />
+
                 <p className="text-white/60 text-sm sm:text-base leading-relaxed mb-8 max-w-sm mx-auto">
                   Faça um{" "}
                   <span className="font-semibold text-white underline decoration-orange/50 decoration-2 underline-offset-4">
