@@ -4,14 +4,8 @@ import { ArrowRight, ArrowLeft, Lock, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const KIWIFY_LINK = "https://pay.kiwify.com.br/M2G61GL";
-const VIDEO_ID = "pYhuVCI-0TU";
-
-declare global {
-  interface Window {
-    YT: any;
-    onYouTubeIframeAPIReady: () => void;
-  }
-}
+const VIDEO_SRC = "/videos/diagnostico-video.mp4";
+const VIDEO_POSTER = "/videos/diagnostico-video-poster.jpg";
 
 type Segment = { text: string; style?: "soft" | "strong" };
 type Question = {
@@ -122,75 +116,56 @@ function RenderParts({ parts }: { parts: Segment[] }) {
   );
 }
 
-/** Locked-down YouTube player: no native controls, no seeking, and a
- *  custom bar that visually races ahead of real elapsed time. */
+/** Locked-down local video player: no native controls, no seeking (rewind is
+ *  fine, forward-seek is always snapped back), and a custom bar that
+ *  visually races ahead of real elapsed time. */
 function LockedVideo() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const playerRef = useRef<any>(null);
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const maxPlayedRef = useRef(0);
   const [started, setStarted] = useState(false);
   const [ended, setEnded] = useState(false);
   const [displayProgress, setDisplayProgress] = useState(0);
 
   useEffect(() => {
-    let cancelled = false;
+    const video = videoRef.current;
+    if (!video) return;
 
-    function createPlayer() {
-      if (cancelled || !containerRef.current) return;
-      playerRef.current = new window.YT.Player(containerRef.current, {
-        videoId: VIDEO_ID,
-        playerVars: {
-          controls: 0,
-          disablekb: 1,
-          modestbranding: 1,
-          rel: 0,
-          fs: 0,
-          iv_load_policy: 3,
-          playsinline: 1,
-        },
-        events: {
-          onStateChange: (e: any) => {
-            if (e.data === window.YT.PlayerState.PLAYING) {
-              if (intervalRef.current) clearInterval(intervalRef.current);
-              intervalRef.current = setInterval(() => {
-                const p = playerRef.current;
-                if (!p || typeof p.getDuration !== "function") return;
-                const duration = p.getDuration();
-                const current = p.getCurrentTime();
-                if (!duration) return;
-                const t = Math.min(1, current / duration);
-                // Ease-out curve: races ahead early, settles in at 100% right on time.
-                const eased = 1 - Math.pow(1 - t, 1.6);
-                setDisplayProgress(Math.min(100, eased * 100));
-                if (t >= 0.995) {
-                  setEnded(true);
-                  if (intervalRef.current) clearInterval(intervalRef.current);
-                }
-              }, 200);
-            }
-          },
-        },
-      });
-    }
+    const handleTimeUpdate = () => {
+      if (video.currentTime > maxPlayedRef.current) {
+        maxPlayedRef.current = video.currentTime;
+      }
+      const duration = video.duration || 1;
+      const t = Math.min(1, video.currentTime / duration);
+      // Ease-out curve: races ahead early, settles in at 100% right on time.
+      const eased = 1 - Math.pow(1 - t, 1.6);
+      setDisplayProgress(Math.min(100, eased * 100));
+    };
 
-    if (window.YT && window.YT.Player) {
-      createPlayer();
-    } else {
-      const tag = document.createElement("script");
-      tag.src = "https://www.youtube.com/iframe_api";
-      document.body.appendChild(tag);
-      window.onYouTubeIframeAPIReady = createPlayer;
-    }
+    const handleSeeking = () => {
+      // Only allow the currently-played point (or earlier) — never forward.
+      if (video.currentTime > maxPlayedRef.current + 0.15) {
+        video.currentTime = maxPlayedRef.current;
+      }
+    };
 
+    const handleEnded = () => {
+      setEnded(true);
+      setDisplayProgress(100);
+    };
+
+    video.addEventListener("timeupdate", handleTimeUpdate);
+    video.addEventListener("seeking", handleSeeking);
+    video.addEventListener("ended", handleEnded);
     return () => {
-      cancelled = true;
-      if (intervalRef.current) clearInterval(intervalRef.current);
+      video.removeEventListener("timeupdate", handleTimeUpdate);
+      video.removeEventListener("seeking", handleSeeking);
+      video.removeEventListener("ended", handleEnded);
     };
   }, []);
 
   const handlePlay = () => {
     setStarted(true);
-    playerRef.current?.playVideo?.();
+    videoRef.current?.play();
   };
 
   return (
@@ -199,9 +174,17 @@ function LockedVideo() {
         className="relative w-full aspect-video rounded-2xl overflow-hidden bg-white/5 border border-white/10"
         onContextMenu={(e) => e.preventDefault()}
       >
-        <div ref={containerRef} className="absolute inset-0 w-full h-full" />
+        <video
+          ref={videoRef}
+          src={VIDEO_SRC}
+          poster={VIDEO_POSTER}
+          playsInline
+          disablePictureInPicture
+          controlsList="nodownload noplaybackrate nofullscreen"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
 
-        {/* Transparent shield: blocks clicks on the iframe so it can't be scrubbed/paused by the user */}
+        {/* Transparent shield: blocks any interaction with the video itself */}
         <div className="absolute inset-0" />
 
         {!started && (
