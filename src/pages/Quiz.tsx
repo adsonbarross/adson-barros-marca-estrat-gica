@@ -1,11 +1,18 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, ArrowLeft, Lock, Play } from "lucide-react";
+import { ArrowRight, ArrowLeft, Lock, Volume2, VolumeX } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const KIWIFY_LINK = "https://pay.kiwify.com.br/M2G61GL";
-const VIDEO_SRC = "/videos/diagnostico-video.mp4";
-const VIDEO_POSTER = "/videos/diagnostico-video-poster.jpg";
+const VIDEO_ID = "5hoOcKJg9zI";
+
+declare global {
+  interface Window {
+    YT: any;
+    onYouTubeIframeAPIReady: () => void;
+    fbq: any;
+  }
+}
 
 type Segment = { text: string; style?: "soft" | "strong" };
 type Question = {
@@ -116,56 +123,90 @@ function RenderParts({ parts }: { parts: Segment[] }) {
   );
 }
 
-/** Locked-down local video player: no native controls, no seeking (rewind is
- *  fine, forward-seek is always snapped back), and a custom bar that
- *  visually races ahead of real elapsed time. */
+/** Locked-down YouTube player: autoplays muted on mount (browser policy),
+ *  no native controls, no seeking, and a progress bar that visually races
+ *  ahead of real elapsed time. */
 function LockedVideo() {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const maxPlayedRef = useRef(0);
-  const [started, setStarted] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const playerRef = useRef<any>(null);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const [ended, setEnded] = useState(false);
+  const [muted, setMuted] = useState(true);
   const [displayProgress, setDisplayProgress] = useState(0);
 
   useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
+    let cancelled = false;
 
-    const handleTimeUpdate = () => {
-      if (video.currentTime > maxPlayedRef.current) {
-        maxPlayedRef.current = video.currentTime;
-      }
-      const duration = video.duration || 1;
-      const t = Math.min(1, video.currentTime / duration);
-      // Ease-out curve: races ahead early, settles in at 100% right on time.
-      const eased = 1 - Math.pow(1 - t, 1.6);
-      setDisplayProgress(Math.min(100, eased * 100));
-    };
+    function createPlayer() {
+      if (cancelled || !containerRef.current) return;
+      playerRef.current = new window.YT.Player(containerRef.current, {
+        videoId: VIDEO_ID,
+        playerVars: {
+          autoplay: 1,
+          mute: 1,
+          controls: 0,
+          disablekb: 1,
+          modestbranding: 1,
+          rel: 0,
+          fs: 0,
+          iv_load_policy: 3,
+          playsinline: 1,
+        },
+        events: {
+          onReady: (e: any) => {
+            e.target.playVideo();
+          },
+          onStateChange: (e: any) => {
+            if (e.data === window.YT.PlayerState.PLAYING) {
+              if (intervalRef.current) clearInterval(intervalRef.current);
+              intervalRef.current = setInterval(() => {
+                const p = playerRef.current;
+                if (!p || typeof p.getDuration !== "function") return;
+                const duration = p.getDuration();
+                const current = p.getCurrentTime();
+                if (!duration) return;
+                const t = Math.min(1, current / duration);
+                // Ease-out curve: races ahead early, settles in at 100% right on time.
+                const eased = 1 - Math.pow(1 - t, 1.6);
+                setDisplayProgress(Math.min(100, eased * 100));
+              }, 200);
+            }
+            if (e.data === window.YT.PlayerState.ENDED) {
+              setEnded(true);
+              setDisplayProgress(100);
+              if (intervalRef.current) clearInterval(intervalRef.current);
+            }
+          },
+        },
+      });
+    }
 
-    const handleSeeking = () => {
-      // Only allow the currently-played point (or earlier) — never forward.
-      if (video.currentTime > maxPlayedRef.current + 0.15) {
-        video.currentTime = maxPlayedRef.current;
-      }
-    };
+    if (window.YT && window.YT.Player) {
+      createPlayer();
+    } else {
+      const tag = document.createElement("script");
+      tag.src = "https://www.youtube.com/iframe_api";
+      document.body.appendChild(tag);
+      window.onYouTubeIframeAPIReady = createPlayer;
+    }
 
-    const handleEnded = () => {
-      setEnded(true);
-      setDisplayProgress(100);
-    };
-
-    video.addEventListener("timeupdate", handleTimeUpdate);
-    video.addEventListener("seeking", handleSeeking);
-    video.addEventListener("ended", handleEnded);
     return () => {
-      video.removeEventListener("timeupdate", handleTimeUpdate);
-      video.removeEventListener("seeking", handleSeeking);
-      video.removeEventListener("ended", handleEnded);
+      cancelled = true;
+      if (intervalRef.current) clearInterval(intervalRef.current);
     };
   }, []);
 
-  const handlePlay = () => {
-    setStarted(true);
-    videoRef.current?.play();
+  const toggleMute = () => {
+    const p = playerRef.current;
+    if (!p) return;
+    if (muted) {
+      p.unMute();
+      p.setVolume(100);
+      setMuted(false);
+    } else {
+      p.mute();
+      setMuted(true);
+    }
   };
 
   return (
@@ -174,30 +215,22 @@ function LockedVideo() {
         className="relative w-full aspect-video rounded-2xl overflow-hidden bg-white/5 border border-white/10"
         onContextMenu={(e) => e.preventDefault()}
       >
-        <video
-          ref={videoRef}
-          src={VIDEO_SRC}
-          poster={VIDEO_POSTER}
-          playsInline
-          disablePictureInPicture
-          controlsList="nodownload noplaybackrate nofullscreen"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
+        <div ref={containerRef} className="absolute inset-0 w-full h-full" />
 
-        {/* Transparent shield: blocks any interaction with the video itself */}
+        {/* Transparent shield: blocks clicks on the iframe (no pause/seek via the video itself) */}
         <div className="absolute inset-0" />
 
-        {!started && (
-          <button
-            onClick={handlePlay}
-            className="absolute inset-0 flex items-center justify-center bg-black/50 hover:bg-black/40 transition-colors duration-300"
-            aria-label="Assistir ao vídeo"
-          >
-            <span className="w-16 h-16 rounded-full bg-orange flex items-center justify-center shadow-lg">
-              <Play className="w-6 h-6 text-primary-foreground ml-0.5" fill="currentColor" />
-            </span>
-          </button>
-        )}
+        <button
+          onClick={toggleMute}
+          className="absolute bottom-3 right-3 w-9 h-9 rounded-full bg-black/60 hover:bg-black/80 backdrop-blur-sm flex items-center justify-center transition-colors duration-200"
+          aria-label={muted ? "Ativar som" : "Silenciar"}
+        >
+          {muted ? (
+            <VolumeX className="w-4 h-4 text-white" />
+          ) : (
+            <Volume2 className="w-4 h-4 text-white" />
+          )}
+        </button>
       </div>
 
       {/* Custom progress bar — no scrubbing, just visual feedback */}
@@ -208,7 +241,7 @@ function LockedVideo() {
         />
       </div>
       <p className="text-white/35 text-[11px] font-medium tracking-widest uppercase mt-2 text-center">
-        {ended ? "Vídeo concluído" : started ? "Assista até o final" : "Toque para assistir"}
+        {ended ? "Vídeo concluído" : muted ? "Toque no alto-falante para ativar o som" : "Assista até o final"}
       </p>
     </div>
   );
@@ -256,23 +289,25 @@ const Quiz = () => {
   return (
     <div className="min-h-screen bg-black flex flex-col">
       {/* Header */}
-      <header className="w-full px-5 sm:px-8 pt-8 sm:pt-10 pb-3 flex justify-center">
-        <div className="relative inline-block pr-6 pb-4 sm:pr-10 sm:pb-6">
-          <h2 className="font-extrabold uppercase tracking-tight leading-[0.85] text-white text-2xl sm:text-4xl">
-            <span className="block">Diagnóstico</span>
-            <span className="block pl-6 sm:pl-10">de Unblocking</span>
-            <span className="block">2026©.</span>
-          </h2>
+      {!isResult && (
+        <header className="w-full px-5 sm:px-8 pt-8 sm:pt-10 pb-3 flex justify-center">
+          <div className="relative inline-block pr-6 pb-4 sm:pr-10 sm:pb-6">
+            <h2 className="font-extrabold uppercase tracking-tight leading-[0.85] text-white text-2xl sm:text-4xl">
+              <span className="block">Diagnóstico</span>
+              <span className="block pl-6 sm:pl-10">de Unblocking</span>
+              <span className="block">2026©.</span>
+            </h2>
 
-          {/* Decorative layered squares */}
-          <div className="absolute right-0 bottom-0 w-10 h-10 sm:w-14 sm:h-14 pointer-events-none" aria-hidden="true">
-            <div className="absolute inset-0 translate-x-3 translate-y-3 bg-orange/15 rounded-sm" />
-            <div className="absolute inset-0 translate-x-2 translate-y-2 bg-orange/30 rounded-sm" />
-            <div className="absolute inset-0 translate-x-1 translate-y-1 bg-orange/55 rounded-sm" />
-            <div className="absolute inset-0 bg-orange/85 rounded-sm" />
+            {/* Decorative layered squares */}
+            <div className="absolute right-0 bottom-0 w-10 h-10 sm:w-14 sm:h-14 pointer-events-none" aria-hidden="true">
+              <div className="absolute inset-0 translate-x-3 translate-y-3 bg-orange/15 rounded-sm" />
+              <div className="absolute inset-0 translate-x-2 translate-y-2 bg-orange/30 rounded-sm" />
+              <div className="absolute inset-0 translate-x-1 translate-y-1 bg-orange/55 rounded-sm" />
+              <div className="absolute inset-0 bg-orange/85 rounded-sm" />
+            </div>
           </div>
-        </div>
-      </header>
+        </header>
+      )}
 
       {/* Body */}
       <main className="flex-1 flex items-center justify-center px-5 sm:px-8 pb-24">
@@ -327,9 +362,6 @@ const Quiz = () => {
                 transition={{ duration: 0.5 }}
                 className="text-center"
               >
-                <p className="text-[10px] font-medium tracking-[0.25em] uppercase text-orange mb-4">
-                  Seu diagnóstico está pronto
-                </p>
                 <div className="w-10 h-1 bg-orange rounded-full mx-auto mb-6" />
 
                 <h1 className="text-2xl sm:text-3xl leading-tight tracking-tight mb-6">
@@ -362,7 +394,16 @@ const Quiz = () => {
                   size="xl"
                   className="w-full whitespace-normal text-base h-auto py-4 px-6"
                 >
-                  <a href={KIWIFY_LINK} target="_blank" rel="noopener noreferrer">
+                  <a
+                    href={KIWIFY_LINK}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => {
+                      if (typeof window.fbq === "function") {
+                        window.fbq("track", "InitiateCheckout");
+                      }
+                    }}
+                  >
                     Destravar agora
                     <ArrowRight className="w-5 h-5" />
                   </a>
