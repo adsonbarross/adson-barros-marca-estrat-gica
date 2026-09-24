@@ -14,7 +14,7 @@ const Obrigado = () => {
     document.title = "Compra confirmada / Diagnóstico de Unblocking";
 
     if (typeof window.fbq === "function") {
-      window.fbq("track", "Purchase", { value: 0.0, currency: "USD" });
+      window.fbq("track", "Purchase", { value: 97.0, currency: "BRL" });
     }
   }, []);
 
