@@ -1,11 +1,11 @@
 import { motion } from "framer-motion";
-import { MessageSquare, Palette, RefreshCw, PackageCheck } from "lucide-react";
+import { ClipboardList, CreditCard, FileEdit, Rocket } from "lucide-react";
 
 const steps = [
-  { icon: MessageSquare, title: "1. Briefing", description: "Conversamos pelo WhatsApp sobre seu negócio, público e objetivos." },
-  { icon: Palette, title: "2. Criação", description: "Desenvolvo o conceito, logotipo, cores e tipografia da sua marca." },
-  { icon: RefreshCw, title: "3. Ajustes", description: "Você revisa e eu refino até ficar exatamente como precisa." },
-  { icon: PackageCheck, title: "4. Entrega", description: "Todos os arquivos, manual da marca e aplicações em até 30 dias." },
+  { icon: ClipboardList, title: "1. Responda ao quiz", description: "Perguntas rápidas pra eu entender o momento da sua empresa." },
+  { icon: CreditCard, title: "2. Garanta seu diagnóstico", description: "Pagamento seguro, por apenas R$97." },
+  { icon: FileEdit, title: "3. Conte mais sobre seu negócio", description: "Um formulário rápido pra eu entender os detalhes dos 3 pilares." },
+  { icon: Rocket, title: "4. Receba seu plano de ação", description: "Pontuação real e prioridades claras pra sua empresa crescer." },
 ];
 
 export function FeaturesStrip() {
@@ -21,7 +21,7 @@ export function FeaturesStrip() {
         >
           <p className="text-sm font-semibold tracking-[0.2em] uppercase text-orange mb-2">Como funciona</p>
           <div className="w-12 h-1 bg-orange rounded-full mx-auto mb-5" />
-          <h2 className="text-4xl font-extrabold text-foreground leading-tight tracking-tight">Do briefing à entrega, em até 30 dias</h2>
+          <h2 className="text-4xl font-extrabold text-foreground leading-tight tracking-tight">Do quiz ao plano de ação</h2>
         </motion.div>
 
         <div className="grid grid-cols-4 gap-5">

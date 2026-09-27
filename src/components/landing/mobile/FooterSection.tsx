@@ -1,15 +1,13 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Instagram, Youtube, MessageCircle } from "lucide-react";
+import { Instagram, Youtube, ClipboardCheck } from "lucide-react";
 import { TikTokIcon } from "@/components/landing/icons/TikTokIcon";
-
-const WHATSAPP_LINK = "https://wa.me/message/6TDNDNOCGOXII1";
 
 const socials = [
   { icon: Youtube, label: "YouTube", href: "https://www.youtube.com/@Adsonbarrosmarca" },
   { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/adson.barros/" },
   { icon: TikTokIcon, label: "TikTok", href: "https://www.tiktok.com/@adsonbarros" },
-  { icon: MessageCircle, label: "WhatsApp", href: WHATSAPP_LINK },
 ];
 
 export function FooterSection() {
@@ -25,7 +23,7 @@ export function FooterSection() {
         >
           <p className="text-xs font-semibold tracking-[0.2em] uppercase text-orange mb-2">Você precisa saber disso</p>
           <div className="w-10 h-1 bg-orange rounded-full mx-auto mb-3" />
-          <h2 className="text-2xl font-extrabold text-background tracking-tight">Vamos criar sua marca?</h2>
+          <h2 className="text-2xl font-extrabold text-background tracking-tight">Vamos fazer seu diagnóstico?</h2>
         </motion.div>
 
         <motion.div
@@ -36,8 +34,8 @@ export function FooterSection() {
           className="w-full relative aspect-video rounded-xl overflow-hidden border border-background/10 mb-8"
         >
           <iframe
-            src="https://www.youtube.com/embed/pYhuVCI-0TU"
-            title="Adson Barros - Identidade Visual"
+            src="https://www.youtube.com/embed/5hoOcKJg9zI"
+            title="Adson Barros - Diagnóstico de Unblocking"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
             className="absolute inset-0 w-full h-full"
@@ -57,10 +55,10 @@ export function FooterSection() {
             size="xl"
             className="w-full whitespace-normal text-base h-auto py-3.5 px-6"
           >
-            <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
-              <MessageCircle className="w-5 h-5 shrink-0" fill="currentColor" />
-              Quero minha identidade visual
-            </a>
+            <Link to="/quiz">
+              <ClipboardCheck className="w-5 h-5 shrink-0" />
+              Fazer meu diagnóstico agora
+            </Link>
           </Button>
         </motion.div>
 

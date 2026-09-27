@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, ArrowLeft, Lock, Volume2, VolumeX } from "lucide-react";
+import { ArrowRight, ArrowLeft, Lock, Volume2, VolumeX, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const KIWIFY_LINK = "https://pay.kiwify.com.br/M2G61GL";
@@ -124,18 +124,34 @@ function RenderParts({ parts }: { parts: Segment[] }) {
 }
 
 /** Locked-down YouTube player: autoplays muted on mount (browser policy),
- *  no native controls, no seeking, and a progress bar that visually races
- *  ahead of real elapsed time. */
+ *  no seeking/scrubbing, but the person CAN pause/resume — and a progress
+ *  bar that visually races ahead of real elapsed time. */
 function LockedVideo() {
   const containerRef = useRef<HTMLDivElement>(null);
   const playerRef = useRef<any>(null);
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const rafRef = useRef<number | null>(null);
   const [ended, setEnded] = useState(false);
   const [muted, setMuted] = useState(true);
+  const [playing, setPlaying] = useState(true);
   const [displayProgress, setDisplayProgress] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
+
+    function tick() {
+      const p = playerRef.current;
+      if (p && typeof p.getDuration === "function") {
+        const duration = p.getDuration();
+        const current = p.getCurrentTime();
+        if (duration) {
+          const t = Math.min(1, current / duration);
+          // Ease-out curve: races ahead early, settles in at 100% right on time.
+          const eased = 1 - Math.pow(1 - t, 1.6);
+          setDisplayProgress(Math.min(100, eased * 100));
+        }
+      }
+      rafRef.current = requestAnimationFrame(tick);
+    }
 
     function createPlayer() {
       if (cancelled || !containerRef.current) return;
@@ -151,35 +167,34 @@ function LockedVideo() {
           fs: 0,
           iv_load_policy: 3,
           playsinline: 1,
+          origin: window.location.origin,
         },
         events: {
           onReady: (e: any) => {
             e.target.playVideo();
+            rafRef.current = requestAnimationFrame(tick);
           },
           onStateChange: (e: any) => {
-            if (e.data === window.YT.PlayerState.PLAYING) {
-              if (intervalRef.current) clearInterval(intervalRef.current);
-              intervalRef.current = setInterval(() => {
-                const p = playerRef.current;
-                if (!p || typeof p.getDuration !== "function") return;
-                const duration = p.getDuration();
-                const current = p.getCurrentTime();
-                if (!duration) return;
-                const t = Math.min(1, current / duration);
-                // Ease-out curve: races ahead early, settles in at 100% right on time.
-                const eased = 1 - Math.pow(1 - t, 1.6);
-                setDisplayProgress(Math.min(100, eased * 100));
-              }, 200);
-            }
+            if (e.data === window.YT.PlayerState.PLAYING) setPlaying(true);
+            if (e.data === window.YT.PlayerState.PAUSED) setPlaying(false);
             if (e.data === window.YT.PlayerState.ENDED) {
               setEnded(true);
+              setPlaying(false);
               setDisplayProgress(100);
-              if (intervalRef.current) clearInterval(intervalRef.current);
             }
           },
         },
       });
     }
+
+    // Warm up the connection to YouTube early so playback starts smoother.
+    ["https://www.youtube.com", "https://i.ytimg.com", "https://www.google.com"].forEach((href) => {
+      if (document.querySelector(`link[href="${href}"]`)) return;
+      const link = document.createElement("link");
+      link.rel = "preconnect";
+      link.href = href;
+      document.head.appendChild(link);
+    });
 
     if (window.YT && window.YT.Player) {
       createPlayer();
@@ -192,7 +207,7 @@ function LockedVideo() {
 
     return () => {
       cancelled = true;
-      if (intervalRef.current) clearInterval(intervalRef.current);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
   }, []);
 
@@ -209,6 +224,16 @@ function LockedVideo() {
     }
   };
 
+  const togglePlay = () => {
+    const p = playerRef.current;
+    if (!p) return;
+    if (playing) {
+      p.pauseVideo();
+    } else {
+      p.playVideo();
+    }
+  };
+
   return (
     <div className="w-full mb-8">
       <div
@@ -217,11 +242,26 @@ function LockedVideo() {
       >
         <div ref={containerRef} className="absolute inset-0 w-full h-full" />
 
-        {/* Transparent shield: blocks clicks on the iframe (no pause/seek via the video itself) */}
-        <div className="absolute inset-0" />
+        {/* Transparent shield: blocks direct clicks/taps on the iframe itself
+            (prevents double-tap-to-seek), while our own buttons above it
+            still handle play/pause and mute. */}
+        <button
+          onClick={togglePlay}
+          className="absolute inset-0 flex items-center justify-center group"
+          aria-label={playing ? "Pausar vídeo" : "Continuar vídeo"}
+        >
+          {!playing && (
+            <span className="w-16 h-16 rounded-full bg-orange/90 flex items-center justify-center shadow-lg transition-transform group-hover:scale-105">
+              <Play className="w-6 h-6 text-primary-foreground ml-0.5" fill="currentColor" />
+            </span>
+          )}
+        </button>
 
         <button
-          onClick={toggleMute}
+          onClick={(e) => {
+            e.stopPropagation();
+            toggleMute();
+          }}
           className="absolute bottom-3 right-3 w-9 h-9 rounded-full bg-black/60 hover:bg-black/80 backdrop-blur-sm flex items-center justify-center transition-colors duration-200"
           aria-label={muted ? "Ativar som" : "Silenciar"}
         >
@@ -241,7 +281,7 @@ function LockedVideo() {
         />
       </div>
       <p className="text-white/35 text-[11px] font-medium tracking-widest uppercase mt-2 text-center">
-        {ended ? "Vídeo concluído" : muted ? "Toque no alto-falante para ativar o som" : "Assista até o final"}
+        {ended ? "Vídeo concluído" : !playing ? "Vídeo pausado — toque para continuar" : muted ? "Toque no alto-falante para ativar o som" : "Assista até o final"}
       </p>
     </div>
   );

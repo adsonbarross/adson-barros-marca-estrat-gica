@@ -1,12 +1,12 @@
 import { motion } from "framer-motion";
-import { ShieldCheck, Brain, TrendingUp, Repeat, Target } from "lucide-react";
+import { SearchCheck, ListChecks, Target, TrendingUp, Compass } from "lucide-react";
 
 const items = [
-  { icon: ShieldCheck, title: "Mais credibilidade", description: "Seu cliente confia mais em uma marca com aparência profissional." },
-  { icon: Brain, title: "Fácil de lembrar", description: "Uma identidade forte fica na cabeça do seu cliente na hora certa." },
-  { icon: TrendingUp, title: "Maior percepção de valor", description: "Marcas bem construídas justificam preços mais altos." },
-  { icon: Repeat, title: "Consistência em todo lugar", description: "Redes sociais, embalagem e site com a mesma cara — profissional." },
-  { icon: Target, title: "Se destaca da concorrência", description: "Diferencia seu negócio de quem ainda não investiu na própria marca." },
+  { icon: SearchCheck, title: "Clareza total", description: "Você entende exatamente onde sua empresa perde dinheiro e reconhecimento." },
+  { icon: ListChecks, title: "Plano de ação", description: "Prioridades claras pra melhorar, sem achismo." },
+  { icon: Target, title: "Decisões com base em dados", description: "Cada ponto do seu negócio recebe uma nota — chega de decidir no escuro." },
+  { icon: TrendingUp, title: "Economia de tempo e dinheiro", description: "Você para de investir no que não é o problema real." },
+  { icon: Compass, title: "Direção pra crescer", description: "Sai com um caminho claro pros 3 pilares: Posicionamento, Captação e Vendas." },
 ];
 
 export function PillarsSection() {
@@ -21,7 +21,7 @@ export function PillarsSection() {
           className="text-center mb-16"
         >
           <p className="text-sm font-semibold tracking-[0.2em] uppercase text-orange mb-3">
-            Vantagens de uma identidade visual
+            Vantagens do diagnóstico
           </p>
           <div className="w-12 h-1 bg-orange rounded-full mx-auto mb-5" />
           <h2 className="text-4xl font-extrabold text-background leading-tight tracking-tight max-w-2xl mx-auto">

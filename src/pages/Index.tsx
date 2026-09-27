@@ -30,6 +30,7 @@ const MobileLayout = () => (
       <MobileFooter />
     </main>
     <StickyCTA />
+    <FloatingWhatsApp />
   </>
 );
 

@@ -1,7 +1,6 @@
-import { MessageCircle } from "lucide-react";
+import { ClipboardCheck } from "lucide-react";
 import { motion } from "framer-motion";
-
-const WHATSAPP_LINK = "https://wa.me/message/6TDNDNOCGOXII1";
+import { Link } from "react-router-dom";
 
 export function StickyCTA() {
   return (
@@ -13,18 +12,16 @@ export function StickyCTA() {
       style={{ paddingBottom: "max(0.75rem, env(safe-area-inset-bottom))" }}
     >
       <div className="min-w-0">
-        <p className="text-background font-bold text-sm truncate">Identidade Visual</p>
-        <p className="text-background/50 text-xs truncate">Fale comigo no WhatsApp</p>
+        <p className="text-background font-bold text-sm truncate">Diagnóstico de Unblocking</p>
+        <p className="text-background/50 text-xs truncate">Descubra seus 3 pilares</p>
       </div>
-      <a
-        href={WHATSAPP_LINK}
-        target="_blank"
-        rel="noopener noreferrer"
+      <Link
+        to="/quiz"
         className="flex-shrink-0 flex items-center gap-2 bg-orange hover:bg-orange-hover text-primary-foreground font-semibold tracking-wide rounded-lg px-4 py-2.5 text-sm transition-colors duration-300"
       >
-        <MessageCircle className="w-4 h-4" fill="currentColor" />
-        Fale comigo
-      </a>
+        <ClipboardCheck className="w-4 h-4" />
+        Fazer diagnóstico
+      </Link>
     </motion.div>
   );
 }

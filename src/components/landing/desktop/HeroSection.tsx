@@ -1,9 +1,8 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { MessageCircle } from "lucide-react";
+import { ClipboardCheck } from "lucide-react";
 import adsonPhoto from "@/assets/adson-photo-about.jpg";
-
-const WHATSAPP_LINK = "https://wa.me/message/6TDNDNOCGOXII1";
 
 const proofs = [
   "120+ marcas desenvolvidas",
@@ -23,7 +22,7 @@ export function HeroSection() {
           className="min-w-0 text-left"
         >
           <p className="text-sm font-semibold tracking-[0.3em] uppercase text-orange mb-6">
-            Sistema de Identidade Visual
+            Diagnóstico de Unblocking
           </p>
 
           <h1 className="text-5xl font-extrabold text-background leading-[1.15] tracking-tight mb-7">
@@ -32,19 +31,19 @@ export function HeroSection() {
           </h1>
 
           <p className="text-background/65 text-lg max-w-md mb-10 leading-relaxed">
-            Desenvolvo Sistemas de Identidade Visual para empresas que querem ser vistas — e cobradas — pelo valor que realmente entregam.
+            Um diagnóstico estratégico que mostra, em minutos, onde sua empresa está travada nos 3 pilares que decidem se um negócio cresce: Posicionamento, Captação e Vendas.
           </p>
 
           <div className="flex items-center gap-6 mb-2">
             <div>
               <Button asChild variant="cta" size="xl">
-                <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
-                  <MessageCircle className="w-5 h-5" fill="currentColor" />
-                  Solicitar diagnóstico da minha marca
-                </a>
+                <Link to="/quiz">
+                  <ClipboardCheck className="w-5 h-5" />
+                  Fazer meu diagnóstico agora
+                </Link>
               </Button>
               <p className="text-background/40 text-xs mt-2.5">
-                Resposta pessoal em poucas horas, direto no WhatsApp.
+                Leva menos de 2 minutos. Sem compromisso.
               </p>
             </div>
           </div>
@@ -74,7 +73,7 @@ export function HeroSection() {
         >
           <img
             src={adsonPhoto}
-            alt="Adson Barros - Especialista em identidade visual"
+            alt="Adson Barros - Diagnóstico de Unblocking"
             className="absolute inset-0 w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/0 to-black/5" />

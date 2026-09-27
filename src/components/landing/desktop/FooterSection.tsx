@@ -1,15 +1,13 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Instagram, Youtube, MessageCircle } from "lucide-react";
+import { Instagram, Youtube, ClipboardCheck } from "lucide-react";
 import { TikTokIcon } from "@/components/landing/icons/TikTokIcon";
-
-const WHATSAPP_LINK = "https://wa.me/message/6TDNDNOCGOXII1";
 
 const socials = [
   { icon: Youtube, label: "YouTube", href: "https://www.youtube.com/@Adsonbarrosmarca" },
   { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/adson.barros/" },
   { icon: TikTokIcon, label: "TikTok", href: "https://www.tiktok.com/@adsonbarros" },
-  { icon: MessageCircle, label: "WhatsApp", href: WHATSAPP_LINK },
 ];
 
 export function FooterSection() {
@@ -25,16 +23,16 @@ export function FooterSection() {
         >
           <p className="text-sm font-semibold tracking-[0.2em] uppercase text-orange mb-3">Você precisa saber disso</p>
           <div className="w-12 h-1 bg-orange rounded-full mb-5" />
-          <h2 className="text-5xl font-extrabold text-background leading-[1.1] tracking-tight mb-6">Vamos criar sua marca?</h2>
+          <h2 className="text-5xl font-extrabold text-background leading-[1.1] tracking-tight mb-6">Vamos fazer seu diagnóstico?</h2>
           <p className="text-background/70 text-lg mb-8 max-w-md">
-            Me chama no WhatsApp ou acompanha meu trabalho nas redes — e assista ao vídeo pra entender como eu penso identidade visual.
+            Assista ao vídeo ao lado pra entender como funciona, acompanhe meu trabalho nas redes, e comece seu diagnóstico quando estiver pronto.
           </p>
 
           <Button asChild variant="cta" size="xl" className="mb-10">
-            <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
-              <MessageCircle className="w-5 h-5" fill="currentColor" />
-              Quero minha identidade visual
-            </a>
+            <Link to="/quiz">
+              <ClipboardCheck className="w-5 h-5" />
+              Fazer meu diagnóstico agora
+            </Link>
           </Button>
 
           <div className="flex items-center gap-4 mb-10">
@@ -67,8 +65,8 @@ export function FooterSection() {
           className="relative aspect-video rounded-xl overflow-hidden border border-background/10"
         >
           <iframe
-            src="https://www.youtube.com/embed/pYhuVCI-0TU"
-            title="Adson Barros - Identidade Visual"
+            src="https://www.youtube.com/embed/5hoOcKJg9zI"
+            title="Adson Barros - Diagnóstico de Unblocking"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
             className="absolute inset-0 w-full h-full"

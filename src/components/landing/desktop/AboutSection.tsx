@@ -1,9 +1,8 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { MessageCircle } from "lucide-react";
+import { ClipboardCheck } from "lucide-react";
 import adsonPhoto from "@/assets/adson-photo-hero.jpg";
-
-const WHATSAPP_LINK = "https://wa.me/message/6TDNDNOCGOXII1";
 
 export function AboutSection() {
   return (
@@ -39,10 +38,10 @@ export function AboutSection() {
 
           <div className="mt-8">
             <Button asChild variant="cta" size="lg">
-              <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
-                <MessageCircle className="w-5 h-5" fill="currentColor" />
-                Quero minha identidade visual
-              </a>
+              <Link to="/quiz">
+                <ClipboardCheck className="w-5 h-5" />
+                Fazer meu diagnóstico agora
+              </Link>
             </Button>
           </div>
         </motion.div>

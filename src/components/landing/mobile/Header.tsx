@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, MessageCircle } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Menu, X, ClipboardCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logoAdson from "@/assets/logo-adson.png";
-
-const WHATSAPP_LINK = "https://wa.me/message/6TDNDNOCGOXII1";
 
 const navLinks = [
   { label: "Vantagens", href: "#incluso" },
@@ -58,10 +57,10 @@ export function Header() {
               </a>
             ))}
             <Button asChild variant="cta" size="lg" className="w-full mt-1">
-              <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
-                <MessageCircle className="w-4 h-4" fill="currentColor" />
-                Quero minha identidade visual
-              </a>
+              <Link to="/quiz" onClick={() => setOpen(false)}>
+                <ClipboardCheck className="w-4 h-4" />
+                Fazer meu diagnóstico
+              </Link>
             </Button>
           </motion.div>
         )}
