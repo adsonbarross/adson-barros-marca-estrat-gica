@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, ArrowLeft, Lock, Volume2, VolumeX, Play } from "lucide-react";
+import { ArrowRight, ArrowLeft, Lock, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const KIWIFY_LINK = "https://pay.kiwify.com.br/M2G61GL";
@@ -123,16 +123,16 @@ function RenderParts({ parts }: { parts: Segment[] }) {
   );
 }
 
-/** Locked-down YouTube player: autoplays muted on mount (browser policy),
- *  no seeking/scrubbing, but the person CAN pause/resume — and a progress
- *  bar that visually races ahead of real elapsed time. */
+/** Locked-down YouTube player: tries to autoplay with sound; if the browser
+ *  blocks that, a single full-video tap starts/resumes it (and always
+ *  re-asserts unmuted + playing, so it can never get stuck paused). No
+ *  seeking/scrubbing. Progress bar visually races ahead of real elapsed time. */
 function LockedVideo() {
   const containerRef = useRef<HTMLDivElement>(null);
   const playerRef = useRef<any>(null);
   const rafRef = useRef<number | null>(null);
   const [ended, setEnded] = useState(false);
-  const [muted, setMuted] = useState(true);
-  const [playing, setPlaying] = useState(true);
+  const [playing, setPlaying] = useState(false);
   const [displayProgress, setDisplayProgress] = useState(0);
 
   useEffect(() => {
@@ -159,7 +159,7 @@ function LockedVideo() {
         videoId: VIDEO_ID,
         playerVars: {
           autoplay: 1,
-          mute: 1,
+          mute: 0,
           controls: 0,
           disablekb: 1,
           modestbranding: 1,
@@ -171,6 +171,10 @@ function LockedVideo() {
         },
         events: {
           onReady: (e: any) => {
+            // Try to play with sound right away. If the browser blocks this,
+            // the video stays paused and our tap-to-play overlay takes over.
+            e.target.unMute();
+            e.target.setVolume(100);
             e.target.playVideo();
             rafRef.current = requestAnimationFrame(tick);
           },
@@ -211,27 +215,14 @@ function LockedVideo() {
     };
   }, []);
 
-  const toggleMute = () => {
+  // Single action for the whole video: always re-asserts unmuted + playing,
+  // so a tap can never fail to resume it, no matter why it stopped.
+  const handleTap = () => {
     const p = playerRef.current;
     if (!p) return;
-    if (muted) {
-      p.unMute();
-      p.setVolume(100);
-      setMuted(false);
-    } else {
-      p.mute();
-      setMuted(true);
-    }
-  };
-
-  const togglePlay = () => {
-    const p = playerRef.current;
-    if (!p) return;
-    if (playing) {
-      p.pauseVideo();
-    } else {
-      p.playVideo();
-    }
+    p.unMute();
+    p.setVolume(100);
+    p.playVideo();
   };
 
   return (
@@ -242,33 +233,18 @@ function LockedVideo() {
       >
         <div ref={containerRef} className="absolute inset-0 w-full h-full" />
 
-        {/* Transparent shield: blocks direct clicks/taps on the iframe itself
-            (prevents double-tap-to-seek), while our own buttons above it
-            still handle play/pause and mute. */}
+        {/* Transparent shield over the iframe: prevents any direct
+            interaction with the video itself (no seek). Only visible as an
+            overlay when paused, but always present to catch taps. */}
         <button
-          onClick={togglePlay}
+          onClick={handleTap}
           className="absolute inset-0 flex items-center justify-center group"
-          aria-label={playing ? "Pausar vídeo" : "Continuar vídeo"}
+          aria-label={ended ? "Assistir de novo" : "Assistir com som"}
         >
           {!playing && (
             <span className="w-16 h-16 rounded-full bg-orange/90 flex items-center justify-center shadow-lg transition-transform group-hover:scale-105">
               <Play className="w-6 h-6 text-primary-foreground ml-0.5" fill="currentColor" />
             </span>
-          )}
-        </button>
-
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            toggleMute();
-          }}
-          className="absolute bottom-3 right-3 w-9 h-9 rounded-full bg-black/60 hover:bg-black/80 backdrop-blur-sm flex items-center justify-center transition-colors duration-200"
-          aria-label={muted ? "Ativar som" : "Silenciar"}
-        >
-          {muted ? (
-            <VolumeX className="w-4 h-4 text-white" />
-          ) : (
-            <Volume2 className="w-4 h-4 text-white" />
           )}
         </button>
       </div>
@@ -281,7 +257,7 @@ function LockedVideo() {
         />
       </div>
       <p className="text-white/35 text-[11px] font-medium tracking-widest uppercase mt-2 text-center">
-        {ended ? "Vídeo concluído" : !playing ? "Vídeo pausado — toque para continuar" : muted ? "Toque no alto-falante para ativar o som" : "Assista até o final"}
+        {ended ? "Vídeo concluído" : playing ? "Assista até o final" : "Toque para assistir com som"}
       </p>
     </div>
   );
