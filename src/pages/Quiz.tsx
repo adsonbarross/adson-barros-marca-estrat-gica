@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, ArrowLeft, Lock, Play } from "lucide-react";
+import { ArrowRight, ArrowLeft, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const KIWIFY_LINK = "https://pay.kiwify.com.br/M2G61GL";
@@ -8,8 +8,6 @@ const VIDEO_ID = "5hoOcKJg9zI";
 
 declare global {
   interface Window {
-    YT: any;
-    onYouTubeIframeAPIReady: () => void;
     fbq: any;
   }
 }
@@ -123,142 +121,20 @@ function RenderParts({ parts }: { parts: Segment[] }) {
   );
 }
 
-/** Locked-down YouTube player: tries to autoplay with sound; if the browser
- *  blocks that, a single full-video tap starts/resumes it (and always
- *  re-asserts unmuted + playing, so it can never get stuck paused). No
- *  seeking/scrubbing. Progress bar visually races ahead of real elapsed time. */
+/** Plain YouTube embed — only YouTube's own native controls (play/pause,
+ *  volume, seek, fullscreen). No custom overlay or UI from the site. */
 function LockedVideo() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const playerRef = useRef<any>(null);
-  const rafRef = useRef<number | null>(null);
-  const [ended, setEnded] = useState(false);
-  const [playing, setPlaying] = useState(false);
-  const [displayProgress, setDisplayProgress] = useState(0);
-
-  useEffect(() => {
-    let cancelled = false;
-
-    function tick() {
-      const p = playerRef.current;
-      if (p && typeof p.getDuration === "function") {
-        const duration = p.getDuration();
-        const current = p.getCurrentTime();
-        if (duration) {
-          const t = Math.min(1, current / duration);
-          // Ease-out curve: races ahead early, settles in at 100% right on time.
-          const eased = 1 - Math.pow(1 - t, 1.6);
-          setDisplayProgress(Math.min(100, eased * 100));
-        }
-      }
-      rafRef.current = requestAnimationFrame(tick);
-    }
-
-    function createPlayer() {
-      if (cancelled || !containerRef.current) return;
-      playerRef.current = new window.YT.Player(containerRef.current, {
-        videoId: VIDEO_ID,
-        playerVars: {
-          autoplay: 1,
-          mute: 0,
-          controls: 0,
-          disablekb: 1,
-          modestbranding: 1,
-          rel: 0,
-          fs: 0,
-          iv_load_policy: 3,
-          playsinline: 1,
-          origin: window.location.origin,
-        },
-        events: {
-          onReady: (e: any) => {
-            // Try to play with sound right away. If the browser blocks this,
-            // the video stays paused and our tap-to-play overlay takes over.
-            e.target.unMute();
-            e.target.setVolume(100);
-            e.target.playVideo();
-            rafRef.current = requestAnimationFrame(tick);
-          },
-          onStateChange: (e: any) => {
-            if (e.data === window.YT.PlayerState.PLAYING) setPlaying(true);
-            if (e.data === window.YT.PlayerState.PAUSED) setPlaying(false);
-            if (e.data === window.YT.PlayerState.ENDED) {
-              setEnded(true);
-              setPlaying(false);
-              setDisplayProgress(100);
-            }
-          },
-        },
-      });
-    }
-
-    // Warm up the connection to YouTube early so playback starts smoother.
-    ["https://www.youtube.com", "https://i.ytimg.com", "https://www.google.com"].forEach((href) => {
-      if (document.querySelector(`link[href="${href}"]`)) return;
-      const link = document.createElement("link");
-      link.rel = "preconnect";
-      link.href = href;
-      document.head.appendChild(link);
-    });
-
-    if (window.YT && window.YT.Player) {
-      createPlayer();
-    } else {
-      const tag = document.createElement("script");
-      tag.src = "https://www.youtube.com/iframe_api";
-      document.body.appendChild(tag);
-      window.onYouTubeIframeAPIReady = createPlayer;
-    }
-
-    return () => {
-      cancelled = true;
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    };
-  }, []);
-
-  // Single action for the whole video: always re-asserts unmuted + playing,
-  // so a tap can never fail to resume it, no matter why it stopped.
-  const handleTap = () => {
-    const p = playerRef.current;
-    if (!p) return;
-    p.unMute();
-    p.setVolume(100);
-    p.playVideo();
-  };
-
   return (
     <div className="w-full mb-8">
-      <div
-        className="relative w-full aspect-video rounded-2xl overflow-hidden bg-white/5 border border-white/10"
-        onContextMenu={(e) => e.preventDefault()}
-      >
-        <div ref={containerRef} className="absolute inset-0 w-full h-full" />
-
-        {/* Transparent shield over the iframe: prevents any direct
-            interaction with the video itself (no seek). Only visible as an
-            overlay when paused, but always present to catch taps. */}
-        <button
-          onClick={handleTap}
-          className="absolute inset-0 flex items-center justify-center group"
-          aria-label={ended ? "Assistir de novo" : "Assistir com som"}
-        >
-          {!playing && (
-            <span className="w-16 h-16 rounded-full bg-orange/90 flex items-center justify-center shadow-lg transition-transform group-hover:scale-105">
-              <Play className="w-6 h-6 text-primary-foreground ml-0.5" fill="currentColor" />
-            </span>
-          )}
-        </button>
-      </div>
-
-      {/* Custom progress bar — no scrubbing, just visual feedback */}
-      <div className="h-1.5 w-full rounded-full bg-white/10 overflow-hidden mt-3">
-        <div
-          className="h-full bg-orange rounded-full"
-          style={{ width: `${displayProgress}%`, transition: "width 0.2s linear" }}
+      <div className="relative w-full aspect-video rounded-2xl overflow-hidden bg-white/5 border border-white/10">
+        <iframe
+          src={`https://www.youtube.com/embed/${VIDEO_ID}?autoplay=1&mute=1&rel=0&modestbranding=1&playsinline=1`}
+          title="Diagnóstico de Unblocking"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          className="absolute inset-0 w-full h-full"
         />
       </div>
-      <p className="text-white/35 text-[11px] font-medium tracking-widest uppercase mt-2 text-center">
-        {ended ? "Vídeo concluído" : playing ? "Assista até o final" : "Toque para assistir com som"}
-      </p>
     </div>
   );
 }
