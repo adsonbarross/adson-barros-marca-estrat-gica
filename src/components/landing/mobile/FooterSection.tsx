@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Instagram, Youtube, ClipboardCheck } from "lucide-react";
 import { TikTokIcon } from "@/components/landing/icons/TikTokIcon";
+import { LeadForm } from "@/components/landing/LeadForm";
 
 const socials = [
   { icon: Youtube, label: "YouTube", href: "https://www.youtube.com/@Adsonbarrosmarca" },
@@ -62,26 +63,37 @@ export function FooterSection() {
           </Button>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="flex items-center gap-3 mb-8"
-        >
-          {socials.map((social) => (
-            <a
-              key={social.label}
-              href={social.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={social.label}
-              className="w-12 h-12 rounded-full border border-background/20 flex items-center justify-center text-background/70 hover:text-orange hover:border-orange transition-colors duration-300"
-            >
-              <social.icon className="w-5 h-5" />
-            </a>
-          ))}
-        </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="w-full mb-8"
+          >
+            <p className="text-xs font-semibold tracking-[0.2em] uppercase text-background/60 mb-4">Preencha e receba seu diagnóstico</p>
+            <LeadForm fullButton />
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="flex items-center gap-3 mb-8"
+          >
+            {socials.map((social) => (
+              <a
+                key={social.label}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={social.label}
+                className="w-12 h-12 rounded-full border border-background/20 flex items-center justify-center text-background/70 hover:text-orange hover:border-orange transition-colors duration-300"
+              >
+                <social.icon className="w-5 h-5" />
+              </a>
+            ))}
+          </motion.div>
 
         <div className="w-16 h-0.5 bg-brown/30 mb-6" />
 

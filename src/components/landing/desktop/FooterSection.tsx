@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Instagram, Youtube, ClipboardCheck } from "lucide-react";
 import { TikTokIcon } from "@/components/landing/icons/TikTokIcon";
+import { LeadForm } from "@/components/landing/LeadForm";
 
 const socials = [
   { icon: Youtube, label: "YouTube", href: "https://www.youtube.com/@Adsonbarrosmarca" },
@@ -34,6 +35,11 @@ export function FooterSection() {
               Fazer meu diagnóstico agora
             </Link>
           </Button>
+
+          <div className="mb-10">
+            <p className="text-sm font-semibold tracking-[0.2em] uppercase text-background/60 mb-5">Preencha e receba seu diagnóstico</p>
+            <LeadForm />
+          </div>
 
           <div className="flex items-center gap-4 mb-10">
             {socials.map((social) => (
