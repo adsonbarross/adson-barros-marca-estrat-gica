@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Instagram, Youtube, ClipboardCheck } from "lucide-react";
 import { TikTokIcon } from "@/components/landing/icons/TikTokIcon";
+import { LeadForm } from "@/components/landing/LeadForm";
 
 const socials = [
   { icon: Youtube, label: "YouTube", href: "https://www.youtube.com/@Adsonbarrosmarca" },
