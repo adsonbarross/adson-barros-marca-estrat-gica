@@ -36,6 +36,11 @@ export function FooterSection() {
             </Link>
           </Button>
 
+          <div className="mb-10">
+            <p className="text-sm font-semibold tracking-[0.2em] uppercase text-background/60 mb-5">Preencha e receba seu diagnóstico</p>
+            <LeadForm />
+          </div>
+
           <div className="flex items-center gap-4 mb-10">
             {socials.map((social) => (
               <a
