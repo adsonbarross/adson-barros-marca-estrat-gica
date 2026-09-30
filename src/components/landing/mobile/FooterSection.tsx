@@ -63,16 +63,6 @@ export function FooterSection() {
           </Button>
         </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="w-full mb-8"
-          >
-            <p className="text-xs font-semibold tracking-[0.2em] uppercase text-background/60 mb-4">Preencha e receba seu diagnóstico</p>
-            <LeadForm fullButton />
-          </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
