@@ -9,7 +9,6 @@ const navLinks = [
   { label: "Vantagens", href: "#incluso" },
   { label: "Portfólio", href: "#portfolio" },
   { label: "Sobre", href: "#sobre" },
-  { label: "Contato", href: "#contato" },
 ];
 
 export function Header() {

@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, ArrowLeft, Lock } from "lucide-react";
+import { ArrowRight, ArrowLeft, Lock, Loader2, Check, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+
+const SHEET_WEBHOOK_URL =
+  "https://script.google.com/macros/s/AKfycbwYfNT3NEPoJSuWqZWZFrmB_NSSN8bVQ7QX36fTAFupPvQdX6ZSOtPX_6MXmA6X7dc1/exec";
 
 const KIWIFY_LINK = "https://pay.kiwify.com.br/M2G61GL";
 const VIDEO_ID = "5hoOcKJg9zI";
@@ -23,24 +27,13 @@ const questions: Question[] = [
   {
     pillar: "Posicionamento",
     parts: [
-      { text: "Seus preços já foram chamados de " },
-      { text: "\"caros\"", style: "soft" },
-      { text: " por alguém que " },
-      { text: "nem tinha entendido direito", style: "strong" },
-      { text: " o que você entrega?" },
-    ],
-    options: ["Raramente acontece", "De vez em quando", "Isso é quase toda semana"],
-  },
-  {
-    pillar: "Posicionamento",
-    parts: [
-      { text: "Sua marca parece maior e mais séria do que sua empresa " },
-      { text: "realmente é hoje", style: "soft" },
-      { text: " — ou " },
-      { text: "parece menor", style: "strong" },
+      { text: "Alguém já disse que seu preço é " },
+      { text: "\"caro\"", style: "soft" },
+      { text: " sem nem entender direito " },
+      { text: "o que você realmente entrega", style: "strong" },
       { text: "?" },
     ],
-    options: ["Parece maior, isso me favorece", "Parece do tamanho real", "Parece menor, e isso me atrapalha"],
+    options: ["Raramente acontece", "De vez em quando", "Isso é quase toda semana"],
   },
   {
     pillar: "Captação",
@@ -140,8 +133,10 @@ function LockedVideo() {
 }
 
 const Quiz = () => {
-  const [step, setStep] = useState(0); // 0..TOTAL_STEPS-1 = questions, TOTAL_STEPS = result
+  const [step, setStep] = useState(0); // 0..TOTAL_STEPS-1 = questions, TOTAL_STEPS = contact form, TOTAL_STEPS+1 = result
   const [answers, setAnswers] = useState<(number | null)[]>(Array(TOTAL_STEPS).fill(null));
+  const [contact, setContact] = useState({ name: "", phone: "", segment: "" });
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     const previousTitle = document.title;
@@ -161,7 +156,9 @@ const Quiz = () => {
     };
   }, []);
 
-  const isResult = step === TOTAL_STEPS;
+  const isCapture = step === TOTAL_STEPS;
+  const isVideo = step === TOTAL_STEPS + 1;
+  const isDeliverables = step === TOTAL_STEPS + 2;
   const progress = Math.min(step, TOTAL_STEPS) / TOTAL_STEPS * 100;
 
   const selectAnswer = (optionIndex: number) => {
@@ -170,7 +167,7 @@ const Quiz = () => {
     setAnswers(next);
 
     setTimeout(() => {
-      setStep((s) => Math.min(s + 1, TOTAL_STEPS));
+      setStep((s) => Math.min(s + 1, TOTAL_STEPS + 1));
     }, 250);
   };
 
@@ -178,10 +175,46 @@ const Quiz = () => {
     setStep((s) => Math.max(s - 1, 0));
   };
 
+  const contactValid = contact.name.trim() && contact.phone.trim() && contact.segment.trim();
+
+  const handleContactSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!contactValid || submitting) return;
+    setSubmitting(true);
+
+    const answersSummary = questions.map((q, i) => ({
+      pillar: q.pillar,
+      question: q.parts.map((p) => p.text).join(""),
+      answer: answers[i] !== null ? q.options[answers[i] as number] : null,
+    }));
+
+    try {
+      // Apps Script web apps don't return proper CORS headers for reading the
+      // response, so we fire-and-forget with no-cors. The row still gets
+      // appended to the sheet; we just can't read a confirmation back.
+      await fetch(SHEET_WEBHOOK_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain" },
+        body: JSON.stringify({
+          name: contact.name.trim(),
+          phone: contact.phone.trim(),
+          segment: contact.segment.trim(),
+          answers: answersSummary,
+        }),
+      });
+    } catch (err) {
+      console.error("Failed to save lead", err);
+    } finally {
+      setSubmitting(false);
+      setStep(TOTAL_STEPS + 1);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-black flex flex-col">
       {/* Header */}
-      {!isResult && (
+      {!isVideo && !isCapture && !isDeliverables && (
         <header className="w-full px-5 sm:px-8 pt-8 sm:pt-10 pb-3 flex justify-center">
           <div className="relative inline-block pr-6 pb-4 sm:pr-10 sm:pb-6">
             <h2 className="font-extrabold uppercase tracking-tight leading-[0.85] text-white text-2xl sm:text-4xl">
@@ -205,7 +238,7 @@ const Quiz = () => {
       <main className="flex-1 flex items-center justify-center px-5 sm:px-8 pb-24">
         <div className="w-full max-w-md">
           <AnimatePresence mode="wait">
-            {!isResult ? (
+            {!isCapture && !isVideo && !isDeliverables ? (
               <motion.div
                 key={step}
                 initial={{ opacity: 0, x: 24 }}
@@ -246,9 +279,73 @@ const Quiz = () => {
                   </button>
                 )}
               </motion.div>
-            ) : (
+            ) : isCapture ? (
               <motion.div
-                key="result"
+                key="capture"
+                initial={{ opacity: 0, x: 24 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -24 }}
+                transition={{ duration: 0.3 }}
+              >
+                <p className="text-[10px] font-medium tracking-[0.25em] uppercase text-orange mb-4 text-center">
+                  Quase lá
+                </p>
+                <h1 className="text-xl sm:text-2xl font-extrabold text-white leading-snug tracking-tight text-center mb-2">
+                  Pra onde eu mando seu diagnóstico?
+                </h1>
+                <p className="text-white/50 text-sm text-center mb-8">
+                  Preenche rapidinho pra eu te chamar no WhatsApp com os próximos passos.
+                </p>
+
+                <form onSubmit={handleContactSubmit} className="flex flex-col gap-3">
+                  <Input
+                    type="text"
+                    placeholder="Seu nome"
+                    value={contact.name}
+                    onChange={(e) => setContact((c) => ({ ...c, name: e.target.value }))}
+                    required
+                    className="bg-white/5 border-white/15 text-white placeholder:text-white/40 h-14 rounded-2xl focus:border-orange focus:ring-orange"
+                  />
+                  <Input
+                    type="tel"
+                    placeholder="WhatsApp (com DDD)"
+                    value={contact.phone}
+                    onChange={(e) => setContact((c) => ({ ...c, phone: e.target.value }))}
+                    required
+                    className="bg-white/5 border-white/15 text-white placeholder:text-white/40 h-14 rounded-2xl focus:border-orange focus:ring-orange"
+                  />
+                  <Input
+                    type="text"
+                    placeholder="Segmento da sua empresa"
+                    value={contact.segment}
+                    onChange={(e) => setContact((c) => ({ ...c, segment: e.target.value }))}
+                    required
+                    className="bg-white/5 border-white/15 text-white placeholder:text-white/40 h-14 rounded-2xl focus:border-orange focus:ring-orange"
+                  />
+
+                  <Button
+                    type="submit"
+                    variant="cta"
+                    size="xl"
+                    disabled={!contactValid || submitting}
+                    className="w-full whitespace-normal text-base h-auto py-4 px-6 mt-2"
+                  >
+                    {submitting ? <Loader2 className="w-5 h-5 animate-spin" /> : null}
+                    {submitting ? "Enviando..." : "Ver meu resultado"}
+                  </Button>
+                </form>
+
+                <button
+                  onClick={goBack}
+                  className="flex items-center gap-1.5 text-white/40 hover:text-white/70 text-xs font-medium tracking-widest uppercase mt-8 mx-auto transition-colors duration-200"
+                >
+                  <ArrowLeft className="w-3.5 h-3.5" />
+                  Voltar
+                </button>
+              </motion.div>
+            ) : isVideo ? (
+              <motion.div
+                key="video"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
@@ -267,18 +364,67 @@ const Quiz = () => {
 
                 <LockedVideo />
 
-                <p className="text-white/60 text-sm sm:text-base leading-relaxed mb-8 max-w-sm mx-auto">
-                  Faça um{" "}
-                  <span className="font-semibold text-white underline decoration-orange/50 decoration-2 underline-offset-4">
-                    diagnóstico detalhado
-                  </span>{" "}
-                  e receba um{" "}
-                  <span className="font-semibold text-white underline decoration-orange/50 decoration-2 underline-offset-4">
-                    plano de ação
-                  </span>{" "}
-                  para desbloquear os 3 pilares que trarão sucesso para o seu negócio — Posicionamento, Captação e Vendas — por apenas{" "}
-                  <span className="font-extrabold text-orange">R$97</span>.
+                <Button
+                  onClick={() => setStep(TOTAL_STEPS + 2)}
+                  variant="cta"
+                  size="xl"
+                  className="w-full whitespace-normal text-base h-auto py-4 px-6"
+                >
+                  Ver o que você recebe
+                  <ArrowRight className="w-5 h-5" />
+                </Button>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="deliverables"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="text-center"
+              >
+                <p className="text-[10px] font-medium tracking-[0.25em] uppercase text-orange mb-3">
+                  Diagnóstico de Unblocking
                 </p>
+                <h1 className="text-2xl sm:text-3xl font-extrabold text-white leading-tight tracking-tight mb-8">
+                  O que você recebe.
+                </h1>
+
+                <div className="text-left mb-7">
+                  <p className="text-xs font-semibold tracking-[0.2em] uppercase text-orange mb-3">Entregáveis</p>
+                  <div className="flex flex-col gap-2.5">
+                    {[
+                      "Análise individual (nada de conteúdo gravado)",
+                      "Avaliação dos pilares de Posicionamento, Captação e Vendas",
+                      "Identificação dos principais gargalos dentro dos 3 pilares",
+                      "PDF com a pontuação atual da sua empresa nos 3 pilares",
+                      "Reunião individual para apresentação",
+                      "Plano de ação objetivo e validado",
+                    ].map((item) => (
+                      <div key={item} className="flex items-start gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3">
+                        <Check className="w-4 h-4 text-orange shrink-0 mt-0.5" />
+                        <span className="text-white/80 text-sm leading-snug">{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="text-left mb-8">
+                  <p className="text-xs font-semibold tracking-[0.2em] uppercase text-orange mb-3">Vantagens</p>
+                  <div className="flex flex-col gap-2.5">
+                    {[
+                      "Identificar problemas que só olhos técnicos enxergam",
+                      "Ter clareza do que precisa fazer para evoluir",
+                      "Evitar gastos altos em \"soluções\" desnecessárias",
+                      "Validar se o seu negócio está 100% alinhado",
+                      "Saber o que resolver primeiro, sem perder tempo com o que pode esperar",
+                    ].map((item) => (
+                      <div key={item} className="flex items-start gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3">
+                        <Star className="w-4 h-4 text-orange shrink-0 mt-0.5" fill="currentColor" />
+                        <span className="text-white/80 text-sm leading-snug">{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
 
                 <Button
                   asChild
@@ -296,7 +442,7 @@ const Quiz = () => {
                       }
                     }}
                   >
-                    Destravar agora
+                    Desbloquear diagnóstico
                     <ArrowRight className="w-5 h-5" />
                   </a>
                 </Button>
@@ -312,7 +458,7 @@ const Quiz = () => {
       </main>
 
       {/* Progress bar fixed at bottom */}
-      {!isResult && (
+      {!isVideo && !isCapture && !isDeliverables && (
         <div
           className="fixed bottom-0 left-0 right-0 bg-black/90 backdrop-blur-sm px-5 sm:px-8 pt-3"
           style={{ paddingBottom: "max(0.75rem, env(safe-area-inset-bottom))" }}
