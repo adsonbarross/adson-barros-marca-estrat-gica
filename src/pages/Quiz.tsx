@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 const SHEET_WEBHOOK_URL =
-  "https://script.google.com/macros/s/AKfycbwYfNT3NEPoJSuWqZWZFrmB_NSSN8bVQ7QX36fTAFupPvQdX6ZSOtPX_6MXmA6X7dc1/exec";
+  "https://script.google.com/macros/s/AKfycbyj9bm-kQcmmoTdWXGsToI8R4pjfUPuVPAslsKyFdj1Ot-KOVOe_Zp7_cK-_TekfKJa/exec";
 
 const KIWIFY_LINK = "https://pay.kiwify.com.br/M2G61GL";
 const VIDEO_ID = "5hoOcKJg9zI";
