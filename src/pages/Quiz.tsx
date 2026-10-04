@@ -136,6 +136,7 @@ const Quiz = () => {
   const [step, setStep] = useState(0); // 0..TOTAL_STEPS-1 = questions, TOTAL_STEPS = contact form, TOTAL_STEPS+1 = result
   const [answers, setAnswers] = useState<(number | null)[]>(Array(TOTAL_STEPS).fill(null));
   const [contact, setContact] = useState({ name: "", phone: "", segment: "" });
+  const [phoneTouched, setPhoneTouched] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
@@ -175,11 +176,24 @@ const Quiz = () => {
     setStep((s) => Math.max(s - 1, 0));
   };
 
-  const contactValid = contact.name.trim() && contact.phone.trim() && contact.segment.trim();
+  const phoneDigits = contact.phone.replace(/\D/g, "");
+  const phoneValid = phoneDigits.length === 11;
+  const contactValid = contact.name.trim() && phoneValid && contact.segment.trim();
+
+  const formatPhone = (raw: string) => {
+    const digits = raw.replace(/\D/g, "").slice(0, 11);
+    if (digits.length <= 2) return digits.length ? `(${digits}` : "";
+    if (digits.length <= 7) return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
+    return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
+  };
 
   const handleContactSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!contactValid || submitting) return;
+    if (!contact.name.trim() || !contact.segment.trim()) return;
+    if (!phoneValid) {
+      setPhoneTouched(true);
+      return;
+    }
     setSubmitting(true);
 
     const answersSummary = questions.map((q, i) => ({
@@ -306,14 +320,27 @@ const Quiz = () => {
                     required
                     className="bg-white/5 border-white/15 text-white placeholder:text-white/40 h-14 rounded-2xl focus:border-orange focus:ring-orange"
                   />
-                  <Input
-                    type="tel"
-                    placeholder="WhatsApp (com DDD)"
-                    value={contact.phone}
-                    onChange={(e) => setContact((c) => ({ ...c, phone: e.target.value }))}
-                    required
-                    className="bg-white/5 border-white/15 text-white placeholder:text-white/40 h-14 rounded-2xl focus:border-orange focus:ring-orange"
-                  />
+                  <div>
+                    <Input
+                      type="tel"
+                      inputMode="numeric"
+                      placeholder="(84) 99607-9009"
+                      value={contact.phone}
+                      onChange={(e) => setContact((c) => ({ ...c, phone: formatPhone(e.target.value) }))}
+                      onBlur={() => setPhoneTouched(true)}
+                      required
+                      className={`bg-white/5 text-white placeholder:text-white/40 h-14 rounded-2xl focus:ring-orange ${
+                        phoneTouched && !phoneValid
+                          ? "border-red-500 focus:border-red-500"
+                          : "border-white/15 focus:border-orange"
+                      }`}
+                    />
+                    {phoneTouched && !phoneValid && (
+                      <p className="text-red-400 text-xs mt-1.5 px-1">
+                        Confere o número — parece que falta o DDD ou algum dígito. Formato: (84) 99607-9009
+                      </p>
+                    )}
+                  </div>
                   <Input
                     type="text"
                     placeholder="Segmento da sua empresa"
@@ -380,14 +407,14 @@ const Quiz = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="text-center"
+                className="text-center pt-10 sm:pt-16"
               >
-                <p className="text-[10px] font-medium tracking-[0.25em] uppercase text-orange mb-3">
-                  Diagnóstico de Unblocking
-                </p>
-                <h1 className="text-2xl sm:text-3xl font-extrabold text-white leading-tight tracking-tight mb-8">
+                <h1 className="text-2xl sm:text-3xl font-extrabold text-white leading-tight tracking-tight mb-3">
                   O que você recebe.
                 </h1>
+                <p className="text-white/60 text-sm sm:text-base leading-relaxed mb-8 max-w-sm mx-auto">
+                  Você irá se posicionar corretamente, vender mais e vender melhor.
+                </p>
 
                 <div className="text-left mb-7">
                   <p className="text-xs font-semibold tracking-[0.2em] uppercase text-orange mb-3">Entregáveis</p>
