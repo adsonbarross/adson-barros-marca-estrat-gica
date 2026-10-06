@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, ArrowLeft, Lock, Loader2, Check, Star } from "lucide-react";
+import { ArrowRight, ArrowLeft, Lock, Loader2, Check, Star, Volume2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -117,16 +117,42 @@ function RenderParts({ parts }: { parts: Segment[] }) {
 /** Plain YouTube embed — only YouTube's own native controls (play/pause,
  *  volume, seek, fullscreen). No custom overlay or UI from the site. */
 function LockedVideo() {
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const [unmuted, setUnmuted] = useState(false);
+
+  const activateSound = () => {
+    const win = iframeRef.current?.contentWindow;
+    if (!win) return;
+    // Talk directly to the embedded player via postMessage — no need to load
+    // the full IFrame API, so it can't bring back the old pause/seek bugs.
+    const send = (func: string, args: unknown[] = []) =>
+      win.postMessage(JSON.stringify({ event: "command", func, args }), "*");
+    send("unMute");
+    send("setVolume", [100]);
+    setUnmuted(true);
+  };
+
   return (
     <div className="w-full mb-8">
       <div className="relative w-full aspect-video rounded-2xl overflow-hidden bg-white/5 border border-white/10">
         <iframe
-          src={`https://www.youtube.com/embed/${VIDEO_ID}?autoplay=1&mute=1&rel=0&modestbranding=1&playsinline=1`}
+          ref={iframeRef}
+          src={`https://www.youtube.com/embed/${VIDEO_ID}?autoplay=1&mute=1&rel=0&modestbranding=1&playsinline=1&enablejsapi=1&origin=${encodeURIComponent(window.location.origin)}`}
           title="Diagnóstico de Unblocking"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
           className="absolute inset-0 w-full h-full"
         />
+
+        {!unmuted && (
+          <button
+            onClick={activateSound}
+            className="absolute bottom-3 right-3 flex items-center gap-1.5 bg-orange hover:bg-orange-hover text-primary-foreground text-xs font-semibold tracking-wide rounded-full px-3.5 py-2 shadow-lg transition-colors duration-200"
+          >
+            <Volume2 className="w-3.5 h-3.5" />
+            Ativar som
+          </button>
+        )}
       </div>
     </div>
   );
@@ -324,7 +350,7 @@ const Quiz = () => {
                     <Input
                       type="tel"
                       inputMode="numeric"
-                      placeholder="(84) 99607-9009"
+                      placeholder="(00) 90000-0000"
                       value={contact.phone}
                       onChange={(e) => setContact((c) => ({ ...c, phone: formatPhone(e.target.value) }))}
                       onBlur={() => setPhoneTouched(true)}
@@ -337,7 +363,7 @@ const Quiz = () => {
                     />
                     {phoneTouched && !phoneValid && (
                       <p className="text-red-400 text-xs mt-1.5 px-1">
-                        Confere o número — parece que falta o DDD ou algum dígito. Formato: (84) 99607-9009
+                        Confere o número — parece que falta o DDD ou algum dígito. Formato: (00) 90000-0000
                       </p>
                     )}
                   </div>
@@ -358,7 +384,7 @@ const Quiz = () => {
                     className="w-full whitespace-normal text-base h-auto py-4 px-6 mt-2"
                   >
                     {submitting ? <Loader2 className="w-5 h-5 animate-spin" /> : null}
-                    {submitting ? "Enviando..." : "Ver meu resultado"}
+                    {submitting ? "Enviando..." : "Continuar"}
                   </Button>
                 </form>
 
@@ -469,7 +495,7 @@ const Quiz = () => {
                       }
                     }}
                   >
-                    Desbloquear diagnóstico
+                    Adquirir diagnóstico
                     <ArrowRight className="w-5 h-5" />
                   </a>
                 </Button>
